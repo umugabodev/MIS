@@ -37,6 +37,8 @@ const Select = React.lazy(() => import('./views/forms/select/Select'))
 const Validation = React.lazy(() => import('./views/forms/validation/Validation'))
 const PersonnelList = React.lazy(() => import('/src/views/pages/personnel/PersonnelList'))
 const Charts = React.lazy(() => import('./views/charts/Charts'))
+const ListofPersonnel = React.lazy(() => import('/src/views/dashboardS1/Tables/ListofPersonnel'))
+
 
 // Icons
 const CoreUIIcons = React.lazy(() => import('./views/icons/coreui-icons/CoreUIIcons'))
@@ -52,7 +54,7 @@ const Toasts = React.lazy(() => import('./views/notifications/toasts/Toasts'))
 const Widgets = React.lazy(() => import('./views/widgets/Widgets'))
 
 const routes = [
-  { path: '/', exact: true, name: 'Home' },
+  { path: '/home', exact: true, name: 'Home' },
   { path: '/dashboards1', name: 'Dashboard', element: Dashboards1 },
   { path: '/theme', name: 'Theme', element: Colors, exact: true },
   { path: '/theme/colors', name: 'Colors', element: Colors },
@@ -96,7 +98,9 @@ const routes = [
   { path: '/notifications/modals', name: 'Modals', element: Modals },
   { path: '/notifications/toasts', name: 'Toasts', element: Toasts },
   { path: '/widgets', name: 'Widgets', element: Widgets },
-  { path: '/src/views/pages/personnel', name: 'PersonnelList', element: PersonnelList },
+  { path: 'PersonnelList', name: 'PersonnelList', element: PersonnelList },
+  { path: '/ListofPersonnel', name: 'listOfPersonnel', element: ListofPersonnel },
+
 ]
 
 export default routes
