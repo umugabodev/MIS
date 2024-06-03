@@ -38,7 +38,7 @@ const _nav = [
       {
         component: CNavItem,
         name: 'Add Personnel',
-        to: '/login',
+        to: '/ListofPersonnel',
       },
       {
         component: CNavItem,
