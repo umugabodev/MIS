@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from 'react'
 import PropTypes from 'prop-types'
+import customColors from '/src/assets/js/customColors'
 
 import {
   CRow,
@@ -40,17 +41,18 @@ const WidgetsDropdown = (props) => {
   return (
     <CRow className={props.className} xs={{ gutter: 4 }}>
       <CCol sm={6} xl={4} xxl={3}>
-        <CWidgetStatsA
-          color="primary"
-          value={
-            <>
-              26K{' '}
-              <span className="fs-6 fw-normal">
-                (-12.4% <CIcon icon={cilArrowBottom} />)
+      <CWidgetStatsA
+        style={{backgroundColor: customColors.primary, color: customColors.secondary}}
+  value={
+    <>
+      3000{' '}
+      <span className="fs-6 fw-normal">
+        {/* (+12.4% <CIcon icon={cilArrowTop} />) */}
               </span>
             </>
+            
           }
-          title="Users"
+          title="Total Personnel"
           action={
             <CDropdown alignment="end">
               <CDropdownToggle color="transparent" caret={false} className="text-white p-0">
@@ -73,7 +75,7 @@ const WidgetsDropdown = (props) => {
                 labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
                 datasets: [
                   {
-                    label: 'My First dataset',
+                    label: 'data set',
                     backgroundColor: 'transparent',
                     borderColor: 'rgba(255,255,255,.55)',
                     pointBackgroundColor: getStyle('--cui-primary'),
@@ -131,16 +133,16 @@ const WidgetsDropdown = (props) => {
       </CCol>
       <CCol sm={6} xl={4} xxl={3}>
         <CWidgetStatsA
-          color="info"
+          color=""
           value={
             <>
-              $6.200{' '}
+              300{' '}
               <span className="fs-6 fw-normal">
-                (40.9% <CIcon icon={cilArrowTop} />)
+                {/* (40.9% <CIcon icon={cilArrowTop} />) */}
               </span>
             </>
           }
-          title="Income"
+          title="On Mission"
           action={
             <CDropdown alignment="end">
               <CDropdownToggle color="transparent" caret={false} className="text-white p-0">
@@ -220,16 +222,16 @@ const WidgetsDropdown = (props) => {
       </CCol>
       <CCol sm={6} xl={4} xxl={3}>
         <CWidgetStatsA
-          color="warning"
+          color="primary"
           value={
             <>
-              2.49%{' '}
+              40{' '}
               <span className="fs-6 fw-normal">
-                (84.7% <CIcon icon={cilArrowTop} />)
+                {/* (84.7% <CIcon icon={cilArrowTop} />) */}
               </span>
             </>
           }
-          title="Conversion Rate"
+          title="On Course"
           action={
             <CDropdown alignment="end">
               <CDropdownToggle color="transparent" caret={false} className="text-white p-0">
@@ -292,16 +294,16 @@ const WidgetsDropdown = (props) => {
       </CCol>
       <CCol sm={6} xl={4} xxl={3}>
         <CWidgetStatsA
-          color="danger"
+          color="secondary"
           value={
             <>
-              44K{' '}
+              706{' '}
               <span className="fs-6 fw-normal">
-                (-23.6% <CIcon icon={cilArrowBottom} />)
+                {/* (-23.6% <CIcon icon={cilArrowBottom} />) */}
               </span>
             </>
           }
-          title="Sessions"
+          title="Attached"
           action={
             <CDropdown alignment="end">
               <CDropdownToggle color="transparent" caret={false} className="text-white p-0">
@@ -340,7 +342,7 @@ const WidgetsDropdown = (props) => {
                 ],
                 datasets: [
                   {
-                    label: 'My First dataset',
+                    label: 'dataset',
                     backgroundColor: 'rgba(255,255,255,.2)',
                     borderColor: 'rgba(255,255,255,.55)',
                     data: [78, 81, 80, 45, 34, 12, 40, 85, 65, 23, 12, 98, 34, 84, 67, 82],

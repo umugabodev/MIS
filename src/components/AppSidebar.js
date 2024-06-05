@@ -1,5 +1,6 @@
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
+import customColors from '/src/assets/js/customColors'
 
 import {
   CCloseButton,
@@ -27,13 +28,14 @@ const AppSidebar = () => {
   return (
     <CSidebar
       className="border-end"
-      colorScheme="dark"
+      style={{backgroundColor: customColors.primary, color: customColors.secondary}}
       position="fixed"
       unfoldable={unfoldable}
       visible={sidebarShow}
       onVisibleChange={(visible) => {
         dispatch({ type: 'set', sidebarShow: visible })
       }}
+      
     >
       <CSidebarHeader className="border-bottom">
         <CSidebarBrand to="/">

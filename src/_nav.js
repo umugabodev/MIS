@@ -1,5 +1,7 @@
 import React from 'react'
 import CIcon from '@coreui/icons-react'
+import customColors from './assets/js/customColors'
+
 import {
   cilBell,
   cilCalculator,
@@ -25,6 +27,7 @@ const _nav = [
     //   color: 'info',
     //   text: 'NEW',
     // },
+    
   },
   {
     component: CNavTitle,
@@ -34,17 +37,19 @@ const _nav = [
     component: CNavGroup,
     name: 'Personnel Data',
     icon: <CIcon icon={cilStar} customClassName="nav-icon" />,
+    // style: { backgroundColor: customColors.primary, color: customColors.secondary },
     items: [
       {
         component: CNavItem,
         name: 'Add Personnel',
-        to: '/ListofPersonnel',
+        to: '/AddPersonnel',
       },
       {
         component: CNavItem,
         name: 'Manage Personnel',
-        to: '/PersonnelList',
+        to: '/ListofPersonnel',
       },
+  
       // {
       //   component: CNavItem,
       //   name: 'On Course',

@@ -16,6 +16,7 @@ import {
 
 import CIcon from '@coreui/icons-react';
 import { cilPeople } from '@coreui/icons';
+import { Link } from 'react-router-dom';
 
 const Dashboards1 = () => {
   const [showModal, setShowModal] = useState(false);
@@ -76,46 +77,75 @@ const Dashboards1 = () => {
   const handleOpenFourthModal = () => {
     handleCloseThirdModal(); // Close the third modal
     setshowFourthModal(true); // Open the fourth modal
-  }
+  };
+  // Define initial data state
+  const [data, setData] = useState([
+    {pc: "", sNo: 1, rank: 'Pte', fName: 'Test', lName: 'Test 1', unit: 'Comms', dob: '21/12/2001', gender: 'M', action: 'Edit' },
+    // { sNo: 2, rank: '', fName: '', lName: '', unit: '', dob: '', gender: '', action: 'Delete' }
+  ]);
+
+  // Function to handle editing of a row
+  const handleEdit = (index) => {
+    // Implement your edit logic here
+    console.log(`Edit row ${index}`);
+  };
+
+  // Function to handle deleting of a row
+  const handleDelete = (index) => {
+    // Implement your delete logic here
+    console.log(`Delete row ${index}`);
+  };
   
   return (
     <>
       <CRow>
         <CCol xs>
-          <CCard className="mb-4">
-            <CCardHeader className="d-flex justify-content-between align-items-center">
-              <h5 className="mb-0">List Of Personnel</h5>
-              <button className="btn btn-primary btn-sm" onClick={handleOpenModal}>
-                <i className="fas fa-plus-circle"></i>
-                Add New
-              </button>
-            </CCardHeader>
-            <CCardBody>
-              <CTable align="middle" className="mb-0 border" hover responsive>
-                <CTableHead className="text-nowrap">
-                  <CTableRow>
-                    <CTableHeaderCell className="bg-body-tertiary text-center">
-                      <CIcon icon={cilPeople} />
-                    </CTableHeaderCell>
-                    <CTableHeaderCell className="bg-body-tertiary">S/No </CTableHeaderCell>
-                    <CTableHeaderCell className="bg-body-tertiary">Rank</CTableHeaderCell>
-                    <CTableHeaderCell className="bg-body-tertiary">F Name</CTableHeaderCell>
-                    <CTableHeaderCell className="bg-body-tertiary">L Name</CTableHeaderCell>
-                    <CTableHeaderCell className="bg-body-tertiary ">Unit</CTableHeaderCell>
-                    <CTableHeaderCell className="bg-body-tertiary">DOB</CTableHeaderCell>
-                    <CTableHeaderCell className="bg-body-tertiary">Gender</CTableHeaderCell>
-                    <CTableHeaderCell className="bg-body-tertiary">Action</CTableHeaderCell>
-                  </CTableRow>
-                  
-                </CTableHead>
-                
-                <CTableBody>
-                  {/* Table content goes here */}
-                </CTableBody>
-                
-              </CTable>
-            </CCardBody>
-          </CCard>
+        <CCard className="mb-4">
+  <CCardHeader className="d-flex justify-content-between align-items-center">
+    <h5 className="mb-0">List Of Personnel</h5>
+    <Link to="/addPersonnel" className="btn btn-primary btn-sm">
+      <i className="fas fa-plus-circle"></i>
+      Add New
+    </Link>
+  </CCardHeader>
+  <CCardBody>
+    <table className="table table-bordered table-hover">
+    <thead className="bg-body-secondary">
+
+        <tr>
+          <th className="text-center"><CIcon icon={cilPeople} /></th>
+          <th>S/No</th>
+          <th>Rank</th>
+          <th>First Name</th>
+          <th>Last Name</th>
+          <th>Unit</th>
+          <th>DOB</th>
+          <th>Gender</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        {data.map((row, index) => (
+          <tr key={index}>
+            <td>{row.pic}</td>
+            <td className="text-center">{row.sNo}</td>
+            <td>{row.rank}</td>
+            <td>{row.fName}</td>
+            <td>{row.lName}</td>
+            <td>{row.unit}</td>
+            <td>{row.dob}</td>
+            <td>{row.gender}</td>
+            <td>
+              <CButton onClick={() => handleEdit(index)} color="info" size="sm">Edit</CButton>
+              <CButton onClick={() => handleDelete(index)} color="danger" size="sm">Delete</CButton>
+            </td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </CCardBody>
+</CCard>
+
         </CCol>
       </CRow>
 

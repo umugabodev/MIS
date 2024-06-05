@@ -13,8 +13,14 @@ import {
   CTableHead,
   CTableHeaderCell,
   CTableRow,
+  CNavItem,
+  CNavbarBrand,
+  CNavbar,
 } from '@coreui/react';
+
+import CIcon from '@coreui/icons-react';
 import { cilPeople } from '@coreui/icons';
+import { AppHeader, AppSidebar } from '../../../components';
 
 const Dashboards1 = () => {
   const [selectedSection, setSelectedSection] = useState('');
@@ -185,15 +191,18 @@ const Dashboards1 = () => {
   };
 
   return (
+    
     <>
+    
       <CRow>
         <CCol xs="3">
           <CCard className="mb-4">
             <CCardHeader className="d-flex justify-content-between align-items-center">
-              <h5 className="mb-0">Sections</h5>
+              <h5 className="mb-0">Required Info</h5>
             </CCardHeader>
-            <CCardBody>
-              <ul style={{ listStyleType: 'none', padding: 0 }}>
+            <CCardBody>            
+      
+              <ul style={{ listStyleType: 'none', padding: 0, marginLeft: "" }}>
                 <li
                   style={{ marginBottom: '10px', cursor: 'pointer' }}
                   onClick={() => handleSectionClick('patient-info')}
@@ -214,13 +223,16 @@ const Dashboards1 = () => {
                 </li>
                 {/* Add more sections here */}
               </ul>
+              
             </CCardBody>
           </CCard>
         </CCol>
-        <CCol xs="9">
-          <CCard className="mb-4">
+      
+      
+        <CCol xs="6" className=" ">
+          <CCard className="mb-4 justify-center justify-content-start">
             <CCardHeader className="d-flex justify-content-between align-items-center">
-              <h5 className="mb-0">List Of Personnel</h5>
+              <h5 className="mb-0">Personnel Registration</h5>
               {/* <button className="btn btn-primary btn-sm">
                 <i className="fas fa-plus-circle"></i>
                 Add New

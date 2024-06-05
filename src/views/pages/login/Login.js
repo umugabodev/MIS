@@ -4,7 +4,6 @@ import {
   CButton,
   CCard,
   CCardBody,
-  CCardGroup,
   CCol,
   CContainer,
   CForm,
@@ -24,18 +23,25 @@ const Login = () => {
   };
 
   return (
-    <div className="bg-body-tertiary min-vh-100 d-flex flex-row align-items-center justify-content-center"> {/* Centered content */}
+    <div className="bg-white min-vh-100 d-flex flex-row align-items-center justify-content-center">
       <CContainer>
-        <CRow className="justify-content-center">
-          <CCol md={4}> {/* Resizing the form */}
-            <CCard className="p-2">
-              <CCardBody>
-                <div className="text-center mb-4"> {/* Logo above the header */}
-                  {/* <img
-                    src={require("/src/assets/Logo_altogether.png")}
-                    alt="Company Logo"
-                    style={{ width: '150px', height: 'auto' }}
-                  /> */}
+        <CRow>
+          <CCol md={6}>
+            <img
+              src="/src/assets/images/Da.jpg" // Adjust the path to your image
+              alt="Company Logo"
+              style={{ width: '100%', height: 'auto' }}
+            />
+          </CCol>
+          <CCol md={6} style={{justifyContent: 'center'}}>
+          <img
+              src="/src/assets/Logo_altogether.png" // Adjust the path to your image
+              alt="Company Logo"
+              style={{width: '10%', height: 'auto' }}
+            />
+            <CCard className="bg-body-tertiary p-2">
+              <CCardBody className='bg-body-tertiary'>
+                <div className="text-center mb-4">
                   <h2 className="mt-4 text-3xl font-bold text-gray-900">
                     MIS SYSTEM
                   </h2>
@@ -58,7 +64,7 @@ const Login = () => {
                       autoComplete="current-password"
                     />
                   </CInputGroup>
-                  <CButton color="primary" className="w-100" onClick={handleSubmit}> {/* Full width button */}
+                  <CButton color="primary" className="w-100" onClick={handleSubmit}>
                     Login
                   </CButton>
                 </CForm>
