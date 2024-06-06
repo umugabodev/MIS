@@ -38,6 +38,8 @@ const Validation = React.lazy(() => import('./views/forms/validation/Validation'
 const PersonnelList = React.lazy(() => import('/src/views/pages/personnel/PersonnelList'))
 const Charts = React.lazy(() => import('./views/charts/Charts'))
 const ListofPersonnel = React.lazy(() => import('/src/views/dashboardS1/Tables/ListofPersonnel'))
+const AddPersonnel = React.lazy(() => import('/src/views/pages/personnel/addPersonnel.js'))
+
 
 
 // Icons
@@ -98,8 +100,10 @@ const routes = [
   { path: '/notifications/modals', name: 'Modals', element: Modals },
   { path: '/notifications/toasts', name: 'Toasts', element: Toasts },
   { path: '/widgets', name: 'Widgets', element: Widgets },
-  { path: 'PersonnelList', name: 'PersonnelList', element: PersonnelList },
-  { path: '/ListofPersonnel', name: 'listOfPersonnel', element: ListofPersonnel },
+  { path: '/PersonnelList', name: 'PersonnelList', element: PersonnelList },
+  { path: '/ListofPersonnel', name: 'List Of Personnel', element: ListofPersonnel },
+  { path: '/AddPersonnel', name: 'Add Personnel', element: AddPersonnel },
+
 
 ]
 

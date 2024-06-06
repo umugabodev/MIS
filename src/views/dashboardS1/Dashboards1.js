@@ -56,26 +56,22 @@ import MainChart from './MainChart'
 
 const Dashboards1 = () => {
   const progressExample = [
-    { title: 'Visits', value: '29.703 Users', percent: 40, color: 'success' },
-    { title: 'Unique', value: '24.093 Users', percent: 20, color: 'info' },
-    { title: 'Pageviews', value: '78.706 Views', percent: 60, color: 'warning' },
-    { title: 'New Users', value: '22.123 Users', percent: 80, color: 'danger' },
-    { title: 'Bounce Rate', value: 'Average Rate', percent: 40.15, color: 'primary' },
+    { title: 'Other Ranks', value: '205', percent: 70, color: 'success' },
+    { title: 'NCOs', value: '74', percent: 51, color: 'info' },
+    { title: 'SNCOs', value: '31', percent: 50, color: 'warning' },
+    { title: 'Junior Officers', value: '62', percent: 80, color: 'danger' },
+    { title: 'Senior Officers', value: '14', percent: 70, color: 'primary' },
+    
   ]
 
   const progressGroupExample1 = [
-    { title: 'Monday', value1: 34, value2: 78 },
-    { title: 'Tuesday', value1: 56, value2: 94 },
-    { title: 'Wednesday', value1: 12, value2: 67 },
-    { title: 'Thursday', value1: 43, value2: 91 },
-    { title: 'Friday', value1: 22, value2: 73 },
-    { title: 'Saturday', value1: 53, value2: 82 },
-    { title: 'Sunday', value1: 9, value2: 69 },
+    { title: 'Male (Officers)', icon: cilUser, value: 53 },
+    { title: 'Female (Officers)', icon: cilUserFemale, value: 43 },
   ]
 
   const progressGroupExample2 = [
-    { title: 'Male', icon: cilUser, value: 53 },
-    { title: 'Female', icon: cilUserFemale, value: 43 },
+    { title: 'Male (NCOs)', icon: cilUser, value: 53 },
+    { title: 'Female (NCOs)', icon: cilUserFemale, value: 43 },
   ]
 
   const progressGroupExample3 = [
@@ -179,8 +175,34 @@ const Dashboards1 = () => {
   return (
     <>
       <WidgetsDropdown className="mb-4" />
+      
       <CCard className="mb-4">
-        <CCardBody>
+      <CCardFooter>
+          <CRow
+            xs={{ cols: 1, gutter: 4 }}
+            sm={{ cols: 2 }}
+            lg={{ cols: 4 }}
+            xl={{ cols: 5 }}
+            className="mb-2 text-center"
+          >
+            {progressExample.map((item, index, items) => (
+              <CCol
+                className={classNames({
+                  'd-none d-xl-block': index + 1 === items.length,
+                })}
+                key={index}
+              >
+                <div className="text-body-secondary">{item.title}</div>
+                <div className="fw-semibold text-truncate">
+                  {item.value} ({item.percent}%)
+                </div>
+                <CProgress thin className="mt-2" color={item.color} value={item.percent} />
+              </CCol>
+            ))}
+          </CRow>
+        </CCardFooter>
+        {/* <CCardBody>
+          
           <CRow>
             <CCol sm={5}>
               <h4 id="traffic" className="card-title mb-0">
@@ -207,33 +229,10 @@ const Dashboards1 = () => {
             </CCol>
           </CRow>
           <MainChart />
-        </CCardBody>
-        <CCardFooter>
-          <CRow
-            xs={{ cols: 1, gutter: 4 }}
-            sm={{ cols: 2 }}
-            lg={{ cols: 4 }}
-            xl={{ cols: 5 }}
-            className="mb-2 text-center"
-          >
-            {progressExample.map((item, index, items) => (
-              <CCol
-                className={classNames({
-                  'd-none d-xl-block': index + 1 === items.length,
-                })}
-                key={index}
-              >
-                <div className="text-body-secondary">{item.title}</div>
-                <div className="fw-semibold text-truncate">
-                  {item.value} ({item.percent}%)
-                </div>
-                <CProgress thin className="mt-2" color={item.color} value={item.percent} />
-              </CCol>
-            ))}
-          </CRow>
-        </CCardFooter>
+        </CCardBody> */}
+       
       </CCard>
-      <WidgetsBrand className="mb-4" withCharts />
+      
       <CRow>
         <CCol xs>
           <CCard className="mb-4">
@@ -258,14 +257,15 @@ const Dashboards1 = () => {
                     </CCol>
                   </CRow>
                   <hr className="mt-0" />
-                  {progressGroupExample1.map((item, index) => (
+                  {progressGroupExample2.map((item, index) => (
                     <div className="progress-group mb-4" key={index}>
-                      <div className="progress-group-prepend">
-                        <span className="text-body-secondary small">{item.title}</span>
+                      <div className="progress-group-header">
+                        <CIcon className="me-2" icon={item.icon} size="lg" />
+                        <span>{item.title}</span>
+                        <span className="ms-auto fw-semibold">{item.value}%</span>
                       </div>
                       <div className="progress-group-bars">
-                        <CProgress thin color="info" value={item.value1} />
-                        <CProgress thin color="danger" value={item.value2} />
+                        <CProgress thin color="warning" value={item.value} />
                       </div>
                     </div>
                   ))}
@@ -303,7 +303,7 @@ const Dashboards1 = () => {
 
                   <div className="mb-5"></div>
 
-                  {progressGroupExample3.map((item, index) => (
+                  {/* {progressGroupExample3.map((item, index) => (
                     <div className="progress-group" key={index}>
                       <div className="progress-group-header">
                         <CIcon className="me-2" icon={item.icon} size="lg" />
@@ -317,7 +317,7 @@ const Dashboards1 = () => {
                         <CProgress thin color="success" value={item.percent} />
                       </div>
                     </div>
-                  ))}
+                  ))} */}
                 </CCol>
               </CRow>
 
