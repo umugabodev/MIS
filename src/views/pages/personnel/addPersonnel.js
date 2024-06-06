@@ -44,6 +44,7 @@ const addPersonnel = () => {
                         defaultValue: formData['serviceNumber'] || ''
                       },
                       
+                      
                       {
                         type: 'dropdown',
                         name: 'Rank',
@@ -57,7 +58,8 @@ const addPersonnel = () => {
                           'SM',
                           'W0I',
                           
-                        ]
+                        ],
+                        defaultValue: formData['martialStutus'] || ''
                       },
                       {
                         type: 'text',
@@ -72,12 +74,14 @@ const addPersonnel = () => {
                         name: 'lastname',
                         title: 'Last Name ',
                         isRequired: true,
+                        defaultValue: formData['lastname'] || ''
                       },
                       {
                         type: 'text',
                         name: 'currentunit',
                         title: 'Unit ',
                         isRequired: true,
+                        defaultValue: formData['currentunit'] || ''
                       },
                       {
                         type: 'text',
@@ -85,6 +89,7 @@ const addPersonnel = () => {
                         title: 'Date of Birth *',
                         inputType: 'date',
                         isRequired: true,
+                        defaultValue: formData['dob'] || ''
                       },
                       {
                         type: 'radiogroup',
@@ -92,33 +97,36 @@ const addPersonnel = () => {
                         title: 'Gender',
                         isRequired: true,
                         choices: ['Male', 'Female'],
+                        defaultValue: formData['gender'] || ''
                       },
                       {
                         type: 'text',
                         name: 'fathername',
                         title: 'Father Name ',
                         isRequired: false,
+                        defaultValue: formData['fathername'] || ''
                       },
                       {
                         type: 'text',
                         name: 'mothername',
                         title: 'Mother Name ',
                         isRequired: false,
+                        defaultValue: formData['mothername'] || ''
                       },
                       {
                         type: 'text',
                         name: 'religious',
                         title: 'Religious ',
                         isRequired: false,
-                        },
-                     
+                        defaultValue: formData['religious'] || ''
+                      },
                       {
-                      type: 'text',
+                        type: 'text',
                         name: 'placeOfBirth',
                         title: 'Place Of Birth',
                         isRequired: true,
-                       },
-                       
+                        defaultValue: formData['placeOfBirth'] || ''
+                      },
                       {
                         "type": "dropdown",
                         "name": "martialStutus",
@@ -129,9 +137,10 @@ const addPersonnel = () => {
                           "Married",
                           "Widower",
                           "Divorced",
-                          
-                        ]
+                        ],
+                        defaultValue: formData['martialStutus'] || ''
                       },
+                      
                       
                       // Add other form fields as needed, with defaultValue set from formData
                     ],
