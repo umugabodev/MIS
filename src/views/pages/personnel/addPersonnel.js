@@ -1,20 +1,24 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import * as Survey from 'survey-react';
 import 'survey-react/survey.css';
 import {
- 
   CCard,
   CCardBody,
   CCardHeader,
   CCol,
   CRow,
-  
 } from '@coreui/react';
 
-
-
 const addPersonnel = () => {
-  const [selectedSection, setSelectedSection] = useState('');
+  const [selectedSection, setSelectedSection] = useState('Personnel Information');
+  const [formData, setFormData] = useState(() => {
+    const storedData = localStorage.getItem('surveyFormData');
+    return storedData ? JSON.parse(storedData) : {};
+  });
+
+  useEffect(() => {
+    localStorage.setItem('surveyFormData', JSON.stringify(formData));
+  }, [formData]);
 
   const handleSectionClick = (sectionId) => {
     setSelectedSection(sectionId);
@@ -37,19 +41,22 @@ const addPersonnel = () => {
                         title: 'Service No',
                         inputType: 'number',
                         isRequired: true,
+                        defaultValue: formData['serviceNumber'] || ''
                       },
+                      
                       {
-                        "type": "dropdown",
-                        "name": "Rank",
-                        "title": "Rank",
-                        "isRequired": true,
-                        "choices": [
-                          "Pte",
-                          "Cpl",
-                          "Sgt",
-                          "SSgt",
-                          "SM",
-                          "W0I",
+                        type: 'dropdown',
+                        name: 'Rank',
+                        title: 'Rank',
+                        isRequired: true,
+                        choices: [
+                          'Pte',
+                          'Cpl',
+                          'Sgt',
+                          'SSgt',
+                          'SM',
+                          'W0I',
+                          
                         ]
                       },
                       {
@@ -57,7 +64,9 @@ const addPersonnel = () => {
                         name: 'firstname',
                         title: 'First Name ',
                         isRequired: true,
+                        defaultValue: formData['firstname'] || ''
                       },
+                      
                       {
                         type: 'text',
                         name: 'lastname',
@@ -124,7 +133,7 @@ const addPersonnel = () => {
                         ]
                       },
                       
-                    
+                      // Add other form fields as needed, with defaultValue set from formData
                     ],
                   },
                 ],
@@ -133,6 +142,7 @@ const addPersonnel = () => {
               onComplete={(survey) => {
                 // Handle form submission here
                 console.log('Form data:', survey.data);
+                setFormData({ ...formData, ...survey.data });
               }}
             />
           </>
