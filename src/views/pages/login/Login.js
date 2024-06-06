@@ -34,47 +34,49 @@ const Login = () => {
             />
           </CCol>
           <CCol md={6} style={{justifyContent: 'center'}}>
-          <img
-              src="/src/assets/Logo_altogether.png" // Adjust the path to your image
-              alt="Company Logo"
-              style={{width: '10%', height: 'auto' }}
-            />
-            <CCard className="bg-body-tertiary p-2">
-              <CCardBody className='bg-body-tertiary'>
-                <div className="text-center mb-4">
-                  <h2 className="mt-4 text-3xl font-bold text-gray-900">
-                    MIS SYSTEM
-                  </h2>
-                </div>
-                <CForm>
-                  <p className="text-body-secondary">Sign In to your account</p>
-                  <CInputGroup className="mb-3">
-                    <CInputGroupText>
-                      <CIcon icon={cilUser} />
-                    </CInputGroupText>
-                    <CFormInput placeholder="Username" autoComplete="username" />
-                  </CInputGroup>
-                  <CInputGroup className="mb-4">
-                    <CInputGroupText>
-                      <CIcon icon={cilLockLocked} />
-                    </CInputGroupText>
-                    <CFormInput
-                      type="password"
-                      placeholder="Password"
-                      autoComplete="current-password"
-                    />
-                  </CInputGroup>
-                  <CButton color="primary" className="w-100" onClick={handleSubmit}>
-                    Login
-                  </CButton>
-                </CForm>
-                <div className="text-center mt-3">
-                  <Link to="/forgot-password" className="text-body-secondary">
-                    Forgot password?
-                  </Link>
-                </div>
-              </CCardBody>
-            </CCard>
+         
+          <CCard className="bg-body-tertiary p-2  ml-12" style={{ maxWidth: '400px', margin: 'auto' }}>
+          <CCardBody className='bg-body-tertiary'>
+            <div className="text-center mb-4">
+              <img
+                src="/src/assets/Logo_altogethe.png" // Adjust the path to your image
+                alt="Company Logo"
+                style={{ maxWidth: '50%', height: '20' }}
+              />
+              <h2 className="mt-4 text-3xl font-bold text-gray-900">
+                MIS SYSTEM
+              </h2>
+            </div>
+            <CForm>
+              <p className="text-body-secondary">Sign In </p>
+              <CInputGroup className="mb-3">
+                <CInputGroupText>
+                  <CIcon icon={cilUser} />
+                </CInputGroupText>
+                <CFormInput placeholder="Username" autoComplete="username" />
+              </CInputGroup>
+              <CInputGroup className="mb-4">
+                <CInputGroupText>
+                  <CIcon icon={cilLockLocked} />
+                </CInputGroupText>
+                <CFormInput
+                  type="password"
+                  placeholder="Password"
+                  autoComplete="current-password"
+                />
+              </CInputGroup>
+              <CButton color="primary" className="w-100" onClick={handleSubmit}>
+                Login
+              </CButton>
+            </CForm>
+            <div className="text-center mt-3">
+              <Link to="/forgot-password" className="text-body-secondary">
+                Forgot password?
+              </Link>
+            </div>
+          </CCardBody>
+        </CCard>
+
           </CCol>
         </CRow>
       </CContainer>
