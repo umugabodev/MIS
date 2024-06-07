@@ -19,6 +19,7 @@ import { CNavGroup, CNavItem, CNavTitle } from '@coreui/react'
 
 const _nav = [
   {
+    //MENU DESIGNED FOR S1
     component: CNavItem,
     name: 'Dashboard',
     to: '/dashboards1',
@@ -284,6 +285,111 @@ const _nav = [
     href: '#',
     icon: <CIcon icon={cilDescription} customClassName="nav-icon" />,
   },
+ 
+    //END OF MENU DESIGNED FOR S1
+    {
+      //MENU DESIGNED FOR S1
+      component: CNavItem,
+      name: 'SYSTEM ADMIN',
+      to: '/DashboardAdmin',
+      icon: <CIcon icon={cilSpeedometer} customClassName="nav-icon" />,
+      badge: {
+        color: 'info',
+        text: 'NEW',
+      },
+      
+    },
+    {
+      component: CNavTitle,
+      name: 'USER INFO',
+    },
+    {
+      component: CNavGroup,
+      name: 'User Data',
+  
+      icon: <CIcon icon={cilStar} customClassName="nav-icon"/>,
+      
+      items: [
+        {
+          component: CNavItem,
+          name: 'Add User',
+          to: '/RegistrationForm',
+        },
+        {
+          component: CNavItem,
+          name: 'Manage Users',
+          to: '/ListofPersonnel',
+        },
+  
+      ],
+    },
+    {
+      component: CNavTitle,
+      name: 'PERMISSION INFO',
+    },
+    {
+      component: CNavGroup,
+      name: 'Assign Permissions',
+      to: '#',
+      icon: <CIcon icon={cilPuzzle} customClassName="nav-icon" />,
+      items: [
+        {
+          component: CNavItem,
+          name: 'Add permissions',
+          to: '#',
+        },
+        {
+          component: CNavItem,
+          name: 'Link UserRight',
+          to: '#',
+        },
+        {
+          component: CNavItem,
+          name: 'De-link UserRight',
+          to: '#',
+        },
+        
+      ],
+      
+    },
+    {
+      component: CNavTitle,
+      name: 'SYSTEM INFO',
+    },
+    {
+      component: CNavGroup,
+      name: 'Activities',
+      to: '#',
+      icon: <CIcon icon={cilPuzzle} customClassName="nav-icon" />,
+      items: [
+        {
+          component: CNavItem,
+          name: 'Active Users',
+          to: '#',
+        },
+        {
+          component: CNavItem,
+          name: 'CPU Consumptions',
+          to: '#',
+        },
+        {
+          component: CNavItem,
+          name: 'Memory Consumptions',
+          to: '#',
+        },
+        {
+          component: CNavItem,
+          name: 'Sys Logs',
+          to: '#',
+        },
+        
+      ],
+      
+    },
+
+  //End of SYSTEM ADMIN NAVABAR
+
+    
 ]
 
 export default _nav

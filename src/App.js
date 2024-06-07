@@ -13,6 +13,7 @@ const Login = React.lazy(() => import('./views/pages/login/Login'))
 const Register = React.lazy(() => import('./views/pages/register/Register'))
 const Page404 = React.lazy(() => import('./views/pages/page404/Page404'))
 const Page500 = React.lazy(() => import('./views/pages/page500/Page500'))
+// const RegistrationForm = React.lazy(() => import('/src/views/dashboardS1/User/RegistrationForm'))
 const DashboardAdmin = React.lazy(() => import('/src/views/dashboardS1/sysAdmindashboard/DashboardAdmin'))
 const App = () => {
   const { isColorModeSet, setColorMode } = useColorModes('mis')
