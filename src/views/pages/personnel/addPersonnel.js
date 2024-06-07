@@ -623,14 +623,15 @@ const addPersonnel = () => {
                         "title": "Blood Group",
                         "isRequired": true,
                         "choices": [
-                          "A",
-                          "B",
-                          "AB",
-                          "O-",
+                          "A+",                          
                           "A-",
+                          "B+",
                           "B-",
+                          "O+",
+                          "O-", 
+                          "AB+",                         
                           "AB-",
-                          "O-",
+                          
                         ],
                         defaultValue: formData['bgroup'] || ''
                       },
