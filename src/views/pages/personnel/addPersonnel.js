@@ -8,6 +8,7 @@ import {
   CCol,
   CRow,
 } from '@coreui/react';
+import { Button } from '@coreui/coreui';
 
 const addPersonnel = () => {
   const [selectedSection, setSelectedSection] = useState('Personnel Information');
@@ -40,7 +41,7 @@ const addPersonnel = () => {
                         name: 'serviceNumber',
                         title: 'Service No',
                         inputType: 'number',
-                        isRequired: true,
+                        isRequired: true,                   
                         defaultValue: formData['serviceNumber'] || ''
                       },
                       
@@ -148,12 +149,18 @@ const addPersonnel = () => {
                 ],
               }}
               showNavigationButtons={true}
+              completeText="Next"
               onComplete={(survey) => {
+
                 // Handle form submission here
                 console.log('Form data:', survey.data);
                 setFormData({ ...formData, ...survey.data });
+                setSelectedSection("Academic Qualification")
               }}
+        
+              
             />
+            
           </>
         );
         case 'Academic Qualification':

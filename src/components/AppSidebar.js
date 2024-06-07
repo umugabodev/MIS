@@ -18,7 +18,7 @@ import { logo } from 'src/assets/brand/logo'
 import { sygnet } from 'src/assets/brand/sygnet'
 
 // sidebar nav config
-import navigation from '../_nav'
+import navigation from '/src/_nav'
 
 const AppSidebar = () => {
   const dispatch = useDispatch()
@@ -28,7 +28,7 @@ const AppSidebar = () => {
   return (
     <CSidebar
       className="border-end"
-      style={{backgroundColor: customColors.primary, color: customColors.secondary}}
+      // style={{backgroundColor: "#FF0000", color: "#FFFFFF"}}
       position="fixed"
       unfoldable={unfoldable}
       visible={sidebarShow}
@@ -38,9 +38,14 @@ const AppSidebar = () => {
       
     >
       <CSidebarHeader className="border-bottom">
+      <img
+              src="/src/assets/logo1.png" // Adjust the path to your image
+              alt="Company Logo"
+              style={{ width: '35%', height: 'auto', marginLeft:"20%" }}
+            />
         <CSidebarBrand to="/">
-          <CIcon customClassName="sidebar-brand-full" icon={logo} height={32} />
-          <CIcon customClassName="sidebar-brand-narrow" icon={sygnet} height={32} />
+          {/* <CIcon customClassName="sidebar-brand-full" icon={logo} height={32} /> */}
+          {/* <CIcon customClassName="sidebar-brand-narrow" icon={sygnet} height={32} /> */}
         </CSidebarBrand>
         <CCloseButton
           className="d-lg-none"
@@ -48,7 +53,7 @@ const AppSidebar = () => {
           onClick={() => dispatch({ type: 'set', sidebarShow: false })}
         />
       </CSidebarHeader>
-      <AppSidebarNav items={navigation} />
+      <AppSidebarNav items={navigation}/>
       <CSidebarFooter className="border-top d-none d-lg-flex">
         <CSidebarToggler
           onClick={() => dispatch({ type: 'set', sidebarUnfoldable: !unfoldable })}
@@ -58,4 +63,4 @@ const AppSidebar = () => {
   )
 }
 
-export default React.memo(AppSidebar)
+export default AppSidebar
