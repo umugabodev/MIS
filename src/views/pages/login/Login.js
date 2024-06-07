@@ -48,7 +48,7 @@ const Login = () => {
             </div>
             <CCard className='bg-white '>
             <CForm className='mx-4 my-12 '>
-            <p style={{ color: 'black' }}>Username/Email</p>
+            <p style={{ color: 'black' }}>Username</p>
 
 
               <CInputGroup className="mb-3">
@@ -69,7 +69,7 @@ const Login = () => {
                   className='bg-white '
                 />
               </CInputGroup>
-              <CButton color="primary" className="w-100" onClick={handleSubmit} >
+              <CButton color="primary" className="w-100" onClick={handleSubmit}>
                 Login
               </CButton>
             </CForm>
