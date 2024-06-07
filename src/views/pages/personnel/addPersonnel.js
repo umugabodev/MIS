@@ -48,7 +48,7 @@ const addPersonnel = () => {
                       
                       {
                         type: 'dropdown',
-                        name: 'Rank',
+                        name: 'rank',
                         title: 'Rank',
                         isRequired: true,
                         choices: [
@@ -60,7 +60,7 @@ const addPersonnel = () => {
                           'W0I',
                           
                         ],
-                        defaultValue: formData['martialStutus'] || ''
+                        defaultValue: formData['rank'] || ''
                       },
                       {
                         type: 'text',
@@ -172,22 +172,17 @@ const addPersonnel = () => {
                   {
                     name: 'page1',
                     elements: [
-                      {
-                        type: 'text',
-                        name: 'serviceNumber',
-                        title: 'Service No',
-                        inputType: 'number',
-                        isRequired: true,
-                      },
+                      
                       {
                         type: 'text',
                         name: 'school',
                         title: 'School/University',
                         isRequired: true,
+                        defaultValue: formData['school'] || ''
                       },
                       {
                         "type": "dropdown",
-                        "name": "Rank",
+                        "name": "rank",
                         "title": "Rank",
                         "isRequired": true,
                         "choices": [
@@ -197,27 +192,32 @@ const addPersonnel = () => {
                           "SSgt",
                           "SM",
                           "W0I",
-                        ]
+                        ],
+                        defaultValue: formData['rank'] || ''
                       },
+                      
                       {
                         type: 'text',
-                        name: 'Degree',
+                        name: 'degree',
                         title: 'Degree ',
                         isRequired: true,
+                        defaultValue: formData['degree'] || ''
                       },
                       {
                         type: 'text',
-                        name: 'Started',
+                        name: 'started',
                         title: 'Started',
                         inputType: 'date',
                         isRequired: true,
+                        defaultValue: formData['started'] || ''
                       },
                       {
                         type: 'text',
-                        name: 'End',
+                        name: 'end',
                         title: 'End',
                         inputType: 'date',
                         isRequired: false,
+                        defaultValue: formData['end'] || ''
                       },
                       
                       {
@@ -392,7 +392,8 @@ const addPersonnel = () => {
                           "Nicaragua"
                           
                           
-                        ]
+                        ],
+                        defaultValue: formData['country'] || ''
                       },
                       
                     
@@ -407,7 +408,8 @@ const addPersonnel = () => {
                           "Pending",
                           
                           
-                        ]
+                        ],
+                        defaultValue: formData['stutus'] || ''
                       },
                       
                     
@@ -416,9 +418,13 @@ const addPersonnel = () => {
                 ],
               }}
               showNavigationButtons={true}
+              completeText="Next"
               onComplete={(survey) => {
+
                 // Handle form submission here
                 console.log('Form data:', survey.data);
+                setFormData({ ...formData, ...survey.data });
+                setSelectedSection("Course and Training")
               }}
             />
           </>
@@ -433,38 +439,37 @@ const addPersonnel = () => {
                     {
                       name: 'page1',
                       elements: [
-                        {
-                          type: 'text',
-                          name: 'serviceNumber',
-                          title: 'Service No',
-                          inputType: 'number',
-                          isRequired: true,
-                        },
+                        
                         {
                           type: 'text',
                           name: 'course',
                           title: 'Course Name',
                           isRequired: true,
+                          defaultValue: formData['course'] || ''
                         },
                         {
                           type: 'text',
                           name: 'place',
                           title: 'Place',
                           isRequired: true,
+                          defaultValue: formData['place'] || ''
                         },
+                        
                         {
                           type: 'text',
-                          name: 'Started',
+                          name: 'started',
                           title: 'Started',
                           inputType: 'date',
                           isRequired: true,
+                          defaultValue: formData['started'] || ''
                         },
                         {
                           type: 'text',
-                          name: 'End',
+                          name: 'end',
                           title: 'End',
                           inputType: 'date',
                           isRequired: false,
+                          defaultValue: formData['end'] || ''
                         },
                         {
                           "type": "dropdown",
@@ -474,13 +479,22 @@ const addPersonnel = () => {
                           "choices": [
                             "On course",
                             "Completed"
-                          ]
+                          ],
+                          defaultValue: formData['status'] || ''
                         },
                       ],
                     },
                   ],
                 }}
                 showNavigationButtons={true}
+                completeText="Next"
+                onComplete={(survey) => {
+  
+                  // Handle form submission here
+                  console.log('Form data:', survey.data);
+                  setFormData({ ...formData, ...survey.data });
+                  setSelectedSection("Deployment Data")
+                }}
               />
             </>
           );
@@ -493,45 +507,47 @@ const addPersonnel = () => {
                   {
                     name: 'page1',
                     elements: [
-                      {
-                        type: 'text',
-                        name: 'serviceNumber',
-                        title: 'Service No',
-                        inputType: 'number',
-                        isRequired: true,
-                      },
+                      
                       {
                         type: 'text',
                         name: 'division',
                         title: 'Division',
                         isRequired: true,
+                        defaultValue: formData['division'] || ''
                       },
                       {
                         type: 'text',
                         name: 'brigade',
                         title: 'Brigade',
                         isRequired: true,
+                        defaultValue: formData['brigade'] || ''
                       },
                       {
                         type: 'text',
-                        name: 'regment/battalion',
+                        name: 'regment',
                         title: 'Regment/Battalion',
                         isRequired: true,
+                        defaultValue: formData['regment'] || ''
                       },
                       {
                         type: 'text',
                         name: 'appointment',
                         title: 'Appointment',
                         isRequired: true,
+                        defaultValue: formData['appointment'] || ''
                       },
                     ],
                   },
                 ],
               }}
               showNavigationButtons={true}
+              completeText="Next"
               onComplete={(survey) => {
+
                 // Handle form submission here
                 console.log('Form data:', survey.data);
+                setFormData({ ...formData, ...survey.data });
+                setSelectedSection("Emergency Contact")
               }}
             />
           </>
@@ -546,45 +562,47 @@ const addPersonnel = () => {
                   {
                     name: 'page1',
                     elements: [
-                      {
-                        type: 'text',
-                        name: 'serviceNumber',
-                        title: 'Service No',
-                        inputType: 'number',
-                        isRequired: true,
-                      },
+                      
                       {
                         type: 'text',
                         name: 'name',
                         title: 'Name',
                         isRequired: true,
+                        defaultValue: formData['name'] || ''
                       },
                       {
                         type: 'text',
                         name: 'contact',
                         title: 'Contact',
                         isRequired: true,
+                        defaultValue: formData['contact'] || ''
                       },
                       {
                         type: 'text',
                         name: 'relationship',
                         title: 'Relationship',
                         isRequired: true,
+                        defaultValue: formData['relationship'] || ''
                       },
                       {
                         type: 'text',
                         name: 'location',
                         title: 'Location',
                         isRequired: true,
+                        defaultValue: formData['location'] || ''
                       },
                     ],
                   },
                 ],
               }}
               showNavigationButtons={true}
+              completeText="Next"
               onComplete={(survey) => {
+
                 // Handle form submission here
                 console.log('Form data:', survey.data);
+                setFormData({ ...formData, ...survey.data });
+                setSelectedSection("Medical Data")
               }}
             />
           </>
@@ -598,13 +616,7 @@ const addPersonnel = () => {
                   {
                     name: 'page1',
                     elements: [
-                      {
-                        type: 'text',
-                        name: 'serviceNumber',
-                        title: 'Service No',
-                        inputType: 'number',
-                        isRequired: true,
-                      },
+                     
                       {
                         "type": "dropdown",
                         "name": "bgroup",
@@ -619,7 +631,8 @@ const addPersonnel = () => {
                           "B-",
                           "AB-",
                           "O-",
-                        ]
+                        ],
+                        defaultValue: formData['bgroup'] || ''
                       },
                       {
                         type: 'text',
@@ -627,27 +640,34 @@ const addPersonnel = () => {
                         title: 'MMI No',
                         inputType: 'number',
                         isRequired: true,
+                        defaultValue: formData['mmi'] || ''
                       },
                       {
                         type: 'text',
                         name: 'height',
                         title: 'Height',
                         isRequired: true,
+                        defaultValue: formData['height'] || ''
                       },
                       {
                         type: 'text',
                         name: 'weight',
                         title: 'Weight',
                         isRequired: true,
+                        defaultValue: formData['weight'] || ''
                       },
                     ],
                   },
                 ],
               }}
               showNavigationButtons={true}
+              completeText="Next"
               onComplete={(survey) => {
+
                 // Handle form submission here
                 console.log('Form data:', survey.data);
+                setFormData({ ...formData, ...survey.data });
+                setSelectedSection("Military Information")
               }}
             />
           </>
@@ -661,19 +681,14 @@ const addPersonnel = () => {
                   {
                     name: 'page1',
                     elements: [
-                      {
-                        type: 'text',
-                        name: 'serviceNumber',
-                        title: 'Service No',
-                        inputType: 'number',
-                        isRequired: true,
-                      },
+                     
                       {
                         type: 'text',
                         name: 'doe',
                         title: 'Date Of Entry',
                         inputType: 'date',
                         isRequired: true,
+                        defaultValue: formData['doe'] || ''
                       },
                       {
                         "type": "dropdown",
@@ -685,7 +700,8 @@ const addPersonnel = () => {
                           "RMA Gako",
                           "Other",
                           
-                        ]
+                        ],
+                        defaultValue: formData['poe'] || ''
                       },
                       {
                         type: 'text',
@@ -693,6 +709,7 @@ const addPersonnel = () => {
                         title: 'CSS ACC No',
                         inputType: 'number',
                         isRequired: true,
+                        defaultValue: formData['css'] || ''
                       },
                      
                     ],
@@ -703,9 +720,13 @@ const addPersonnel = () => {
                 
               }}
               showNavigationButtons={true}
+              completeText="Next"
               onComplete={(survey) => {
+
                 // Handle form submission here
                 console.log('Form data:', survey.data);
+                setFormData({ ...formData, ...survey.data });
+                setSelectedSection("Mission and Operation")
               }}
             />
           </>
@@ -719,27 +740,12 @@ const addPersonnel = () => {
                   {
                     name: 'page1',
                     elements: [
-                      {
-                        type: 'text',
-                        name: 'serviceNumber',
-                        title: 'Service No',
-                        inputType: 'number',
-                        isRequired: true,
-                      },
-                      
-                     
-                      {
-                        type: 'text',
-                        name: 'Name',
-                        title: 'Name',
-                        inputType: 'number',
-                        isRequired: true,
-                      },
+                  
                       {
                         type: 'text',
                         name: 'type',
                         title: 'Type',
-                        inputType: 'number',
+                        defaultValue: formData['type'] || '',
                         isRequired: true,
                       },
                       {
@@ -747,13 +753,15 @@ const addPersonnel = () => {
                         name: 'location',
                         title: 'Location',
                         isRequired: true,
+                        defaultValue: formData['location'] || ''
                       },
                       {
                         type: 'text',
-                        name: 'Name',
+                        name: 'name',
                         title: 'Name',
-                        inputType: 'number',
+                    
                         isRequired: true,
+                        defaultValue: formData['name'] || ''
                       },
                       {
                         type: 'text',
@@ -761,6 +769,7 @@ const addPersonnel = () => {
                         title: 'From',
                         inputType: 'date',
                         isRequired: true,
+                        defaultValue: formData['from'] || ''
                       },
                       {
                         type: 'text',
@@ -768,6 +777,7 @@ const addPersonnel = () => {
                         title: 'To',
                         inputType: 'date',
                         isRequired: false,
+                        defaultValue: formData['to'] || ''
                       },
                       {
                         type: 'text',
@@ -775,6 +785,7 @@ const addPersonnel = () => {
                         title: 'Unity',
                         inputType: 'text',
                         isRequired: true,
+                        defaultValue: formData['unity'] || ''
                       },
                       {
                         "type": "dropdown",
@@ -784,16 +795,21 @@ const addPersonnel = () => {
                         "choices": [
                           "On Going",
                           "Completed"
-                        ]
+                        ],
+                        defaultValue: formData['status'] || ''
                       },
                     ],
                   },
                 ],
               }}
               showNavigationButtons={true}
+              completeText="Next"
               onComplete={(survey) => {
+
                 // Handle form submission here
                 console.log('Form data:', survey.data);
+                setFormData({ ...formData, ...survey.data });
+                setSelectedSection("Promotion Record")
               }}
             />
           </>
@@ -807,20 +823,13 @@ const addPersonnel = () => {
                     {
                       name: 'page1',
                       elements: [
-                        {
-                          type: 'text',
-                          name: 'serviceNumber',
-                          title: 'Service No',
-                          inputType: 'number',
-                          isRequired: true,
-                        },
                         
-                       
                         {
                           type: 'text',
-                          name: 'former rank',
+                          name: 'formerrank',
                           title: 'Former Rank',
                           isRequired: true,
+                          defaultValue: formData['formerrank'] || ''
                         },
                         {
                           type: 'text',
@@ -828,6 +837,7 @@ const addPersonnel = () => {
                           title: 'From',
                           inputType: 'date',
                           isRequired: true,
+                          defaultValue: formData['from'] || ''
                         },
                         {
                           type: 'text',
@@ -835,33 +845,39 @@ const addPersonnel = () => {
                           title: 'To',
                           inputType: 'date',
                           isRequired: false,
+                          defaultValue: formData['to'] || ''
                         },
                         {
                           type: 'text',
-                          name: 'newley rank',
+                          name: 'newleyrank',
                           title: 'Newley Rank',
-                          
+                          defaultValue: formData['newleyrank'] || '',
                           isRequired: true,
                         },
                         
                         
                         {
                           type: 'text',
-                          name: 'date of promotion',
+                          name: 'dop',
                           title: 'Date of Promotion',
                           inputType: 'date',
                           isRequired: false,
+                          defaultValue: formData['dop'] || ''
                         },
                         
                       ],
                     },
                   ],
                 }}
-                showNavigationButtons={true}
-                onComplete={(survey) => {
-                  // Handle form submission here
-                  console.log('Form data:', survey.data);
-                }}
+               showNavigationButtons={true}
+              completeText="Next"
+              onComplete={(survey) => {
+
+                // Handle form submission here
+                console.log('Form data:', survey.data);
+                setFormData({ ...formData, ...survey.data });
+                setSelectedSection("Residence Address")
+              }}
               />
             </>
           );
@@ -874,14 +890,6 @@ const addPersonnel = () => {
                       {
                         name: 'page1',
                         elements: [
-                          {
-                            type: 'text',
-                            name: 'serviceNumber',
-                            title: 'Service No',
-                            inputType: 'number',
-                            isRequired: true,
-                          },
-                          
                          
                           {
                             type: 'text',
@@ -889,6 +897,7 @@ const addPersonnel = () => {
                             title: 'NationId',
                             inputType: 'number',
                             isRequired: true,
+                            defaultValue: formData['nationId'] || ''
                           },
                           {
                             type: 'text',
@@ -896,6 +905,7 @@ const addPersonnel = () => {
                             title: 'Contact',
                             inputType: 'number',
                             isRequired: true,
+                            defaultValue: formData['contact'] || ''
                           },
                           
                           {
@@ -903,33 +913,34 @@ const addPersonnel = () => {
                             name: 'provice',
                             title: 'Provice',
                             isRequired: true,
+                            defaultValue: formData['province'] || ''
                           },
                           {
                             type: 'text',
                             name: 'district',
                             title: 'District',
-                           
+                           defaultValue: formData['district'] || '',
                             isRequired: true,
                           },
                           {
                             type: 'text',
                             name: 'sector',
                             title: 'Sector',
-                           
+                           defaultValue: formData['sector'] || '',
                             isRequired: true,
                           },
                           {
                             type: 'text',
                             name: 'cell',
                             title: 'Cell',
-                           
+                           defaultValue: formData['cell'] || '',
                             isRequired: true,
                           },
                           {
                             type: 'text',
                             name: 'village',
                             title: 'Village',
-                           
+                           defaultValue: formData['village'] || '',
                             isRequired: false,
                           },
                          
@@ -938,10 +949,14 @@ const addPersonnel = () => {
                     ],
                   }}
                   showNavigationButtons={true}
-                  onComplete={(survey) => {
-                    // Handle form submission here
-                    console.log('Form data:', survey.data);
-                  }}
+              completeText="Next"
+              onComplete={(survey) => {
+
+                // Handle form submission here
+                console.log('Form data:', survey.data);
+                setFormData({ ...formData, ...survey.data });
+                setSelectedSection("Next of Kin Address")
+              }}
                 />
               </>
             );
@@ -954,14 +969,6 @@ const addPersonnel = () => {
                       {
                         name: 'page1',
                         elements: [
-                          {
-                            type: 'text',
-                            name: 'serviceNumber',
-                            title: 'Service No',
-                            inputType: 'number',
-                            isRequired: true,
-                          },
-                          
                          
                           {
                             type: 'text',
@@ -969,6 +976,7 @@ const addPersonnel = () => {
                             title: 'NationId',
                             inputType: 'number',
                             isRequired: true,
+                            defaultValue: formData['nationId'] || ''
                           },
                           {
                             type: 'text',
@@ -976,39 +984,41 @@ const addPersonnel = () => {
                             title: 'Contact',
                             inputType: 'number',
                             isRequired: true,
+                            defaultValue: formData['contact'] || ''
                           },
                           {
                             type: 'text',
                             name: 'provice',
                             title: 'Provice',
                             isRequired: true,
+                            defaultValue: formData['province'] || ''
                           },
                           {
                             type: 'text',
                             name: 'district',
                             title: 'District',
-                           
+                           defaultValue: formData['district'] || '',
                             isRequired: true,
                           },
                           {
                             type: 'text',
                             name: 'sector',
                             title: 'Sector',
-                           
+                           defaultValue: formData['sector'] || '',
                             isRequired: true,
                           },
                           {
                             type: 'text',
                             name: 'cell',
                             title: 'Cell',
-                           
+                           defaultValue: formData['cell'] || '',
                             isRequired: true,
                           },
                           {
                             type: 'text',
                             name: 'village',
                             title: 'Village',
-                           
+                           defaultValue: formData['village'] || '',
                             isRequired: false,
                           },
                           
@@ -1018,9 +1028,13 @@ const addPersonnel = () => {
                     ],
                   }}
                   showNavigationButtons={true}
+                  completeText="Next"
                   onComplete={(survey) => {
+    
                     // Handle form submission here
                     console.log('Form data:', survey.data);
+                    setFormData({ ...formData, ...survey.data });
+                    setSelectedSection("Soldier Kit")
                   }}
                 />
               </>
@@ -1034,26 +1048,19 @@ const addPersonnel = () => {
                       {
                         name: 'page1',
                         elements: [
-                          
+                      
                           {
                             type: 'text',
-                            name: 'serviceNumber',
-                            title: 'Service No',
-                            inputType: 'number',
-                            isRequired: true,
-                          },
-                          {
-                            type: 'text',
-                            name: 'Size',
+                            name: 'size',
                             title: 'Size',
-                            
+                            defaultValue: formData['size'] || '',
                             isRequired: true,
                           },
                           {
                             type: 'text',
                             name: 'type',
                             title: 'Type',
-                           
+                           defaultValue: formData['type'] || '',
                             isRequired: true,
                           },
                           
