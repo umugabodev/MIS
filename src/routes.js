@@ -1,8 +1,11 @@
 import React from 'react'
 import Dashboards1 from './views/dashboardS1/Dashboards1'
+import DashboardAdmin from './views/dashboardS1/sysAdmindashboard/DashboardAdmin'
 
-const Dashboard = React.lazy(() => import('./views/dashboardS1/Dashboards1'))
+
+
 const Colors = React.lazy(() => import('./views/theme/colors/Colors'))
+const sidebar = React.lazy(() => import('/src/components/header/adminsidebar/Adminsidebar'))
 const Typography = React.lazy(() => import('./views/theme/typography/Typography'))
 
 // Base
@@ -57,7 +60,20 @@ const Widgets = React.lazy(() => import('./views/widgets/Widgets'))
 
 const routes = [
   { path: '/home', exact: true, name: 'Home' },
+  { path: '/DashboardAdmin', name: 'Dashboard Admin', element: DashboardAdmin },
   { path: '/dashboards1', name: 'Dashboard', element: Dashboards1 },
+  { path: '/widgets', name: 'Widgets', element: Widgets },
+  { path: '/PersonnelList', name: 'PersonnelList', element: PersonnelList },
+  { path: '/ListofPersonnel', name: 'List Of Personnel', element: ListofPersonnel },
+  { path: '/AddPersonnel', name: 'Add Personnel', element: AddPersonnel },
+{ path: '/sidebar', name: 'sidebar', element: sidebar },
+
+
+
+
+
+
+
   { path: '/theme', name: 'Theme', element: Colors, exact: true },
   { path: '/theme/colors', name: 'Colors', element: Colors },
   { path: '/theme/typography', name: 'Typography', element: Typography },
@@ -99,11 +115,7 @@ const routes = [
   { path: '/notifications/badges', name: 'Badges', element: Badges },
   { path: '/notifications/modals', name: 'Modals', element: Modals },
   { path: '/notifications/toasts', name: 'Toasts', element: Toasts },
-  { path: '/widgets', name: 'Widgets', element: Widgets },
-  { path: '/PersonnelList', name: 'PersonnelList', element: PersonnelList },
-  { path: '/ListofPersonnel', name: 'List Of Personnel', element: ListofPersonnel },
-  { path: '/AddPersonnel', name: 'Add Personnel', element: AddPersonnel },
-
+ 
 
 ]
 

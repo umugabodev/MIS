@@ -34,27 +34,30 @@ const Login = () => {
             />
           </CCol>
           <CCol md={6} style={{justifyContent: 'center'}}>
-         
-          <CCard className="bg-body-tertiary p-2  ml-12" style={{ maxWidth: '400px', margin: 'auto' }}>
-          <CCardBody className='bg-body-tertiary'>
+      
+          <CCardBody className='' style={{ maxWidth: '400px', margin: 'auto',marginright:'280x' }}>
             <div className="text-center mb-4">
               <img
                 src="/src/assets/Logo_altogethe.png" // Adjust the path to your image
                 alt="Company Logo"
                 style={{ maxWidth: '50%', height: '20' }}
               />
-              <h2 className="mt-4 text-3xl font-bold text-gray-900">
+              <h2 className="mt-4 text-3xl font-bold text-gray-900" style={{ color: 'black' }}>
                 MIS SYSTEM
               </h2>
             </div>
-            <CForm>
-              <p className="text-body-secondary">Sign In </p>
+            <CCard className='bg-white '>
+            <CForm className='mx-4 my-12 '>
+            <p style={{ color: 'black' }}>Username/Email</p>
+
+
               <CInputGroup className="mb-3">
                 <CInputGroupText>
                   <CIcon icon={cilUser} />
                 </CInputGroupText>
-                <CFormInput placeholder="Username" autoComplete="username" />
+                <CFormInput placeholder="Username" autoComplete="username" className='bg-white color-black'  />
               </CInputGroup>
+              <p style={{ color: 'black' }}>Password</p>
               <CInputGroup className="mb-4">
                 <CInputGroupText>
                   <CIcon icon={cilLockLocked} />
@@ -63,19 +66,21 @@ const Login = () => {
                   type="password"
                   placeholder="Password"
                   autoComplete="current-password"
+                  className='bg-white '
                 />
               </CInputGroup>
-              <CButton color="primary" className="w-100" onClick={handleSubmit}>
+              <CButton color="primary" className="w-100" onClick={handleSubmit} >
                 Login
               </CButton>
             </CForm>
             <div className="text-center mt-3">
-              <Link to="/forgot-password" className="text-body-secondary">
-                Forgot password?
-              </Link>
-            </div>
+            {/* <Link to="#" className="text-body-secondary" style={{ color: 'black' }}>
+  Forgot password?
+</Link> */}
+
+            </div></CCard>
           </CCardBody>
-        </CCard>
+       
 
           </CCol>
         </CRow>

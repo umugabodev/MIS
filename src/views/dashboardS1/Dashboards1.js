@@ -57,119 +57,58 @@ import MainChart from './MainChart'
 const Dashboards1 = () => {
   const progressExample = [
     { title: 'Other Ranks', value: '205', percent: 70, color: 'success' },
-    { title: 'NCOs', value: '74', percent: 51, color: 'info' },
-    { title: 'SNCOs', value: '31', percent: 50, color: 'warning' },
-    { title: 'Junior Officers', value: '62', percent: 80, color: 'danger' },
-    { title: 'Senior Officers', value: '14', percent: 70, color: 'primary' },
+    { title: 'NCOs', value: '74', percent: 51, color: 'success' },
+    { title: 'SNCOs', value: '31', percent: 50, color: 'success' },
+    { title: 'Junior Officers', value: '62', percent: 80, color: 'success' },
+    { title: 'Senior Officers', value: '14', percent: 70, color: 'success' },
     
   ]
 
   const progressGroupExample1 = [
     { title: 'Male (Officers)', icon: cilUser, value: 53 },
-    { title: 'Female (Officers)', icon: cilUserFemale, value: 43 },
+    { title: 'Female (Officers)', icon: cilUserFemale, value: 26 },
   ]
 
   const progressGroupExample2 = [
-    { title: 'Male (NCOs)', icon: cilUser, value: 53 },
+    { title: 'Male (NCOs)', icon: cilUser, value: 64 },
     { title: 'Female (NCOs)', icon: cilUserFemale, value: 43 },
-  ]
-
-  const progressGroupExample3 = [
-    { title: 'Organic Search', icon: cibGoogle, percent: 56, value: '191,235' },
-    { title: 'Facebook', icon: cibFacebook, percent: 15, value: '51,223' },
-    { title: 'Twitter', icon: cibTwitter, percent: 11, value: '37,564' },
-    { title: 'LinkedIn', icon: cibLinkedin, percent: 8, value: '27,319' },
   ]
 
   const tableExample = [
     {
-      avatar: { src: avatar1, status: 'success' },
+      avatar: { src: avatar2, status: 'success' },
       user: {
-        name: 'Yiorgos Avraamu',
-        new: true,
-        registered: 'Jan 1, 2023',
+        name: 'O NTAKIRUTIMANA',
+        registered: 'Jan 1, 2022',
       },
-      country: { name: 'USA', flag: cifUs },
-      usage: {
-        value: 50,
-        period: 'Jun 11, 2023 - Jul 10, 2023',
-        color: 'success',
-      },
-      payment: { name: 'Mastercard', icon: cibCcMastercard },
-      activity: '10 sec ago',
+      Rank: { name: 'Capt'},
+      Div: { name: '3 Inf Div'},
+      CUG: { number: '078809325'},
+      location: 'Rubavu Gen Area',
     },
     {
-      avatar: { src: avatar2, status: 'danger' },
+      avatar: { src: avatar4, status: 'success' },
       user: {
-        name: 'Avram Tarasios',
-        new: false,
-        registered: 'Jan 1, 2023',
+        name: 'E GATESI',
+        registered: 'Feb 1, 2023',
       },
-      country: { name: 'Brazil', flag: cifBr },
-      usage: {
-        value: 22,
-        period: 'Jun 11, 2023 - Jul 10, 2023',
-        color: 'info',
-      },
-      payment: { name: 'Visa', icon: cibCcVisa },
-      activity: '5 minutes ago',
+      Rank: { name: 'Lt'},
+      Div: { name: 'TF Inf Div'},
+      CUG: { number: '07836974'},
+      location: 'Ngarama Mil Barracks',
     },
     {
-      avatar: { src: avatar3, status: 'warning' },
-      user: { name: 'Quintin Ed', new: true, registered: 'Jan 1, 2023' },
-      country: { name: 'India', flag: cifIn },
-      usage: {
-        value: 74,
-        period: 'Jun 11, 2023 - Jul 10, 2023',
-        color: 'warning',
-      },
-      payment: { name: 'Stripe', icon: cibCcStripe },
-      activity: '1 hour ago',
-    },
-    {
-      avatar: { src: avatar4, status: 'secondary' },
-      user: { name: 'Enéas Kwadwo', new: true, registered: 'Jan 1, 2023' },
-      country: { name: 'France', flag: cifFr },
-      usage: {
-        value: 98,
-        period: 'Jun 11, 2023 - Jul 10, 2023',
-        color: 'danger',
-      },
-      payment: { name: 'PayPal', icon: cibCcPaypal },
-      activity: 'Last month',
-    },
-    {
-      avatar: { src: avatar5, status: 'success' },
+      avatar: { src: avatar3, status: 'success' },
       user: {
-        name: 'Agapetus Tadeáš',
-        new: true,
-        registered: 'Jan 1, 2023',
+        name: 'A BITWAYIKI',
+        registered: 'March 17, 2019',
       },
-      country: { name: 'Spain', flag: cifEs },
-      usage: {
-        value: 22,
-        period: 'Jun 11, 2023 - Jul 10, 2023',
-        color: 'primary',
-      },
-      payment: { name: 'Google Wallet', icon: cibCcApplePay },
-      activity: 'Last week',
+      Rank: { name: 'Maj'},
+      Div: { name: 'SOF'},
+      CUG: { number: '078532520'},
+      location: 'Mukamira Mil Barracks',
     },
-    {
-      avatar: { src: avatar6, status: 'danger' },
-      user: {
-        name: 'Friderik Dávid',
-        new: true,
-        registered: 'Jan 1, 2023',
-      },
-      country: { name: 'Poland', flag: cifPl },
-      usage: {
-        value: 43,
-        period: 'Jun 11, 2023 - Jul 10, 2023',
-        color: 'success',
-      },
-      payment: { name: 'Amex', icon: cibCcAmex },
-      activity: 'Last week',
-    },
+    
   ]
 
   return (
@@ -201,63 +140,82 @@ const Dashboards1 = () => {
             ))}
           </CRow>
         </CCardFooter>
-        {/* <CCardBody>
-          
-          <CRow>
-            <CCol sm={5}>
-              <h4 id="traffic" className="card-title mb-0">
-                Traffic
-              </h4>
-              <div className="small text-body-secondary">January - July 2023</div>
-            </CCol>
-            <CCol sm={7} className="d-none d-md-block">
-              <CButton color="primary" className="float-end">
-                <CIcon icon={cilCloudDownload} />
-              </CButton>
-              <CButtonGroup className="float-end me-3">
-                {['Day', 'Month', 'Year'].map((value) => (
-                  <CButton
-                    color="outline-secondary"
-                    key={value}
-                    className="mx-0"
-                    active={value === 'Month'}
-                  >
-                    {value}
-                  </CButton>
-                ))}
-              </CButtonGroup>
-            </CCol>
-          </CRow>
-          <MainChart />
-        </CCardBody> */}
        
       </CCard>
       
       <CRow>
         <CCol xs>
           <CCard className="mb-4">
-            <CCardHeader>Traffic {' & '} Sales</CCardHeader>
+            <CCardHeader>Deployments </CCardHeader>
             <CCardBody>
               <CRow>
                 <CCol xs={12} md={6} xl={6}>
                   <CRow>
                     <CCol xs={6}>
-                      <div className="border-start border-start-4 border-start-info py-1 px-3">
-                        <div className="text-body-secondary text-truncate small">New Clients</div>
-                        <div className="fs-5 fw-semibold">9,123</div>
+                      <div className="border-start border-start-4  py-1 px-3">
+                        <div className="text-body-secondary text-truncate small">1 Inf Div</div>
+                        <div className="fs-5 fw-semibold">11</div>
                       </div>
                     </CCol>
                     <CCol xs={6}>
-                      <div className="border-start border-start-4 border-start-danger py-1 px-3 mb-3">
+                      <div className="border-start border-start-4  py-1 px-3 mb-3">
                         <div className="text-body-secondary text-truncate small">
-                          Recurring Clients
+                        2 Inf Div
                         </div>
-                        <div className="fs-5 fw-semibold">22,643</div>
+                        <div className="fs-5 fw-semibold">23</div>
+                      </div>
+                    </CCol>
+                    <CCol xs={6}>
+                      <div className="border-start border-start-4  py-1 px-3 mb-3">
+                        <div className="text-body-secondary text-truncate small">
+                        5 Inf Div
+                        </div>
+                        <div className="fs-5 fw-semibold">31</div>
+                      </div>
+                    </CCol>
+                    <CCol xs={6}>
+                      <div className="border-start border-start-4 py-1 px-3 mb-3">
+                        <div className="text-body-secondary text-truncate small">
+                        TF Div
+                        </div>
+                        <div className="fs-5 fw-semibold">09</div>
+                      </div>
+                    </CCol>
+                    <CCol xs={6}>
+                      <div className="border-start border-start-4  py-1 px-3 mb-3">
+                        <div className="text-body-secondary text-truncate small">
+                        Log Bde
+                        </div>
+                        <div className="fs-5 fw-semibold">16</div>
+                      </div>
+                    </CCol>
+                    <CCol xs={6}>
+                      <div className="border-start border-start-4 py-1 px-3 mb-3">
+                        <div className="text-body-secondary text-truncate small">
+                        MP Bde
+                        </div>
+                        <div className="fs-5 fw-semibold">09</div>
+                      </div>
+                    </CCol>
+                    <CCol xs={6}>
+                      <div className="border-start border-start-4 py-1 px-3 mb-3">
+                        <div className="text-body-secondary text-truncate small">
+                        Air Force
+                        </div>
+                        <div className="fs-5 fw-semibold">42</div>
+                      </div>
+                    </CCol>
+                    <CCol xs={6}>
+                      <div className="border-start border-start-4 py-1 px-3 mb-3">
+                        <div className="text-body-secondary text-truncate small">
+                        Reserve Force
+                        </div>
+                        <div className="fs-5 fw-semibold">22</div>
                       </div>
                     </CCol>
                   </CRow>
-                  <hr className="mt-0" />
-                  {progressGroupExample2.map((item, index) => (
+                  <hr className="mt-4" />
+                  {progressGroupExample1.map((item, index) => (
                     <div className="progress-group mb-4" key={index}>
                       <div className="progress-group-header">
                         <CIcon className="me-2" icon={item.icon} size="lg" />
@@ -273,20 +231,56 @@ const Dashboards1 = () => {
                 <CCol xs={12} md={6} xl={6}>
                   <CRow>
                     <CCol xs={6}>
-                      <div className="border-start border-start-4 border-start-warning py-1 px-3 mb-3">
-                        <div className="text-body-secondary text-truncate small">Pageviews</div>
-                        <div className="fs-5 fw-semibold">78,623</div>
+                      <div className="border-start border-start-4  py-1 px-3 mb-3">
+                        <div className="text-body-secondary text-truncate small">3 Inf Div</div>
+                        <div className="fs-5 fw-semibold">36</div>
                       </div>
                     </CCol>
                     <CCol xs={6}>
-                      <div className="border-start border-start-4 border-start-success py-1 px-3 mb-3">
-                        <div className="text-body-secondary text-truncate small">Organic</div>
-                        <div className="fs-5 fw-semibold">49,123</div>
+                      <div className="border-start border-start-4  py-1 px-3 mb-3">
+                        <div className="text-body-secondary text-truncate small">4 Inf Div</div>
+                        <div className="fs-5 fw-semibold">41</div>
+                      </div>
+                    </CCol>
+                    <CCol xs={6}>
+                      <div className="border-start border-start-4  py-1 px-3 mb-3">
+                        <div className="text-body-secondary text-truncate small">Arty Div</div>
+                        <div className="fs-5 fw-semibold">14</div>
+                      </div>
+                    </CCol>
+                    <CCol xs={6}>
+                      <div className="border-start border-start-4  py-1 px-3 mb-3">
+                        <div className="text-body-secondary text-truncate small">Mech Div</div>
+                        <div className="fs-5 fw-semibold">21</div>
+                      </div>
+                    </CCol>
+                    <CCol xs={6}>
+                      <div className="border-start border-start-4  py-1 px-3 mb-3">
+                        <div className="text-body-secondary text-truncate small">SOF</div>
+                        <div className="fs-5 fw-semibold">21</div>
+                      </div>
+                    </CCol>
+                    <CCol xs={6}>
+                      <div className="border-start border-start-4  py-1 px-3 mb-3">
+                        <div className="text-body-secondary text-truncate small">RG</div>
+                        <div className="fs-5 fw-semibold">23</div>
+                      </div>
+                    </CCol>
+                    <CCol xs={6}>
+                      <div className="border-start border-start-4  py-1 px-3 mb-3">
+                        <div className="text-body-secondary text-truncate small">DID</div>
+                        <div className="fs-5 fw-semibold">06</div>
+                      </div>
+                    </CCol>
+                    <CCol xs={6}>
+                      <div className="border-start border-start-4  py-1 px-3 mb-3">
+                        <div className="text-body-secondary text-truncate small">ZCSS & AFOS</div>
+                        <div className="fs-5 fw-semibold">17</div>
                       </div>
                     </CCol>
                   </CRow>
 
-                  <hr className="mt-0" />
+                  <hr className="mt-4" />
 
                   {progressGroupExample2.map((item, index) => (
                     <div className="progress-group mb-4" key={index}>
@@ -322,22 +316,23 @@ const Dashboards1 = () => {
               </CRow>
 
               <br />
-
+            <CCardHeader>DSO</CCardHeader>
               <CTable align="middle" className="mb-0 border" hover responsive>
                 <CTableHead className="text-nowrap">
                   <CTableRow>
                     <CTableHeaderCell className="bg-body-tertiary text-center">
                       <CIcon icon={cilPeople} />
                     </CTableHeaderCell>
-                    <CTableHeaderCell className="bg-body-tertiary">User</CTableHeaderCell>
                     <CTableHeaderCell className="bg-body-tertiary text-center">
-                      Country
+                    Rank 
                     </CTableHeaderCell>
-                    <CTableHeaderCell className="bg-body-tertiary">Usage</CTableHeaderCell>
+                    <CTableHeaderCell className="bg-body-tertiary">Full Name</CTableHeaderCell>
+                    
+                    <CTableHeaderCell className="bg-body-tertiary">Division</CTableHeaderCell>
                     <CTableHeaderCell className="bg-body-tertiary text-center">
-                      Payment Method
+                      CUG
                     </CTableHeaderCell>
-                    <CTableHeaderCell className="bg-body-tertiary">Activity</CTableHeaderCell>
+                    <CTableHeaderCell className="bg-body-tertiary">Location</CTableHeaderCell>
                   </CTableRow>
                 </CTableHead>
                 <CTableBody>
@@ -346,31 +341,31 @@ const Dashboards1 = () => {
                       <CTableDataCell className="text-center">
                         <CAvatar size="md" src={item.avatar.src} status={item.avatar.status} />
                       </CTableDataCell>
+                      <CTableDataCell className="text-center">
+                        {/* <CIcon size="xl" icon={item.Rank.name} title={item.Rank.name} /> */}
+                        <h3  className="small text-body-secondary text-nowrap">{item.Rank.name}.</h3>
+                      </CTableDataCell>
                       <CTableDataCell>
                         <div>{item.user.name}</div>
                         <div className="small text-body-secondary text-nowrap">
-                          <span>{item.user.new ? 'New' : 'Recurring'}</span> | Registered:{' '}
+                         Started:{' '}
                           {item.user.registered}
                         </div>
                       </CTableDataCell>
-                      <CTableDataCell className="text-center">
-                        <CIcon size="xl" icon={item.country.flag} title={item.country.name} />
-                      </CTableDataCell>
+                    
                       <CTableDataCell>
                         <div className="d-flex justify-content-between text-nowrap">
-                          <div className="fw-semibold">{item.usage.value}%</div>
-                          <div className="ms-3">
-                            <small className="text-body-secondary">{item.usage.period}</small>
-                          </div>
+                          <div>{item.Div.name}</div>
+                         
                         </div>
-                        <CProgress thin color={item.usage.color} value={item.usage.value} />
+                                        
+
                       </CTableDataCell>
                       <CTableDataCell className="text-center">
-                        <CIcon size="xl" icon={item.payment.icon} />
+                        <div>{item.CUG.number}</div>
                       </CTableDataCell>
-                      <CTableDataCell>
-                        <div className="small text-body-secondary text-nowrap">Last login</div>
-                        <div className="fw-semibold text-nowrap">{item.activity}</div>
+                      <CTableDataCell>                      
+                        <div className="fw-semibold text-nowrap">{item.location}</div>
                       </CTableDataCell>
                     </CTableRow>
                   ))}

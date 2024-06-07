@@ -17,28 +17,27 @@ import {
 } from '@coreui/icons'
 import { CNavGroup, CNavItem, CNavTitle } from '@coreui/react'
 
-const _nav = [
+const _navAdmin = [
   {
     component: CNavItem,
     name: 'Dashboard',
     to: '/dashboards1',
     icon: <CIcon icon={cilSpeedometer} customClassName="nav-icon" />,
-    badge: {
-      color: 'info',
-      text: 'NEW',
-    },
+    // badge: {
+    //   color: 'info',
+    //   text: 'NEW',
+    // },
     
   },
   {
     component: CNavTitle,
-    name: 'PERSONNEL INFO',
+    name: 'RECRUITMENT INFO',
   },
   {
     component: CNavGroup,
     name: 'Personnel Data',
-
-    icon: <CIcon icon={cilStar} customClassName="nav-icon"/>,
-    
+    icon: <CIcon icon={cilStar} customClassName="nav-icon" />,
+    // style: { backgroundColor: customColors.primary, color: customColors.secondary },
     items: [
       {
         component: CNavItem,
@@ -70,23 +69,23 @@ const _nav = [
   {
     component: CNavGroup,
     name: 'Parade State',
-    to: '#',
+    to: '/base',
     icon: <CIcon icon={cilPuzzle} customClassName="nav-icon" />,
     items: [
       {
         component: CNavItem,
         name: 'Daily',
-        to: '#',
+        to: '/base/accordion',
       },
       {
         component: CNavItem,
         name: 'Monthly',
-        to: '#',
+        to: '/base/breadcrumbs',
       },
       {
         component: CNavItem,
         name: 'Strength Return',
-        to: '#',
+        to: '/base/cards',
       },
       // {
       //   component: CNavItem,
@@ -148,18 +147,18 @@ const _nav = [
   {
     component: CNavGroup,
     name: 'Deployments',
-    to: '#',
+    to: '/buttons',
     icon: <CIcon icon={cilCursor} customClassName="nav-icon" />,
     items: [
       {
         component: CNavItem,
         name: 'Internal Deployment',
-        to: '#',
+        to: '/buttons/buttons',
       },
       {
         component: CNavItem,
         name: 'External Deployment',
-        to: '#',
+        to: '/buttons/button-groups',
       },
       // {
       //   component: CNavItem,
@@ -176,17 +175,17 @@ const _nav = [
       {
         component: CNavItem,
         name: 'Mission',
-        to: '#',
+        to: '/forms/form-control',
       },
       {
         component: CNavItem,
         name: 'RCA',
-        to: '#',
+        to: '/forms/select',
       },
       {
         component: CNavItem,
         name: 'Soldiers Kit',
-        to: '#',
+        to: '/forms/checks-radios',
       },
       // {
       //   component: CNavItem,
@@ -228,22 +227,22 @@ const _nav = [
       {
         component: CNavItem,
         name: 'Recruitors',
-        to: '#',
+        to: '/login',
       },
       {
         component: CNavItem,
         name: 'Pendings',
-        to: '#',
+        to: '/register',
       },
       {
         component: CNavItem,
         name: 'On Course',
-        to: '#',
+        to: '/404',
       },
       {
         component: CNavItem,
         name: 'Completed',
-        to: '#',
+        to: '/500',
       },
     ],
   },
@@ -259,17 +258,17 @@ const _nav = [
       {
         component: CNavItem,
         name: 'Statistical Report',
-        to: '#',
+        to: '/login',
       },
       {
         component: CNavItem,
         name: 'Monthly Report',
-        to: '#',
+        to: '/register',
       },
       {
         component: CNavItem,
         name: 'Yearly Report',
-        to: '#',
+        to: '/404',
       },
       // {
       //   component: CNavItem,
@@ -286,4 +285,4 @@ const _nav = [
   },
 ]
 
-export default _nav
+export default _navAdmin
