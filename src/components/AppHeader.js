@@ -12,7 +12,6 @@ import {
   CHeaderToggler,
   CNavLink,
   CNavItem,
-  useColorModes,
 } from '@coreui/react'
 import CIcon from '@coreui/icons-react'
 import {
@@ -30,7 +29,6 @@ import { AppHeaderDropdown } from './header/index'
 
 const AppHeader = () => {
   const headerRef = useRef()
-  const { colorMode, setColorMode } = useColorModes('mis')
 
   const dispatch = useDispatch()
   const sidebarShow = useSelector((state) => state.sidebarShow)
@@ -42,26 +40,37 @@ const AppHeader = () => {
     })
   }, [])
 
+  const setColorMode = (mode) => {
+    // Add your logic for setting color mode here
+  }
+
+  // Set 'dark' as the default color mode
+  const colorMode = 'dark';
+
   return (
-    <CHeader position="sticky" className="mb-4 p-0" ref={headerRef}>
-      <CContainer className="border-bottom px-4" fluid>
+    <CHeader position="sticky" className="mb-4 p-0" 
+    style={{background: '#134228'}}
+    >
+      <CContainer className="border-bottom px-4" fluid >
         <CHeaderToggler
           onClick={() => dispatch({ type: 'set', sidebarShow: !sidebarShow })}
-          style={{ marginInlineStart: '-14px' }}
+          style={{ marginInlineStart: '-14px' }} 
         >
           <CIcon icon={cilMenu} size="lg" />
         </CHeaderToggler>
-        <CHeaderNav className="d-none d-md-flex">
+        <CHeaderNav className="d-none d-md-flex"  style={{color: 'white'}}>
           <CNavItem>
-            <CNavLink to="/dashboards1" as={NavLink}>
-              Dashboard S1
+            <CNavLink to="/dashboards1" as={NavLink}
+            style={{color: 'white'}}
+            >
+              Dashboard
             </CNavLink>
           </CNavItem>
           <CNavItem>
-            <CNavLink href="#">Users</CNavLink>
+            <CNavLink href="#" style={{color: 'white'}}>Users</CNavLink>
           </CNavItem>
           <CNavItem>
-            <CNavLink href="#">Settings</CNavLink>
+            <CNavLink href="#" style={{color: 'white'}}>Settings</CNavLink>
           </CNavItem>
         </CHeaderNav>
         <CHeaderNav className="ms-auto">
@@ -97,20 +106,20 @@ const AppHeader = () => {
             </CDropdownToggle>
             <CDropdownMenu>
               <CDropdownItem
-                active={colorMode === 'light'}
+                active={colorMode === 'dark'}
                 className="d-flex align-items-center"
                 as="button"
                 type="button"
-                onClick={() => setColorMode('light')}
+                onClick={() => setColorMode('dark')}
               >
-                <CIcon className="me-2" icon={cilSun} size="lg" /> Light
+                <CIcon className="me-2" icon={cilSun} size="lg" />
               </CDropdownItem>
               <CDropdownItem
                 active={colorMode === 'dark'}
                 className="d-flex align-items-center"
                 as="button"
                 type="button"
-                onClick={() => setColorMode('dark')}
+                onClick={() => setColorMode('')}
               >
                 <CIcon className="me-2" icon={cilMoon} size="lg" /> Dark
               </CDropdownItem>
@@ -131,9 +140,9 @@ const AppHeader = () => {
           <AppHeaderDropdown />
         </CHeaderNav>
       </CContainer>
-      <CContainer className="px-4" fluid>
-        <AppBreadcrumb />
-      </CContainer>
+      <CContainer className="px-4" fluid style={{ backgroundColor: '#1b1b2b' }}>
+  <AppBreadcrumb />
+</CContainer>
     </CHeader>
   )
 }
