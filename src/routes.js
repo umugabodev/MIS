@@ -41,9 +41,12 @@ const Validation = React.lazy(() => import('./views/forms/validation/Validation'
 
 
 const CaseFileList = React.lazy(() => import('/src/views/pages/personnel/CaseFileList'))
-const PersonnelList = React.lazy(() => import('/src/views/pages/personnel/PersonnelList'))
+// const PersonnelList = React.lazy(() => import('/src/views/pages/personnel/PersonnelList'))
 const Charts = React.lazy(() => import('./views/charts/Charts'))
 const ListofPersonnel = React.lazy(() => import('/src/views/dashboardS1/Tables/ListofPersonnel'))
+
+
+const AddCase = React.lazy(() => import('/src/views/pages/personnel/addCase.js'))
 const AddPersonnel = React.lazy(() => import('/src/views/pages/personnel/addPersonnel.js'))
 const RegistrationForm = React.lazy(() => import('/src/views/dashboardS1/User/RegistrationForm.js'))
 
@@ -69,8 +72,9 @@ const routes = [
   
 
   { path: '/CaseFileList', name: 'CaseFileList', element: CaseFileList },
-  { path: '/PersonnelList', name: 'PersonnelList', element: PersonnelList },
+  // { path: '/PersonnelList', name: 'PersonnelList', element: PersonnelList },
   { path: '/ListofPersonnel', name: 'List Of Personnel', element: ListofPersonnel },
+  { path: '/AddCase', name: 'Add Case', element: AddCase },
   { path: '/AddPersonnel', name: 'Add Personnel', element: AddPersonnel },
   { path: '/sidebar', name: 'sidebar', element: sidebar },
   { path: '/RegistrationForm', name: 'Registration Form', element: RegistrationForm },
