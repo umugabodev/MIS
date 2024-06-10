@@ -38,6 +38,9 @@ const Layout = React.lazy(() => import('./views/forms/layout/Layout'))
 const Range = React.lazy(() => import('./views/forms/range/Range'))
 const Select = React.lazy(() => import('./views/forms/select/Select'))
 const Validation = React.lazy(() => import('./views/forms/validation/Validation'))
+
+
+const CaseFileList = React.lazy(() => import('/src/views/pages/personnel/CaseFileList'))
 const PersonnelList = React.lazy(() => import('/src/views/pages/personnel/PersonnelList'))
 const Charts = React.lazy(() => import('./views/charts/Charts'))
 const ListofPersonnel = React.lazy(() => import('/src/views/dashboardS1/Tables/ListofPersonnel'))
@@ -63,6 +66,9 @@ const routes = [
   { path: '/DashboardAdmin', name: 'Dashboard Admin', element: DashboardAdmin },
   { path: '/dashboards1', name: 'Dashboard', element: Dashboards1 },
   { path: '/widgets', name: 'Widgets', element: Widgets },
+  
+
+  { path: '/CaseFileList', name: 'CaseFileList', element: CaseFileList },
   { path: '/PersonnelList', name: 'PersonnelList', element: PersonnelList },
   { path: '/ListofPersonnel', name: 'List Of Personnel', element: ListofPersonnel },
   { path: '/AddPersonnel', name: 'Add Personnel', element: AddPersonnel },
