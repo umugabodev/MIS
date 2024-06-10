@@ -324,13 +324,13 @@ const _nav = [
       {
         component: CNavItem,
         name: 'Add Case File',
-        to: '/CaseFileList',
+        to: '/AddCase',
 
       },
       {
         component: CNavItem,
         name: 'Manage Users',
-        to: '/ListofPersonnel',
+        to: '/CaseFileList',
       },
 
     ],
