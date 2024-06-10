@@ -42,7 +42,7 @@ const PersonnelList = React.lazy(() => import('/src/views/pages/personnel/Person
 const Charts = React.lazy(() => import('./views/charts/Charts'))
 const ListofPersonnel = React.lazy(() => import('/src/views/dashboardS1/Tables/ListofPersonnel'))
 const AddPersonnel = React.lazy(() => import('/src/views/pages/personnel/addPersonnel.js'))
-
+const RegistrationForm = React.lazy(() => import('/src/views/dashboardS1/User/RegistrationForm.js'))
 
 
 // Icons
@@ -66,7 +66,10 @@ const routes = [
   { path: '/PersonnelList', name: 'PersonnelList', element: PersonnelList },
   { path: '/ListofPersonnel', name: 'List Of Personnel', element: ListofPersonnel },
   { path: '/AddPersonnel', name: 'Add Personnel', element: AddPersonnel },
-{ path: '/sidebar', name: 'sidebar', element: sidebar },
+  { path: '/sidebar', name: 'sidebar', element: sidebar },
+  { path: '/RegistrationForm', name: 'Registration Form', element: RegistrationForm },
+
+
 
 
 

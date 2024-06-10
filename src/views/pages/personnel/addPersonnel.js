@@ -205,19 +205,19 @@ const addPersonnel = () => {
                       },
                       {
                         type: 'text',
-                        name: 'started',
+                        name: 'starteddegree',
                         title: 'Started',
                         inputType: 'date',
                         isRequired: true,
-                        defaultValue: formData['started'] || ''
+                        defaultValue: formData['starteddegree'] || ''
                       },
                       {
                         type: 'text',
-                        name: 'end',
+                        name: 'enddegree',
                         title: 'End',
                         inputType: 'date',
                         isRequired: false,
-                        defaultValue: formData['end'] || ''
+                        defaultValue: formData['enddegree'] || ''
                       },
                       
                       {
@@ -457,19 +457,19 @@ const addPersonnel = () => {
                         
                         {
                           type: 'text',
-                          name: 'started',
+                          name: 'startedcourse',
                           title: 'Started',
                           inputType: 'date',
                           isRequired: true,
-                          defaultValue: formData['started'] || ''
+                          defaultValue: formData['startedcourse'] || ''
                         },
                         {
                           type: 'text',
-                          name: 'end',
+                          name: 'endcourse',
                           title: 'End',
                           inputType: 'date',
                           isRequired: false,
-                          defaultValue: formData['end'] || ''
+                          defaultValue: formData['endcourse'] || ''
                         },
                         {
                           "type": "dropdown",
@@ -623,14 +623,15 @@ const addPersonnel = () => {
                         "title": "Blood Group",
                         "isRequired": true,
                         "choices": [
-                          "A",
-                          "B",
-                          "AB",
-                          "O-",
+                          "A+",                          
                           "A-",
+                          "B+",
                           "B-",
+                          "O+",
+                          "O-", 
+                          "AB+",                         
                           "AB-",
-                          "O-",
+                          
                         ],
                         defaultValue: formData['bgroup'] || ''
                       },
