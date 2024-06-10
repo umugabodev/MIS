@@ -43,7 +43,7 @@ const Charts = React.lazy(() => import('./views/charts/Charts'))
 const ListofPersonnel = React.lazy(() => import('/src/views/dashboardS1/Tables/ListofPersonnel'))
 const AddPersonnel = React.lazy(() => import('/src/views/pages/personnel/addPersonnel.js'))
 const RegistrationForm = React.lazy(() => import('/src/views/dashboardS1/User/RegistrationForm.js'))
-
+const Paradestate = React.lazy(() => import('/src/views/parade state/daily.js'))
 
 // Icons
 const CoreUIIcons = React.lazy(() => import('./views/icons/coreui-icons/CoreUIIcons'))
@@ -68,7 +68,7 @@ const routes = [
   { path: '/AddPersonnel', name: 'Add Personnel', element: AddPersonnel },
   { path: '/sidebar', name: 'sidebar', element: sidebar },
   { path: '/RegistrationForm', name: 'Registration Form', element: RegistrationForm },
-
+  { path: '/daily', name: 'Daily Parade State', element: Paradestate },
 
 
 

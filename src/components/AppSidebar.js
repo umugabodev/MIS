@@ -1,9 +1,9 @@
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import customColors from '/src/assets/js/customColors'
+
 
 import {
-  CCloseButton,
+  
   CSidebar,
   CSidebarBrand,
   CSidebarFooter,
@@ -14,8 +14,6 @@ import CIcon from '@coreui/icons-react'
 
 import { AppSidebarNav } from './AppSidebarNav'
 
-import { logo } from 'src/assets/brand/logo'
-import { sygnet } from 'src/assets/brand/sygnet'
 
 // sidebar nav config
 import navigation from '/src/_nav'
@@ -37,26 +35,30 @@ const AppSidebar = () => {
       }}
       
     >
-      <CSidebarHeader className="border-bottom">
-      <img
-              src="/src/assets/rdf.png" // Adjust the path to your image
-              alt="Company Logo"
-              style={{ width: '50%', height: 'auto', marginLeft:"20%" }}
-            />
-        <CSidebarBrand to="/">
-          {/* <CIcon customClassName="sidebar-brand-full" icon={logo} height={32} /> */}
-          {/* <CIcon customClassName="sidebar-brand-narrow" icon={sygnet} height={32} /> */}
-        </CSidebarBrand>
-        <CCloseButton
-          className="d-lg-none"
-          dark
-          onClick={() => dispatch({ type: 'set', sidebarShow: false })}
-        />
-      </CSidebarHeader>
+     <CSidebarHeader className="border-bottom">
+  <div style={{ display: 'flex', alignItems: 'center' }}>
+    <img
+      src="/src/assets/rdf.png" // Adjust the path to your image
+      alt="RDF Logo"
+      style={{ width: '50%', height: 'auto', marginRight: '%' }}
+    />
+    <strong style={{ marginLeft: '6px',fontSize: "14px" }}>MIS-  Management Information System</strong>
+  </div>
+  <CSidebarBrand to="/">
+    
+  </CSidebarBrand>
+  {/* <CCloseButton
+    className="d-lg-none"
+    dark
+    onClick={() => dispatch({ type: 'set', sidebarShow: false })}
+  /> */}
+</CSidebarHeader>
+
+
       <AppSidebarNav items={navigation}/>
       <CSidebarFooter className="border-top d-none d-lg-flex">
         <CSidebarToggler
-          onClick={() => dispatch({ type: 'set', sidebarUnfoldable: !unfoldable })}
+          // onClick={() => dispatch({ type: 'set', sidebarUnfoldable: !unfoldable })}
         />
       </CSidebarFooter>
     </CSidebar>

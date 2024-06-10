@@ -77,7 +77,7 @@ const _nav = [
       {
         component: CNavItem,
         name: 'Daily',
-        to: '#',
+        to: '/daily',
       },
       {
         component: CNavItem,
