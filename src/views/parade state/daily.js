@@ -59,9 +59,9 @@ const SimpleTable = () => {
               <CTableHead>
                 <CTableRow>
                   <CTableHeaderCell>REGMENT</CTableHeaderCell>
-                 
+                 <CTableHeaderCell>On Parade</CTableHeaderCell>
                   <CTableHeaderCell>Absent</CTableHeaderCell>
-                  <CTableHeaderCell>Course</CTableHeaderCell>
+                  <CTableHeaderCell>On Course</CTableHeaderCell>
                   <CTableHeaderCell>Pass Leave</CTableHeaderCell>
                   <CTableHeaderCell>Total</CTableHeaderCell>
                   <CTableHeaderCell>Action</CTableHeaderCell>
@@ -103,41 +103,41 @@ const SimpleTable = () => {
       {/* Modal for editing cell */}
       <Modal show={showModal} onHide={handleCloseModal}>
         <Modal.Header closeButton>
-          <Modal.Title>Edit Cell Data</Modal.Title>
+          <Modal.Title>Parade State Form</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           {/* Input fields for editing data */}
-          <Modal.Body>
+        
   {/* Title for the input field */}
   <label className="form-label">On Parade:</label>
   {/* Input field for editing data */}
   <input
     className="form-control"
-    type="text"
+    type="number"
     value={data[selectedRowIndex]?.onParade} // Using optional chaining to handle possible undefined value
     onChange={(e) => handleEdit(selectedRowIndex, "onParade", e.target.value)}
   />
   {/* Additional input fields for other data */}
   {/* Remember to include titles for these fields as well */}
-</Modal.Body>
+
 <label className="form-label">Absent:</label>
           <input
             className="form-control mt-2"
-            type="text"
+            type="number"
             value={data[selectedRowIndex]?.absent}
             onChange={(e) => handleEdit(selectedRowIndex, "absent", e.target.value)}
           />
-           <label className="form-label">Course:</label>
+           <label className="form-label">On Course:</label>
           <input
             className="form-control mt-2"
-            type="text"
+            type="number"
             value={data[selectedRowIndex]?.course}
             onChange={(e) => handleEdit(selectedRowIndex, "course", e.target.value)}
           />
            <label className="form-label">Pass Leave</label>
           <input
             className="form-control mt-2"
-            type="text"
+            type="number"
             value={data[selectedRowIndex]?.passLeave}
             onChange={(e) => handleEdit(selectedRowIndex, "passLeave", e.target.value)}
           />
