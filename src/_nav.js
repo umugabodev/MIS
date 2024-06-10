@@ -21,7 +21,7 @@ const _nav = [
   {
     //MENU DESIGNED FOR S1
     component: CNavItem,
-    name: 'Dashboard',
+    name: 'S1 Dashboard',
     to: '/dashboards1',
     icon: <CIcon icon={cilSpeedometer} customClassName="nav-icon" />,
     badge: {
@@ -388,7 +388,127 @@ const _nav = [
     },
 
   //End of SYSTEM ADMIN NAVABAR
+  {
+    //MENU DESIGNED FOR S2
+    component: CNavItem,
+    name: 'S2 Dashboard',
+    to: '/DashboardAdmin',
+    icon: <CIcon icon={cilSpeedometer} customClassName="nav-icon" />,
+    badge: {
+      color: 'info',
+      text: 'NEW',
+    },
+    
+  },
+  {
+    component: CNavTitle,
+    name: 'DISCIPLINARY INFO',
+  },
+  {
+    component: CNavGroup,
+    name: 'Case File',
 
+    icon: <CIcon icon={cilStar} customClassName="nav-icon"/>,
+    
+    items: [
+      {
+        component: CNavItem,
+        name: 'Add Case File',
+        to: '/CaseFileList',
+
+      },
+      {
+        component: CNavItem,
+        name: 'Manage Users',
+        to: '/ListofPersonnel',
+      },
+
+    ],
+  },
+  {
+    component: CNavTitle,
+    name: 'SECURITY INFO',
+  },
+  {
+    component: CNavGroup,
+    name: 'Own Force',
+    to: '#',
+    icon: <CIcon icon={cilPuzzle} customClassName="nav-icon" />,
+    items: [
+      {
+        component: CNavItem,
+        name: 'Add security issue',
+        to: '#',
+      },
+      {
+        component: CNavItem,
+        name: 'Issues List',
+        to: '#',
+      },
+      {
+        component: CNavItem,
+        name: 'Issues Report',
+        to: '#',
+      },
+      
+    ],
+    
+  },
+  {
+    component: CNavGroup,
+    name: 'EN Force',
+    to: '#',
+    icon: <CIcon icon={cilPuzzle} customClassName="nav-icon" />,
+    items: [
+      {
+        component: CNavItem,
+        name: 'Add security issue',
+        to: '#',
+      },
+      {
+        component: CNavItem,
+        name: 'Issues List',
+        to: '#',
+      },
+      {
+        component: CNavItem,
+        name: 'Issues Report',
+        to: '#',
+      },
+      
+    ],
+    
+  },
+  {
+    component: CNavTitle,
+    name: 'EQUIPMENT INFO',
+  },
+  {
+    component: CNavGroup,
+    name: 'Trace Equipment',
+    to: '#',
+    icon: <CIcon icon={cilPuzzle} customClassName="nav-icon" />,
+    items: [
+      {
+        component: CNavItem,
+        name: 'Active Equipment',
+        to: '#',
+      },
+      {
+        component: CNavItem,
+        name: 'Inactive Equipment',
+        to: '#',
+      },
+      {
+        component: CNavItem,
+        name: 'Archived Equipment',
+        to: '#',
+      },    
+    ],
+    
+  },
+
+//End of S2 NAVABAR
     
 ]
 
