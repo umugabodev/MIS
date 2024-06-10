@@ -39,9 +39,9 @@ const AppSidebar = () => {
     >
       <CSidebarHeader className="border-bottom">
       <img
-              src="/src/assets/logo1.png" // Adjust the path to your image
+              src="/src/assets/rdf.png" // Adjust the path to your image
               alt="Company Logo"
-              style={{ width: '35%', height: 'auto', marginLeft:"20%" }}
+              style={{ width: '50%', height: 'auto', marginLeft:"20%" }}
             />
         <CSidebarBrand to="/">
           {/* <CIcon customClassName="sidebar-brand-full" icon={logo} height={32} /> */}

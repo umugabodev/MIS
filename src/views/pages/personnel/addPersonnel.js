@@ -205,19 +205,19 @@ const addPersonnel = () => {
                       },
                       {
                         type: 'text',
-                        name: 'started',
+                        name: 'starteddegree',
                         title: 'Started',
                         inputType: 'date',
                         isRequired: true,
-                        defaultValue: formData['started'] || ''
+                        defaultValue: formData['starteddegree'] || ''
                       },
                       {
                         type: 'text',
-                        name: 'end',
+                        name: 'enddegree',
                         title: 'End',
                         inputType: 'date',
                         isRequired: false,
-                        defaultValue: formData['end'] || ''
+                        defaultValue: formData['enddegree'] || ''
                       },
                       
                       {
@@ -457,19 +457,19 @@ const addPersonnel = () => {
                         
                         {
                           type: 'text',
-                          name: 'started',
+                          name: 'startedcourse',
                           title: 'Started',
                           inputType: 'date',
                           isRequired: true,
-                          defaultValue: formData['started'] || ''
+                          defaultValue: formData['startedcourse'] || ''
                         },
                         {
                           type: 'text',
-                          name: 'end',
+                          name: 'endcourse',
                           title: 'End',
                           inputType: 'date',
                           isRequired: false,
-                          defaultValue: formData['end'] || ''
+                          defaultValue: formData['endcourse'] || ''
                         },
                         {
                           "type": "dropdown",
@@ -623,14 +623,15 @@ const addPersonnel = () => {
                         "title": "Blood Group",
                         "isRequired": true,
                         "choices": [
-                          "A",
-                          "B",
-                          "AB",
-                          "O-",
+                          "A+",                          
                           "A-",
+                          "B+",
                           "B-",
+                          "O+",
+                          "O-", 
+                          "AB+",                         
                           "AB-",
-                          "O-",
+                          
                         ],
                         defaultValue: formData['bgroup'] || ''
                       },
@@ -960,6 +961,85 @@ const addPersonnel = () => {
                 />
               </>
             );
+            case 'Spouse Address':
+              return (
+                <>
+                  <Survey.Survey
+                    json={{
+                      pages: [
+                        {
+                          name: 'page1',
+                          elements: [
+                           
+                            {
+                              type: 'text',
+                              name: 'nationId',
+                              title: 'NationId',
+                              inputType: 'number',
+                              isRequired: true,
+                              defaultValue: formData['nationId'] || ''
+                            },
+                            {
+                              type: 'text',
+                              name: 'contact',
+                              title: 'Contact',
+                              inputType: 'number',
+                              isRequired: true,
+                              defaultValue: formData['contact'] || ''
+                            },
+                            {
+                              type: 'text',
+                              name: 'provice',
+                              title: 'Provice',
+                              isRequired: true,
+                              defaultValue: formData['province'] || ''
+                            },
+                            {
+                              type: 'text',
+                              name: 'district',
+                              title: 'District',
+                             defaultValue: formData['district'] || '',
+                              isRequired: true,
+                            },
+                            {
+                              type: 'text',
+                              name: 'sector',
+                              title: 'Sector',
+                             defaultValue: formData['sector'] || '',
+                              isRequired: true,
+                            },
+                            {
+                              type: 'text',
+                              name: 'cell',
+                              title: 'Cell',
+                             defaultValue: formData['cell'] || '',
+                              isRequired: true,
+                            },
+                            {
+                              type: 'text',
+                              name: 'village',
+                              title: 'Village',
+                             defaultValue: formData['village'] || '',
+                              isRequired: false,
+                            },
+                            
+                            
+                          ],
+                        },
+                      ],
+                    }}
+                    showNavigationButtons={true}
+                    completeText="Next"
+                    onComplete={(survey) => {
+      
+                      // Handle form submission here
+                      console.log('Form data:', survey.data);
+                      setFormData({ ...formData, ...survey.data });
+                      setSelectedSection("Soldier Kit")
+                    }}
+                  />
+                </>
+              );
             case 'Next of Kin Address':
             return (
               <>
@@ -985,6 +1065,14 @@ const addPersonnel = () => {
                             inputType: 'number',
                             isRequired: true,
                             defaultValue: formData['contact'] || ''
+                          },
+                          {
+                            type: 'text',
+                            name: 'relationship',
+                            title: 'Relationship',
+                         
+                            isRequired: true,
+                            defaultValue: formData['relationship'] || ''
                           },
                           {
                             type: 'text',
@@ -1156,7 +1244,12 @@ const addPersonnel = () => {
                 >
                   <a>Residence Address</a>
                 </li>
-                
+                <li
+                  style={{ marginBottom: '10px', cursor: 'pointer' }}
+                  onClick={() => handleSectionClick('Spouse Address')}
+                >
+                  <a>Spouse Address</a>
+                </li>
                 <li
                   style={{ marginBottom: '10px', cursor: 'pointer' }}
                   onClick={() => handleSectionClick('Next of Kin Address')}
