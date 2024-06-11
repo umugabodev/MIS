@@ -115,17 +115,17 @@ const _nav = [
       {
         component: CNavItem,
         name: 'Mission',
-        to: '#',
+        to: '/mission',
       },
       {
         component: CNavItem,
         name: 'RCA',
-        to: '#',
+        to: '/rca',
       },
       {
         component: CNavItem,
         name: 'Soldiers Kit',
-        to: '#',
+        to: '/soldiersKit',
       },
       
     ],

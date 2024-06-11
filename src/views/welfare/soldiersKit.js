@@ -3,17 +3,17 @@ import { Button, Modal } from 'react-bootstrap';
 import jsPDF from 'jspdf';
 import 'jspdf-autotable';
 
-const Internaldep = () => {
-  const [deployments, setDeployments] = useState([]);
+const mission = () => {
+  const [soldierskit, setsoldierskit] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [formData, setFormData] = useState({
     svcno: '',
     rank: '',
-    fname: '',
-    lname: '',
-    from: '',
-    to: '',
-    appointment: ''
+    names: '',
+    unit: '',
+    amount: '',
+    account: '',
+    depositedby: '',
   });
   const tableRef = useRef(null);
 
@@ -21,7 +21,7 @@ const Internaldep = () => {
     const doc = new jsPDF();
     
     // Add heading to the PDF
-    const heading = "Internal Deployment Report";
+    const heading = "Soldiers kit";
     const textWidth = doc.getStringUnitWidth(heading) * doc.internal.getFontSize() / doc.internal.scaleFactor;
     const textOffset = (doc.internal.pageSize.width - textWidth) / 2;
     doc.text(heading, textOffset, 10);
@@ -29,7 +29,7 @@ const Internaldep = () => {
     // Add table to the PDF
     doc.autoTable({ html: tableRef.current });
   
-    doc.save("InternalDep.pdf");
+    doc.save("Soldiers kit.pdf");
   };
 
   const handleAddDeployment = () => {
@@ -37,21 +37,21 @@ const Internaldep = () => {
   };
 
   const handleSearch = () => {
-    // Add logic for searching deployments
+    // Add logic for searching soldierskit
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setDeployments([...deployments, formData]);
+    setsoldierskit([...soldierskit, formData]);
     setIsModalOpen(false);
     setFormData({
-      svcno: '',
-      rank: '',
-      fname: '',
-      lname: '',
-      from: '',
-      to: '',
-      appointment: ''
+        svcno: '',
+        rank: '',
+        names: '',
+        unit: '',
+        amount: '',
+        account: '',
+        depositedby: '',
     });
   };
 
@@ -62,11 +62,11 @@ const Internaldep = () => {
 
   return (
     <>
-    <h3>Internal Deployments</h3>
+  
       <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
         <div className="btn-group">
-          <Button variant="info" className="mr-2" onClick={handleAddDeployment}>Add</Button>
-          <Button variant="info" className="mr-6" onClick={handleSearch}>Search</Button>
+          {/* <Button variant="info" className="mr-2" onClick={handleAddDeployment}>Add</Button>
+          <Button variant="info" className="mr-6" onClick={handleSearch}>Search</Button> */}
           <Button variant="success" onClick={exportToPDF}>Export to PDF</Button>
         </div>
       </div>
@@ -77,32 +77,33 @@ const Internaldep = () => {
             <tr>
               <th>SVCNO</th>
               <th>RANK</th>
-              <th>FNAME</th>
-              <th>LNAME</th>
-              <th>FROM</th>
-              <th>TO</th>
-              <th>APPOINTMENT</th>
-            </tr>
+              <th>NAMES</th>
+              <th>UNIT</th>
+              <th>SHOES</th>
+              <th>BDU</th>
+              <th>CAP</th>
+               <th>OFFICE DRESS</th>
+              </tr>
           </thead>
-          <tbody>
-            {deployments.map((deployment, index) => (
+          {/* <tbody>
+            {soldierskit.map((deployment, index) => (
               <tr key={index}>
                 <td>{deployment.svcno}</td>
                 <td>{deployment.rank}</td>
-                <td>{deployment.fname}</td>
-                <td>{deployment.lname}</td>
-                <td>{deployment.from}</td>
-                <td>{deployment.to}</td>
-                <td>{deployment.appointment}</td>
+                <td>{deployment.names}</td>
+                <td>{deployment.unit}</td>
+                <td>{deployment.amount}</td>
+                <td>{deployment.account}</td>
+                <td>{deployment.depositedby}</td>
               </tr>
             ))}
-          </tbody>
+          </tbody> */}
         </table>
       </div>
 
-      <Modal show={isModalOpen} onHide={() => setIsModalOpen(false)}>
+      {/* <Modal show={isModalOpen} onHide={() => setIsModalOpen(false)}>
         <Modal.Header closeButton>
-          <Modal.Title>Add Internal Deployment</Modal.Title>
+          <Modal.Title>Add</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <form onSubmit={handleSubmit}>
@@ -115,34 +116,35 @@ const Internaldep = () => {
               <input type="text" name="rank" value={formData.rank} onChange={handleChange} className="form-control" />
             </div>
             <div className="form-group">
-              <label>First Name:</label>
-              <input type="text" name="fname" value={formData.fname} onChange={handleChange} className="form-control" />
+              <label>Names:</label>
+              <input type="text" name="names" value={formData.names} onChange={handleChange} className="form-control" />
             </div>
             <div className="form-group">
-              <label>Last Name:</label>
-              <input type="text" name="lname" value={formData.lname} onChange={handleChange} className="form-control" />
+              <label>Unit</label>
+              <input type="text" name="unit" value={formData.unit} onChange={handleChange} className="form-control" />
             </div>
             <div className="form-group">
-              <label>From Regt:</label>
-              <input type="text" name="from" value={formData.from} onChange={handleChange} className="form-control" />
+              <label>Amount:</label>
+              <input type="text" name="amount" value={formData.amount} onChange={handleChange} className="form-control" />
             </div>
             <div className="form-group">
-              <label>To Regt:</label>
-              <input type="text" name="to" value={formData.to} onChange={handleChange} className="form-control" />
+              <label>Account:</label>
+              <input type="text" name="account" value={formData.account} onChange={handleChange} className="form-control" />
             </div>
             <div className="form-group">
-              <label>Appointment:</label>
-              <input type="text" name="appointment" value={formData.appointment} onChange={handleChange} className="form-control" />
+              <label>Deposited By:</label>
+              <input type="text" name="depositedby" value={formData.depositedby} onChange={handleChange} className="form-control" />
             </div>
+            
           </form>
         </Modal.Body>
         <Modal.Footer>
           <Button variant="primary" onClick={handleSubmit}>Submit</Button>
           <Button variant="secondary" onClick={() => setIsModalOpen(false)}>Cancel</Button>
         </Modal.Footer>
-      </Modal>
+      </Modal> */}
     </>
   );
 };
 
-export default Internaldep;
+export default mission;
