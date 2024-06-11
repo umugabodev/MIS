@@ -1,10 +1,10 @@
 import React from 'react'
 import Dashboards1 from './views/dashboardS1/Dashboards1'
 import DashboardAdmin from './views/dashboardS1/sysAdmindashboard/DashboardAdmin'
-
-
 const sidebar = React.lazy(() => import('/src/components/header/adminsidebar/Adminsidebar'))
 
+
+const UserList = React.lazy(() => import('/src/views/dashboardS1/User/UserList.js'))
 const CaseFileList = React.lazy(() => import('/src/views/pages/personnel/CaseFileList'))
 const ListofPersonnel = React.lazy(() => import('/src/views/dashboardS1/Tables/ListofPersonnel'))
 
@@ -28,7 +28,7 @@ const routes = [
   
 
   { path: '/CaseFileList', name: 'CaseFileList', element: CaseFileList },
-  // { path: '/PersonnelList', name: 'PersonnelList', element: PersonnelList },
+  { path: '/UserList', name: 'List Of Users', element: UserList },
   { path: '/ListofPersonnel', name: 'List Of Personnel', element: ListofPersonnel },
   { path: '/AddCase', name: 'Add Case', element: AddCase },
   { path: '/AddPersonnel', name: 'Add Personnel', element: AddPersonnel },

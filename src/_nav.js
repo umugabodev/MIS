@@ -228,7 +228,7 @@ const _nav = [
         {
           component: CNavItem,
           name: 'Manage Users',
-          to: '/ListofPersonnel',
+          to: '/UserList',
         },
   
       ],
