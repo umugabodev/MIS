@@ -49,10 +49,12 @@ const Paradestate = () => {
     handleCloseModal();
   };
   const exportToPDF = () => {
+    const heading = "Internal Deployment Report";
     const doc = new jsPDF();
     doc.autoTable({ html: tableRef.current });
     doc.save("Today.pdf");
   };
+  
 
   return (
     <div className="container py-6">

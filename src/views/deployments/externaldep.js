@@ -1,210 +1,148 @@
-import React from 'react'
+import React, { useState, useRef } from 'react';
+import { Button, Modal } from 'react-bootstrap';
+import jsPDF from 'jspdf';
+import 'jspdf-autotable';
 
+const Internaldep = () => {
+  const [deployments, setDeployments] = useState([]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [formData, setFormData] = useState({
+    svcno: '',
+    rank: '',
+    fname: '',
+    lname: '',
+    from: '',
+    to: '',
+    appointment: ''
+  });
+  const tableRef = useRef(null);
 
-import {
-
-  CCard,
-  CCardBody,
-  CCardFooter,
-  CCardHeader,
-  CCol,
-  CProgress,
-  CRow,
-
-} from '@coreui/react'
-import CIcon from '@coreui/icons-react'
-import {
- 
-  cilUser,
-  cilUserFemale,
-} from '@coreui/icons'
-
-
-
-
-import WidgetsDropdown from '../widgets/WidgetsDropdown'
-
-
-const externaldep = () => {
+  const exportToPDF = () => {
+    const doc = new jsPDF();
+    
+    // Add heading to the PDF
+    const heading = "External Deployment Report";
+    const textWidth = doc.getStringUnitWidth(heading) * doc.internal.getFontSize() / doc.internal.scaleFactor;
+    const textOffset = (doc.internal.pageSize.width - textWidth) / 2;
+    doc.text(heading, textOffset, 10);
+    
+    // Add table to the PDF
+    doc.autoTable({ html: tableRef.current });
   
+    doc.save("ExternalDep.pdf");
+  };
 
-  const progressGroupExample1 = [
-    { title: 'Male (Officers)', icon: cilUser, value: 53 },
-    { title: 'Female (Officers)', icon: cilUserFemale, value: 26 },
-  ]
+  const handleAddDeployment = () => {
+    setIsModalOpen(true);
+  };
 
-  const progressGroupExample2 = [
-    { title: 'Male (NCOs)', icon: cilUser, value: 64 },
-    { title: 'Female (NCOs)', icon: cilUserFemale, value: 43 },
-  ]
+  const handleSearch = () => {
+    // Add logic for searching deployments
+  };
 
- 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setDeployments([...deployments, formData]);
+    setIsModalOpen(false);
+    setFormData({
+      svcno: '',
+      rank: '',
+      fname: '',
+      lname: '',
+      from: '',
+      to: '',
+      appointment: ''
+    });
+  };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
+
   return (
     <>
-      
-      <CRow>
-        <CCol xs>
-          <CCard className="mb-4">
-            <CCardHeader>Deployments </CCardHeader>
-            <CCardBody>
-              <CRow>
-                <CCol xs={12} md={6} xl={6}>
-                  <CRow>
-                    <CCol xs={6}>
-                      <div className="border-start border-start-4  py-1 px-3">
-                        <div className="text-body-secondary text-truncate small">1 Inf Div</div>
-                        <div className="fs-5 fw-semibold">11</div>
-                      </div>
-                    </CCol>
-                    <CCol xs={6}>
-                      <div className="border-start border-start-4  py-1 px-3 mb-3">
-                        <div className="text-body-secondary text-truncate small">
-                        2 Inf Div
-                        </div>
-                        <div className="fs-5 fw-semibold">23</div>
-                      </div>
-                    </CCol>
-                    <CCol xs={6}>
-                      <div className="border-start border-start-4  py-1 px-3 mb-3">
-                        <div className="text-body-secondary text-truncate small">
-                        5 Inf Div
-                        </div>
-                        <div className="fs-5 fw-semibold">31</div>
-                      </div>
-                    </CCol>
-                    <CCol xs={6}>
-                      <div className="border-start border-start-4 py-1 px-3 mb-3">
-                        <div className="text-body-secondary text-truncate small">
-                        TF Div
-                        </div>
-                        <div className="fs-5 fw-semibold">09</div>
-                      </div>
-                    </CCol>
-                    <CCol xs={6}>
-                      <div className="border-start border-start-4  py-1 px-3 mb-3">
-                        <div className="text-body-secondary text-truncate small">
-                        Log Bde
-                        </div>
-                        <div className="fs-5 fw-semibold">16</div>
-                      </div>
-                    </CCol>
-                    <CCol xs={6}>
-                      <div className="border-start border-start-4 py-1 px-3 mb-3">
-                        <div className="text-body-secondary text-truncate small">
-                        MP Bde
-                        </div>
-                        <div className="fs-5 fw-semibold">09</div>
-                      </div>
-                    </CCol>
-                    <CCol xs={6}>
-                      <div className="border-start border-start-4 py-1 px-3 mb-3">
-                        <div className="text-body-secondary text-truncate small">
-                        Air Force
-                        </div>
-                        <div className="fs-5 fw-semibold">42</div>
-                      </div>
-                    </CCol>
-                    <CCol xs={6}>
-                      <div className="border-start border-start-4 py-1 px-3 mb-3">
-                        <div className="text-body-secondary text-truncate small">
-                        Reserve Force
-                        </div>
-                        <div className="fs-5 fw-semibold">22</div>
-                      </div>
-                    </CCol>
-                  </CRow>
-                  <hr className="mt-4" />
-                  {progressGroupExample1.map((item, index) => (
-                    <div className="progress-group mb-4" key={index}>
-                      <div className="progress-group-header">
-                        <CIcon className="me-2" icon={item.icon} size="lg" />
-                        <span>{item.title}</span>
-                        <span className="ms-auto fw-semibold">{item.value}%</span>
-                      </div>
-                      <div className="progress-group-bars">
-                        <CProgress thin color="warning" value={item.value} />
-                      </div>
-                    </div>
-                  ))}
-                </CCol>
-                <CCol xs={12} md={6} xl={6}>
-                  <CRow>
-                    <CCol xs={6}>
-                      <div className="border-start border-start-4  py-1 px-3 mb-3">
-                        <div className="text-body-secondary text-truncate small">3 Inf Div</div>
-                        <div className="fs-5 fw-semibold">36</div>
-                      </div>
-                    </CCol>
-                    <CCol xs={6}>
-                      <div className="border-start border-start-4  py-1 px-3 mb-3">
-                        <div className="text-body-secondary text-truncate small">4 Inf Div</div>
-                        <div className="fs-5 fw-semibold">41</div>
-                      </div>
-                    </CCol>
-                    <CCol xs={6}>
-                      <div className="border-start border-start-4  py-1 px-3 mb-3">
-                        <div className="text-body-secondary text-truncate small">Arty Div</div>
-                        <div className="fs-5 fw-semibold">14</div>
-                      </div>
-                    </CCol>
-                    <CCol xs={6}>
-                      <div className="border-start border-start-4  py-1 px-3 mb-3">
-                        <div className="text-body-secondary text-truncate small">Mech Div</div>
-                        <div className="fs-5 fw-semibold">21</div>
-                      </div>
-                    </CCol>
-                    <CCol xs={6}>
-                      <div className="border-start border-start-4  py-1 px-3 mb-3">
-                        <div className="text-body-secondary text-truncate small">SOF</div>
-                        <div className="fs-5 fw-semibold">21</div>
-                      </div>
-                    </CCol>
-                    <CCol xs={6}>
-                      <div className="border-start border-start-4  py-1 px-3 mb-3">
-                        <div className="text-body-secondary text-truncate small">RG</div>
-                        <div className="fs-5 fw-semibold">23</div>
-                      </div>
-                    </CCol>
-                    <CCol xs={6}>
-                      <div className="border-start border-start-4  py-1 px-3 mb-3">
-                        <div className="text-body-secondary text-truncate small">DID</div>
-                        <div className="fs-5 fw-semibold">06</div>
-                      </div>
-                    </CCol>
-                    <CCol xs={6}>
-                      <div className="border-start border-start-4  py-1 px-3 mb-3">
-                        <div className="text-body-secondary text-truncate small">ZCSS & AFOS</div>
-                        <div className="fs-5 fw-semibold">17</div>
-                      </div>
-                    </CCol>
-                  </CRow>
+   <h3>External Deployments</h3>
+      <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+        <div className="btn-group">
+          <Button variant="info" className="mr-2" onClick={handleAddDeployment}>Add</Button>
+          <Button variant="info" className="mr-6" onClick={handleSearch}>Search</Button>
+          <Button variant="success" onClick={exportToPDF}>Export to PDF</Button>
+        </div>
+      </div>
 
-                  <hr className="mt-4" />
+      <div className="container mt-4">
+        <table className="table table-hover" ref={tableRef}>
+          <thead>
+            <tr>
+              <th>SVCNO</th>
+              <th>RANK</th>
+              <th>FNAME</th>
+              <th>LNAME</th>
+              <th>FROM</th>
+              <th>TO</th>
+              <th>APPOINTMENT</th>
+            </tr>
+          </thead>
+          <tbody>
+            {deployments.map((deployment, index) => (
+              <tr key={index}>
+                <td>{deployment.svcno}</td>
+                <td>{deployment.rank}</td>
+                <td>{deployment.fname}</td>
+                <td>{deployment.lname}</td>
+                <td>{deployment.from}</td>
+                <td>{deployment.to}</td>
+                <td>{deployment.appointment}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
 
-                  {progressGroupExample2.map((item, index) => (
-                    <div className="progress-group mb-4" key={index}>
-                      <div className="progress-group-header">
-                        <CIcon className="me-2" icon={item.icon} size="lg" />
-                        <span>{item.title}</span>
-                        <span className="ms-auto fw-semibold">{item.value}%</span>
-                      </div>
-                      <div className="progress-group-bars">
-                        <CProgress thin color="warning" value={item.value} />
-                      </div>
-                    </div>
-                  ))}
-
-                  <div className="mb-5"></div>
-
-                </CCol>
-              </CRow>
-
-            </CCardBody>
-          </CCard>
-        </CCol>
-      </CRow>
+      <Modal show={isModalOpen} onHide={() => setIsModalOpen(false)}>
+        <Modal.Header closeButton>
+          <Modal.Title>Add Internal Deployment</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <form onSubmit={handleSubmit}>
+            <div className="form-group">
+              <label>Service Number:</label>
+              <input type="text" name="svcno" value={formData.svcno} onChange={handleChange} className="form-control" />
+            </div>
+            <div className="form-group">
+              <label>Rank:</label>
+              <input type="text" name="rank" value={formData.rank} onChange={handleChange} className="form-control" />
+            </div>
+            <div className="form-group">
+              <label>First Name:</label>
+              <input type="text" name="fname" value={formData.fname} onChange={handleChange} className="form-control" />
+            </div>
+            <div className="form-group">
+              <label>Last Name:</label>
+              <input type="text" name="lname" value={formData.lname} onChange={handleChange} className="form-control" />
+            </div>
+            <div className="form-group">
+              <label>From Unit:</label>
+              <input type="text" name="from" value={formData.from} onChange={handleChange} className="form-control" />
+            </div>
+            <div className="form-group">
+              <label>To Unit:</label>
+              <input type="text" name="to" value={formData.to} onChange={handleChange} className="form-control" />
+            </div>
+            <div className="form-group">
+              <label>Appointment:</label>
+              <input type="text" name="appointment" value={formData.appointment} onChange={handleChange} className="form-control" />
+            </div>
+          </form>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="primary" onClick={handleSubmit}>Submit</Button>
+          <Button variant="secondary" onClick={() => setIsModalOpen(false)}>Cancel</Button>
+        </Modal.Footer>
+      </Modal>
     </>
-  )
-}
+  );
+};
 
-export default externaldep
+export default Internaldep;

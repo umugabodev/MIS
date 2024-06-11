@@ -26,18 +26,6 @@ import WidgetsDropdown from '../widgets/WidgetsDropdown'
 
 
 const monthly = () => {
-  
-
-  const progressGroupExample1 = [
-    { title: 'Male (Officers)', icon: cilUser, value: 53 },
-    { title: 'Female (Officers)', icon: cilUserFemale, value: 26 },
-  ]
-
-  const progressGroupExample2 = [
-    { title: 'Male (NCOs)', icon: cilUser, value: 64 },
-    { title: 'Female (NCOs)', icon: cilUserFemale, value: 43 },
-  ]
-
  
   return (
     <>
@@ -45,7 +33,7 @@ const monthly = () => {
       <CRow>
         <CCol xs>
           <CCard className="mb-4">
-            <CCardHeader>Deployments </CCardHeader>
+            <CCardHeader>Monthly Parade State </CCardHeader>
             <CCardBody>
               <CRow>
                 <CCol xs={12} md={6} xl={6}>
@@ -113,19 +101,7 @@ const monthly = () => {
                       </div>
                     </CCol>
                   </CRow>
-                  <hr className="mt-4" />
-                  {progressGroupExample1.map((item, index) => (
-                    <div className="progress-group mb-4" key={index}>
-                      <div className="progress-group-header">
-                        <CIcon className="me-2" icon={item.icon} size="lg" />
-                        <span>{item.title}</span>
-                        <span className="ms-auto fw-semibold">{item.value}%</span>
-                      </div>
-                      <div className="progress-group-bars">
-                        <CProgress thin color="warning" value={item.value} />
-                      </div>
-                    </div>
-                  ))}
+                 
                 </CCol>
                 <CCol xs={12} md={6} xl={6}>
                   <CRow>
@@ -179,23 +155,7 @@ const monthly = () => {
                     </CCol>
                   </CRow>
 
-                  <hr className="mt-4" />
-
-                  {progressGroupExample2.map((item, index) => (
-                    <div className="progress-group mb-4" key={index}>
-                      <div className="progress-group-header">
-                        <CIcon className="me-2" icon={item.icon} size="lg" />
-                        <span>{item.title}</span>
-                        <span className="ms-auto fw-semibold">{item.value}%</span>
-                      </div>
-                      <div className="progress-group-bars">
-                        <CProgress thin color="warning" value={item.value} />
-                      </div>
-                    </div>
-                  ))}
-
-                  <div className="mb-5"></div>
-
+                  
                 </CCol>
               </CRow>
 
