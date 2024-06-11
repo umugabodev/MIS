@@ -1,16 +1,12 @@
 import React from 'react'
 import CIcon from '@coreui/icons-react'
-import customColors from './assets/js/customColors'
+
 
 import {
-  cilBell,
-  cilCalculator,
-  cilChartPie,
+
   cilCursor,
   cilDescription,
-  cilDrop,
   cilNotes,
-  cilPencil,
   cilPuzzle,
   cilSpeedometer,
   cilStar,
@@ -71,79 +67,25 @@ const _nav = [
   {
     component: CNavGroup,
     name: 'Parade State',
-    to: '#',
+    to: '/',
     icon: <CIcon icon={cilPuzzle} customClassName="nav-icon" />,
     items: [
       {
         component: CNavItem,
         name: 'Daily',
-        to: '#',
+        to: '/daily',
       },
       {
         component: CNavItem,
         name: 'Monthly',
-        to: '#',
+        to: '/monthly',
       },
       {
         component: CNavItem,
         name: 'Strength Return',
-        to: '#',
+        to: '/Streangth',
       },
-      // {
-      //   component: CNavItem,
-      //   name: 'Carousel',
-      //   to: '/base/carousels',
-      // },
-      // {
-      //   component: CNavItem,
-      //   name: 'Collapse',
-      //   to: '/base/collapses',
-      // },
-      // {
-      //   component: CNavItem,
-      //   name: 'List group',
-      //   to: '/base/list-groups',
-      // },
-      // {
-      //   component: CNavItem,
-      //   name: 'Navs & Tabs',
-      //   to: '/base/navs',
-      // },
-      // {
-      //   component: CNavItem,
-      //   name: 'Pagination',
-      //   to: '/base/paginations',
-      // },
-      // {
-      //   component: CNavItem,
-      //   name: 'Placeholders',
-      //   to: '/base/placeholders',
-      // },
-      // {
-      //   component: CNavItem,
-      //   name: 'Popovers',
-      //   to: '/base/popovers',
-      // },
-      // {
-      //   component: CNavItem,
-      //   name: 'Progress',
-      //   to: '/base/progress',
-      // },
-      // {
-      //   component: CNavItem,
-      //   name: 'Spinners',
-      //   to: '/base/spinners',
-      // },
-      // {
-      //   component: CNavItem,
-      //   name: 'Tables',
-      //   to: '/base/tables',
-      // },
-      // {
-      //   component: CNavItem,
-      //   name: 'Tooltips',
-      //   to: '/base/tooltips',
-      // },
+     
     ],
   },
   {
@@ -155,18 +97,14 @@ const _nav = [
       {
         component: CNavItem,
         name: 'Internal Deployment',
-        to: '#',
+        to: '/internaldep',
       },
       {
         component: CNavItem,
         name: 'External Deployment',
-        to: '#',
+        to: '/externaldep',
       },
-      // {
-      //   component: CNavItem,
-      //   name: 'Dropdowns',
-      //   to: '/buttons/dropdowns',
-      // },
+    
     ],
   },
   {
@@ -177,43 +115,19 @@ const _nav = [
       {
         component: CNavItem,
         name: 'Mission',
-        to: '#',
+        to: '/mission',
       },
       {
         component: CNavItem,
         name: 'RCA',
-        to: '#',
+        to: '/rca',
       },
       {
         component: CNavItem,
         name: 'Soldiers Kit',
-        to: '#',
+        to: '/soldiersKit',
       },
-      // {
-      //   component: CNavItem,
-      //   name: 'Range',
-      //   to: '/forms/range',
-      // },
-      // {
-      //   component: CNavItem,
-      //   name: 'Input Group',
-      //   to: '/forms/input-group',
-      // },
-      // {
-      //   component: CNavItem,
-      //   name: 'Floating Labels',
-      //   to: '/forms/floating-labels',
-      // },
-      // {
-      //   component: CNavItem,
-      //   name: 'Layout',
-      //   to: '/forms/layout',
-      // },
-      // {
-      //   component: CNavItem,
-      //   name: 'Validation',
-      //   to: '/forms/validation',
-      // },
+      
     ],
   },
 
@@ -272,11 +186,7 @@ const _nav = [
         name: 'Yearly Report',
         to: '#',
       },
-      // {
-      //   component: CNavItem,
-      //   name: 'Error 500',
-      //   to: '/500',
-      // },
+     
     ],
   },
   {
