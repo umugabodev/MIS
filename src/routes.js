@@ -28,10 +28,7 @@ const routes = [
   
 
   { path: '/CaseFileList', name: 'CaseFileList', element: CaseFileList },
-<<<<<<< HEAD
   { path: '/UserList', name: 'List Of Users', element: UserList },
-=======
->>>>>>> d5761e2aae0008c48400fefc33d7aa8cf1eb946d
   { path: '/ListofPersonnel', name: 'List Of Personnel', element: ListofPersonnel },
   { path: '/AddCase', name: 'Add Case', element: AddCase },
   { path: '/AddPersonnel', name: 'Add Personnel', element: AddPersonnel },
