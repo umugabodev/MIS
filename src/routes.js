@@ -19,12 +19,16 @@ const externaldep = React.lazy(() => import('/src/views/deployments/externaldep.
 const rca = React.lazy(() => import('/src/views/welfare/rca.js'))
 const soldiersKit = React.lazy(() => import('/src/views/welfare/soldiersKit.js'))
 const Widgets = React.lazy(() => import('./views/widgets/Widgets'))
+const Profile = React.lazy(() => import('/src/views/dashboardS1/User/Profile.js'))
+
 
 const routes = [
   { path: '/home', exact: true, name: 'Home' },
   { path: '/DashboardAdmin', name: 'Dashboard Admin', element: DashboardAdmin },
   { path: '/dashboards1', name: 'Dashboard', element: Dashboards1 },
   { path: '/widgets', name: 'Widgets', element: Widgets },
+  { path: '/Profile', name: 'Personal Profile', element: Profile },
+
   
 
   { path: '/CaseFileList', name: 'CaseFileList', element: CaseFileList },

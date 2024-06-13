@@ -66,12 +66,12 @@ const AppHeader = () => {
               Dashboard
             </CNavLink>
           </CNavItem>
-          <CNavItem>
+          {/* <CNavItem>
             <CNavLink href="#" style={{color: 'white'}}>Users</CNavLink>
           </CNavItem>
           <CNavItem>
             <CNavLink href="#" style={{color: 'white'}}>Settings</CNavLink>
-          </CNavItem>
+          </CNavItem> */}
         </CHeaderNav>
         <CHeaderNav className="ms-auto">
           <CNavItem>
