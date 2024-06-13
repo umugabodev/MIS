@@ -47,17 +47,6 @@ const _nav = [
         name: 'Manage Personnel',
         to: '/ListofPersonnel',
       },
-  
-      // {
-      //   component: CNavItem,
-      //   name: 'On Course',
-      //   to: '/404',
-      // },
-      // {
-      //   component: CNavItem,
-      //   name: 'Completed',
-      //   to: '/500',
-      // },
     ],
   },
   {
@@ -143,22 +132,22 @@ const _nav = [
       {
         component: CNavItem,
         name: 'Recruitors',
-        to: '#',
+        to: '/RecruiterForm',
       },
       {
         component: CNavItem,
         name: 'Pendings',
-        to: '#',
+        to: '/RecruiterList',
       },
       {
         component: CNavItem,
         name: 'On Course',
-        to: '#',
+        to: 'RecruiterList',
       },
       {
         component: CNavItem,
         name: 'Completed',
-        to: '#',
+        to: 'RecruiterList',
       },
     ],
   },

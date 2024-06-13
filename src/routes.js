@@ -3,6 +3,8 @@ import Dashboards1 from './views/dashboardS1/Dashboards1'
 import DashboardAdmin from './views/dashboardS1/sysAdmindashboard/DashboardAdmin'
 const sidebar = React.lazy(() => import('/src/components/header/adminsidebar/Adminsidebar'))
 
+const RecruiterForm = React.lazy(() => import('/src/views/dashboardS1/Recruitors/RecruiterForm.js'))
+const RecruiterList = React.lazy(() => import('/src/views/dashboardS1/Recruitors/RecruiterList.js'))
 
 const UserList = React.lazy(() => import('/src/views/dashboardS1/User/UserList.js'))
 const CaseFileList = React.lazy(() => import('/src/views/pages/personnel/CaseFileList'))
@@ -27,12 +29,14 @@ const routes = [
   { path: '/DashboardAdmin', name: 'Dashboard Admin', element: DashboardAdmin },
   { path: '/dashboards1', name: 'Dashboard', element: Dashboards1 },
   { path: '/widgets', name: 'Widgets', element: Widgets },
-  { path: '/Profile', name: 'Personal Profile', element: Profile },
+  { path: '/profile', name: 'Personal Profile', element: Profile },
 
   
-
+  { path: '/RecruiterForm', name: 'Recruiter Form', element: RecruiterForm },
   { path: '/CaseFileList', name: 'CaseFileList', element: CaseFileList },
   { path: '/UserList', name: 'List Of Users', element: UserList },
+  { path: '/RecruiterList', name: 'List Of Recruitors', element: RecruiterList },
+
   { path: '/ListofPersonnel', name: 'List Of Personnel', element: ListofPersonnel },
   { path: '/AddCase', name: 'Add Case', element: AddCase },
   { path: '/AddPersonnel', name: 'Add Personnel', element: AddPersonnel },
