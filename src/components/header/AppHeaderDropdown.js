@@ -4,6 +4,7 @@ import {
   CBadge,
   CDropdown,
   CDropdownDivider,
+  // CAppHeaderDropdown,
   CDropdownHeader,
   CDropdownItem,
   CDropdownMenu,
@@ -47,9 +48,11 @@ const AppHeaderDropdown = () => {
           </CBadge>
         </CDropdownItem>
         <CDropdownHeader className="bg-body-secondary fw-semibold my-2">Settings</CDropdownHeader>
-        <CDropdownItem href="#">
-          <CIcon icon={cilUser} className="me-2" />
-          Profile
+        <CDropdownItem>
+          {/* <Link to="/Profile" className="dropdown-link"> */}
+            <CIcon icon={cilUser} className="me-2" />
+            Profile
+          {/* </Link> */}
         </CDropdownItem>
         <CDropdownItem href="#">
           <CIcon icon={cilSettings} className="me-2" />

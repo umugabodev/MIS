@@ -39,7 +39,11 @@
     "core-js": "^3.36.1",
     "jspdf": "^2.5.1",
     "jspdf-autotable": "^3.8.2",
+<<<<<<< HEAD
+    "jwt-decode": "^4.0.0",
+=======
     "leaflet": "^1.9.4",
+>>>>>>> 86473d76b5e217417010c9c11e48953306c60b7d
     "prop-types": "^15.8.1",
     "react": "latest",
     "react-bootstrap": "^2.10.2",

@@ -10,6 +10,160 @@ import {
 } from '@coreui/icons';
 import { CNavGroup, CNavItem, CNavTitle } from '@coreui/react';
 
+<<<<<<< HEAD
+    icon: <CIcon icon={cilStar} customClassName="nav-icon"/>,
+    
+    items: [
+      {
+        component: CNavItem,
+        name: 'Add Personnel',
+        to: '/AddPersonnel',
+      },
+      {
+        component: CNavItem,
+        name: 'Manage Personnel',
+        to: '/ListofPersonnel',
+      },
+    ],
+  },
+  {
+    component: CNavTitle,
+    name: 'ADMINISTRATION INFO',
+  },
+  {
+    component: CNavGroup,
+    name: 'Parade State',
+    to: '/',
+    icon: <CIcon icon={cilPuzzle} customClassName="nav-icon" />,
+    items: [
+      {
+        component: CNavItem,
+        name: 'Daily',
+        to: '/daily',
+      },
+      {
+        component: CNavItem,
+        name: 'Monthly',
+        to: '/monthly',
+      },
+      {
+        component: CNavItem,
+        name: 'Strength Return',
+        to: '/Streangth',
+      },
+     
+    ],
+  },
+  {
+    component: CNavGroup,
+    name: 'Deployments',
+    to: '#',
+    icon: <CIcon icon={cilCursor} customClassName="nav-icon" />,
+    items: [
+      {
+        component: CNavItem,
+        name: 'Internal Deployment',
+        to: '/internaldep',
+      },
+      {
+        component: CNavItem,
+        name: 'External Deployment',
+        to: '/externaldep',
+      },
+    
+    ],
+  },
+  {
+    component: CNavGroup,
+    name: 'Welfare',
+    icon: <CIcon icon={cilNotes} customClassName="nav-icon" />,
+    items: [
+      {
+        component: CNavItem,
+        name: 'Mission',
+        to: '/mission',
+      },
+      {
+        component: CNavItem,
+        name: 'RCA',
+        to: '/rca',
+      },
+      {
+        component: CNavItem,
+        name: 'Soldiers Kit',
+        to: '/soldiersKit',
+      },
+      
+    ],
+  },
+
+  {
+    component: CNavTitle,
+    name: 'RECRUITMENT INFO',
+  },
+  {
+    component: CNavGroup,
+    name: 'Recruitment',
+    icon: <CIcon icon={cilStar} customClassName="nav-icon" />,
+    items: [
+      {
+        component: CNavItem,
+        name: 'Recruitors',
+        to: '/RecruiterForm',
+      },
+      {
+        component: CNavItem,
+        name: 'Pendings',
+        to: '/RecruiterList',
+      },
+      {
+        component: CNavItem,
+        name: 'On Course',
+        to: 'RecruiterList',
+      },
+      {
+        component: CNavItem,
+        name: 'Completed',
+        to: 'RecruiterList',
+      },
+    ],
+  },
+  {
+    component: CNavTitle,
+    name: 'REPORTS',
+  },
+  {
+    component: CNavGroup,
+    name: 'Select report',
+    icon: <CIcon icon={cilStar} customClassName="nav-icon" />,
+    items: [
+      {
+        component: CNavItem,
+        name: 'Statistical Report',
+        to: '#',
+      },
+      {
+        component: CNavItem,
+        name: 'Monthly Report',
+        to: '#',
+      },
+      {
+        component: CNavItem,
+        name: 'Yearly Report',
+        to: '#',
+      },
+     
+    ],
+  },
+  {
+    component: CNavItem,
+    name: 'Financial Docs',
+    href: '#',
+    icon: <CIcon icon={cilDescription} customClassName="nav-icon" />,
+  },
+ 
+    //END OF MENU DESIGNED FOR S1
+=======
 const getNavItems = (userRole) => {
   // const commonItems = [
   //   {
@@ -46,6 +200,7 @@ const getNavItems = (userRole) => {
   // ];
 
   const adminItems = [
+>>>>>>> 86473d76b5e217417010c9c11e48953306c60b7d
     {
       //MENU DESIGNED FOR S1
       component: CNavItem,
