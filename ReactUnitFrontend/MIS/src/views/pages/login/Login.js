@@ -33,10 +33,14 @@ const Login = () => {
             body: JSON.stringify(user),
         });
         const data = await response.json();
+        if (!response.ok) {
+          alert('Invalid Username or Password');
+      }else{
         localStorage.setItem('accessToken', data.accessToken); // Store access token in local storage
         localStorage.setItem('refreshToken', data.refreshToken); // Store refresh token in local storage
         console.log('Login successful:', user);
         navigate("/dashboards1");
+      }
     } catch (error) {
         console.error('Login error:', error);
         alert('Login failed');
