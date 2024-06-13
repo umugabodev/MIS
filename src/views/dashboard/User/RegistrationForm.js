@@ -6,8 +6,10 @@ import {
   CCardHeader,
   CCol,
 } from '@coreui/react';
+import axios from 'axios';
 
 const RegistrationForm = () => {
+  axios.defaults.withCredentials = true;
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -61,11 +63,31 @@ const RegistrationForm = () => {
     return validationErrors;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const validationErrors = validate();
     if (Object.keys(validationErrors).length === 0) {
-      console.log('Form submitted', formData);
+      try {
+        alert('To Register User');
+        if (response.data.message === 'User registered successfully') {
+          alert('User registered successfully' );
+          // Redirect or reset form
+          setFormData({
+            firstName: '',
+            lastName: '',
+            phoneNumber: '',
+            username: '',
+            email: '',
+            password: '',
+            type: '',
+          });
+        } else {
+          alert('Failed to register user');
+        }
+      } catch (error) {
+        console.error('Error registering user:', error);
+        alert('Failed to register user');
+      }
     } else {
       setErrors(validationErrors);
     }
