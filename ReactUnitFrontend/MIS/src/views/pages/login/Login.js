@@ -16,6 +16,10 @@ import CIcon from '@coreui/icons-react';
 import { cilLockLocked, cilUser } from '@coreui/icons';
 
 const Login = () => {
+  const[user, setUser] = useState({
+    username:'',
+    password:'',
+  })
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -32,6 +36,7 @@ const Login = () => {
         localStorage.setItem('accessToken', data.accessToken); // Store access token in local storage
         localStorage.setItem('refreshToken', data.refreshToken); // Store refresh token in local storage
         console.log('Login successful:', user);
+        navigate("/dashboards1");
     } catch (error) {
         console.error('Login error:', error);
         alert('Login failed');
