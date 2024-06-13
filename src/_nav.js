@@ -1,202 +1,51 @@
-import React from 'react'
-import CIcon from '@coreui/icons-react'
-
-
+import React from 'react';
+import CIcon from '@coreui/icons-react';
 import {
-
   cilCursor,
   cilDescription,
   cilNotes,
   cilPuzzle,
   cilSpeedometer,
   cilStar,
-} from '@coreui/icons'
-import { CNavGroup, CNavItem, CNavTitle } from '@coreui/react'
+} from '@coreui/icons';
+import { CNavGroup, CNavItem, CNavTitle } from '@coreui/react';
 
-const _nav = [
-  {
-    //MENU DESIGNED FOR S1
-    component: CNavItem,
-    name: 'S1 Dashboard',
-    to: '/dashboards1',
-    icon: <CIcon icon={cilSpeedometer} customClassName="nav-icon" />,
-    badge: {
-      color: 'info',
-      text: 'NEW',
-    },
-    
-  },
-  {
-    component: CNavTitle,
-    name: 'PERSONNEL INFO',
-  },
-  {
-    component: CNavGroup,
-    name: 'Personnel Data',
+const getNavItems = (userRole) => {
+  // const commonItems = [
+  //   {
+  //     component: CNavItem,
+  //     name: 'Dashboard',
+  //     to: '/dashboards1',
+  //     icon: <CIcon icon={cilSpeedometer} customClassName="nav-icon" />,
+  //     badge: {
+  //       color: 'info',
+  //       text: 'NEW',
+  //     },
+  //   },
+  //   {
+  //     component: CNavTitle,
+  //     name: 'PERSONNEL INFO',
+  //   },
+  //   {
+  //     component: CNavGroup,
+  //     name: 'Personnel Data',
+  //     icon: <CIcon icon={cilStar} customClassName="nav-icon" />,
+  //     items: [
+  //       {
+  //         component: CNavItem,
+  //         name: 'Add Personnel',
+  //         to: '/AddPersonnel',
+  //       },
+  //       {
+  //         component: CNavItem,
+  //         name: 'Manage Personnel',
+  //         to: '/ListofPersonnel',
+  //       },
+  //     ],
+  //   },
+  // ];
 
-    icon: <CIcon icon={cilStar} customClassName="nav-icon"/>,
-    
-    items: [
-      {
-        component: CNavItem,
-        name: 'Add Personnel',
-        to: '/AddPersonnel',
-      },
-      {
-        component: CNavItem,
-        name: 'Manage Personnel',
-        to: '/ListofPersonnel',
-      },
-  
-      // {
-      //   component: CNavItem,
-      //   name: 'On Course',
-      //   to: '/404',
-      // },
-      // {
-      //   component: CNavItem,
-      //   name: 'Completed',
-      //   to: '/500',
-      // },
-    ],
-  },
-  {
-    component: CNavTitle,
-    name: 'ADMINISTRATION INFO',
-  },
-  {
-    component: CNavGroup,
-    name: 'Parade State',
-    to: '/',
-    icon: <CIcon icon={cilPuzzle} customClassName="nav-icon" />,
-    items: [
-      {
-        component: CNavItem,
-        name: 'Daily',
-        to: '/daily',
-      },
-      {
-        component: CNavItem,
-        name: 'Monthly',
-        to: '/monthly',
-      },
-      {
-        component: CNavItem,
-        name: 'Strength Return',
-        to: '/Streangth',
-      },
-     
-    ],
-  },
-  {
-    component: CNavGroup,
-    name: 'Deployments',
-    to: '#',
-    icon: <CIcon icon={cilCursor} customClassName="nav-icon" />,
-    items: [
-      {
-        component: CNavItem,
-        name: 'Internal Deployment',
-        to: '/internaldep',
-      },
-      {
-        component: CNavItem,
-        name: 'External Deployment',
-        to: '/externaldep',
-      },
-    
-    ],
-  },
-  {
-    component: CNavGroup,
-    name: 'Welfare',
-    icon: <CIcon icon={cilNotes} customClassName="nav-icon" />,
-    items: [
-      {
-        component: CNavItem,
-        name: 'Mission',
-        to: '/mission',
-      },
-      {
-        component: CNavItem,
-        name: 'RCA',
-        to: '/rca',
-      },
-      {
-        component: CNavItem,
-        name: 'Soldiers Kit',
-        to: '/soldiersKit',
-      },
-      
-    ],
-  },
-
-  {
-    component: CNavTitle,
-    name: 'RECRUITMENT INFO',
-  },
-  {
-    component: CNavGroup,
-    name: 'Recruitment',
-    icon: <CIcon icon={cilStar} customClassName="nav-icon" />,
-    items: [
-      {
-        component: CNavItem,
-        name: 'Recruitors',
-        to: '#',
-      },
-      {
-        component: CNavItem,
-        name: 'Pendings',
-        to: '#',
-      },
-      {
-        component: CNavItem,
-        name: 'On Course',
-        to: '#',
-      },
-      {
-        component: CNavItem,
-        name: 'Completed',
-        to: '#',
-      },
-    ],
-  },
-  {
-    component: CNavTitle,
-    name: 'REPORTS',
-  },
-  {
-    component: CNavGroup,
-    name: 'Select report',
-    icon: <CIcon icon={cilStar} customClassName="nav-icon" />,
-    items: [
-      {
-        component: CNavItem,
-        name: 'Statistical Report',
-        to: '#',
-      },
-      {
-        component: CNavItem,
-        name: 'Monthly Report',
-        to: '#',
-      },
-      {
-        component: CNavItem,
-        name: 'Yearly Report',
-        to: '#',
-      },
-     
-    ],
-  },
-  {
-    component: CNavItem,
-    name: 'Financial Docs',
-    href: '#',
-    icon: <CIcon icon={cilDescription} customClassName="nav-icon" />,
-  },
- 
-    //END OF MENU DESIGNED FOR S1
+  const adminItems = [
     {
       //MENU DESIGNED FOR S1
       component: CNavItem,
@@ -233,6 +82,37 @@ const _nav = [
   
       ],
     },
+    {
+      component: CNavTitle,
+      name: 'UNIT/DEP',
+    },
+    {
+      component: CNavGroup,
+      name: ' Fomations',
+  
+      icon: <CIcon icon={cilStar} customClassName="nav-icon"/>,
+      
+      items: [
+        {
+          component: CNavItem,
+          name: 'Add Unit',
+          to: '#',
+        },
+        {
+          component: CNavItem,
+          name: 'Manage Unit',
+          to: '#',
+        },
+        
+        {
+          component: CNavItem,
+          name: 'Manage Department',
+          to: '#',
+        },
+  
+      ],
+    },
+    
     {
       component: CNavTitle,
       name: 'PERMISSION INFO',
@@ -296,130 +176,373 @@ const _nav = [
       ],
       
     },
+  ];
 
-  //End of SYSTEM ADMIN NAVABAR
-  {
-    //MENU DESIGNED FOR S2
-    component: CNavItem,
-    name: 'S2 Dashboard',
-    to: '/DashboardAdmin',
-    icon: <CIcon icon={cilSpeedometer} customClassName="nav-icon" />,
-    badge: {
-      color: 'info',
-      text: 'NEW',
+  const managerItems = [
+    {
+      component: CNavTitle,
+      name: 'RECRUITMENT INFO',
     },
-    
-  },
-  {
-    component: CNavTitle,
-    name: 'DISCIPLINARY INFO',
-  },
-  {
-    component: CNavGroup,
-    name: 'Case File',
+    {
+      component: CNavGroup,
+      name: 'Recruitment',
+      icon: <CIcon icon={cilStar} customClassName="nav-icon" />,
+      items: [
+        {
+          component: CNavItem,
+          name: 'Recruitors',
+          to: '#',
+        },
+        {
+          component: CNavItem,
+          name: 'Pendings',
+          to: '#',
+        },
+        {
+          component: CNavItem,
+          name: 'On Course',
+          to: '#',
+        },
+        {
+          component: CNavItem,
+          name: 'Completed',
+          to: '#',
+        },
+      ],
+    },
+  ];
 
-    icon: <CIcon icon={cilStar} customClassName="nav-icon"/>,
-    
-    items: [
-      {
-        component: CNavItem,
-        name: 'Add Case File',
-        to: '/AddCase',
 
-      },
-      {
-        component: CNavItem,
-        name: 'Manage Users',
-        to: '/CaseFileList',
-      },
 
-    ],
-  },
-  {
-    component: CNavTitle,
-    name: 'SECURITY INFO',
-  },
-  {
-    component: CNavGroup,
-    name: 'Own Force',
-    to: '#',
-    icon: <CIcon icon={cilPuzzle} customClassName="nav-icon" />,
-    items: [
-      {
-        component: CNavItem,
-        name: 'Add security issue',
-        to: '#',
-      },
-      {
-        component: CNavItem,
-        name: 'Issues List',
-        to: '#',
-      },
-      {
-        component: CNavItem,
-        name: 'Issues Report',
-        to: '#',
+
+
+  const s1commsItems = [
+    {
+      //MENU DESIGNED FOR S1
+      component: CNavItem,
+      name: 'S1 Dashboard',
+      to: '/dashboards1',
+      icon: <CIcon icon={cilSpeedometer} customClassName="nav-icon" />,
+      badge: {
+        color: 'info',
+        text: 'NEW',
       },
       
-    ],
+    },
+    {
+      component: CNavTitle,
+      name: 'PERSONNEL INFO',
+    },
+    {
+      component: CNavGroup,
+      name: 'Personnel Data',
+  
+      icon: <CIcon icon={cilStar} customClassName="nav-icon"/>,
+      
+      items: [
+        {
+          component: CNavItem,
+          name: 'Add Personnel',
+          to: '/AddPersonnel',
+        },
+        {
+          component: CNavItem,
+          name: 'Manage Personnel',
+          to: '/ListofPersonnel',
+        },
     
-  },
-  {
-    component: CNavGroup,
-    name: 'EN Force',
-    to: '#',
-    icon: <CIcon icon={cilPuzzle} customClassName="nav-icon" />,
-    items: [
-      {
-        component: CNavItem,
-        name: 'Add security issue',
-        to: '#',
-      },
-      {
-        component: CNavItem,
-        name: 'Issues List',
-        to: '#',
-      },
-      {
-        component: CNavItem,
-        name: 'Issues Report',
-        to: '#',
+        // {
+        //   component: CNavItem,
+        //   name: 'On Course',
+        //   to: '/404',
+        // },
+        // {
+        //   component: CNavItem,
+        //   name: 'Completed',
+        //   to: '/500',
+        // },
+      ],
+    },
+    {
+      component: CNavTitle,
+      name: 'ADMINISTRATION INFO',
+    },
+    {
+      component: CNavGroup,
+      name: 'Parade State',
+      to: '/',
+      icon: <CIcon icon={cilPuzzle} customClassName="nav-icon" />,
+      items: [
+        {
+          component: CNavItem,
+          name: 'Daily',
+          to: '/daily',
+        },
+        {
+          component: CNavItem,
+          name: 'Monthly',
+          to: '/monthly',
+        },
+        {
+          component: CNavItem,
+          name: 'Strength Return',
+          to: '/Streangth',
+        },
+       
+      ],
+    },
+    {
+      component: CNavGroup,
+      name: 'Deployments',
+      to: '#',
+      icon: <CIcon icon={cilCursor} customClassName="nav-icon" />,
+      items: [
+        {
+          component: CNavItem,
+          name: 'Internal Deployment',
+          to: '/internaldep',
+        },
+        {
+          component: CNavItem,
+          name: 'External Deployment',
+          to: '/externaldep',
+        },
+      
+      ],
+    },
+    {
+      component: CNavGroup,
+      name: 'Welfare',
+      icon: <CIcon icon={cilNotes} customClassName="nav-icon" />,
+      items: [
+        {
+          component: CNavItem,
+          name: 'Mission',
+          to: '/mission',
+        },
+        {
+          component: CNavItem,
+          name: 'RCA',
+          to: '/rca',
+        },
+        {
+          component: CNavItem,
+          name: 'Soldiers Kit',
+          to: '/soldiersKit',
+        },
+        
+      ],
+    },
+  
+    {
+      component: CNavTitle,
+      name: 'RECRUITMENT INFO',
+    },
+    {
+      component: CNavGroup,
+      name: 'Recruitment',
+      icon: <CIcon icon={cilStar} customClassName="nav-icon" />,
+      items: [
+        {
+          component: CNavItem,
+          name: 'Recruitors',
+          to: '#',
+        },
+        {
+          component: CNavItem,
+          name: 'Pendings',
+          to: '#',
+        },
+        {
+          component: CNavItem,
+          name: 'On Course',
+          to: '#',
+        },
+        {
+          component: CNavItem,
+          name: 'Completed',
+          to: '#',
+        },
+      ],
+    },
+    {
+      component: CNavTitle,
+      name: 'REPORTS',
+    },
+    {
+      component: CNavGroup,
+      name: 'Select report',
+      icon: <CIcon icon={cilStar} customClassName="nav-icon" />,
+      items: [
+        {
+          component: CNavItem,
+          name: 'Statistical Report',
+          to: '#',
+        },
+        {
+          component: CNavItem,
+          name: 'Monthly Report',
+          to: '#',
+        },
+        {
+          component: CNavItem,
+          name: 'Yearly Report',
+          to: '#',
+        },
+       
+      ],
+    },
+    {
+      component: CNavItem,
+      name: 'Financial Docs',
+      href: '#',
+      icon: <CIcon icon={cilDescription} customClassName="nav-icon" />,
+    },
+  ];
+
+
+
+
+
+
+
+  const s2commsItems = [
+    {
+      //MENU DESIGNED FOR S2
+      component: CNavItem,
+      name: 'S2 Dashboard',
+      to: '/s2dashboard',
+      icon: <CIcon icon={cilSpeedometer} customClassName="nav-icon" />,
+      badge: {
+        color: 'info',
+        text: 'NEW',
       },
       
-    ],
-    
-  },
-  {
-    component: CNavTitle,
-    name: 'EQUIPMENT INFO',
-  },
-  {
-    component: CNavGroup,
-    name: 'Trace Equipment',
-    to: '#',
-    icon: <CIcon icon={cilPuzzle} customClassName="nav-icon" />,
-    items: [
-      {
-        component: CNavItem,
-        name: 'Active Equipment',
-        to: '#',
-      },
-      {
-        component: CNavItem,
-        name: 'Inactive Equipment',
-        to: '#',
-      },
-      {
-        component: CNavItem,
-        name: 'Archived Equipment',
-        to: '#',
-      },    
-    ],
-    
-  },
+    },
+    {
+      component: CNavTitle,
+      name: 'DISCIPLINARY INFO',
+    },
+    {
+      component: CNavGroup,
+      name: 'Case File',
+  
+      icon: <CIcon icon={cilStar} customClassName="nav-icon"/>,
+      
+      items: [
+        {
+          component: CNavItem,
+          name: 'Add Case File',
+          to: '/AddCase',
+  
+        },
+        {
+          component: CNavItem,
+          name: 'Manage Users',
+          to: '/CaseFileList',
+        },
+  
+      ],
+    },
+    {
+      component: CNavTitle,
+      name: 'SECURITY INFO',
+    },
+    {
+      component: CNavGroup,
+      name: 'Own Force',
+      to: '#',
+      icon: <CIcon icon={cilPuzzle} customClassName="nav-icon" />,
+      items: [
+        {
+          component: CNavItem,
+          name: 'Add security issue',
+          to: '#',
+        },
+        {
+          component: CNavItem,
+          name: 'Issues List',
+          to: '#',
+        },
+        {
+          component: CNavItem,
+          name: 'Issues Report',
+          to: '#',
+        },
+        
+      ],
+      
+    },
+    {
+      component: CNavGroup,
+      name: 'EN Force',
+      to: '#',
+      icon: <CIcon icon={cilPuzzle} customClassName="nav-icon" />,
+      items: [
+        {
+          component: CNavItem,
+          name: 'Add security issue',
+          to: '#',
+        },
+        {
+          component: CNavItem,
+          name: 'Issues List',
+          to: '#',
+        },
+        {
+          component: CNavItem,
+          name: 'Issues Report',
+          to: '#',
+        },
+        
+      ],
+      
+    },
+    {
+      component: CNavTitle,
+      name: 'EQUIPMENT INFO',
+    },
+    {
+      component: CNavGroup,
+      name: 'Trace Equipment',
+      to: '#',
+      icon: <CIcon icon={cilPuzzle} customClassName="nav-icon" />,
+      items: [
+        {
+          component: CNavItem,
+          name: 'Active Equipment',
+          to: '#',
+        },
+        {
+          component: CNavItem,
+          name: 'Inactive Equipment',
+          to: '#',
+        },
+        {
+          component: CNavItem,
+          name: 'Archived Equipment',
+          to: '#',
+        },    
+      ],
+      
+    },
+  ];
 
-//End of S2 NAVABAR
-    
-]
+  switch (userRole) {
+    case 'admin':
+      return [ ...adminItems];
+    case 'manager':
+      return [ ...managerItems];
+      case 's1comms':
+        return [ ...s1commsItems];
+    case 's2comms':
+      return [...s2commsItems];
+      
+    // default:
+    //   return commonItems;
+  }
+};
 
-export default _nav
+const _nav = getNavItems(localStorage.getItem('userRole'));
+
+export default _nav;

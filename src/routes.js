@@ -1,16 +1,16 @@
 import React from 'react'
-import Dashboards1 from './views/dashboardS1/Dashboards1'
-import DashboardAdmin from './views/dashboardS1/sysAdmindashboard/DashboardAdmin'
+import Dashboards1 from './views/dashboard/Dashboards1'
+import DashboardAdmin from './views/dashboard/sysAdmindashboard/DashboardAdmin'
 const sidebar = React.lazy(() => import('/src/components/header/adminsidebar/Adminsidebar'))
 
 
-const UserList = React.lazy(() => import('/src/views/dashboardS1/User/UserList.js'))
+const UserList = React.lazy(() => import('/src/views/dashboard/User/UserList.js'))
 const CaseFileList = React.lazy(() => import('/src/views/pages/personnel/CaseFileList'))
-const ListofPersonnel = React.lazy(() => import('/src/views/dashboardS1/Tables/ListofPersonnel'))
+const ListofPersonnel = React.lazy(() => import('/src/views/dashboard/Tables/ListofPersonnel'))
 const mission = React.lazy(() => import('/src/views/welfare/mission.js'))
 const AddCase = React.lazy(() => import('/src/views/pages/personnel/addCase.js'))
 const AddPersonnel = React.lazy(() => import('/src/views/pages/personnel/addPersonnel.js'))
-const RegistrationForm = React.lazy(() => import('/src/views/dashboardS1/User/RegistrationForm.js'))
+const RegistrationForm = React.lazy(() => import('/src/views/dashboard/User/RegistrationForm.js'))
 const Paradestate = React.lazy(() => import('/src/views/parade state/daily.js'))
 const MonthlyParade = React.lazy(() => import('/src/views/parade state/monthly.js'))
 const Streangthreturn = React.lazy(() => import('/src/views/parade state/Streangth.js'))
@@ -19,14 +19,20 @@ const externaldep = React.lazy(() => import('/src/views/deployments/externaldep.
 const rca = React.lazy(() => import('/src/views/welfare/rca.js'))
 const soldiersKit = React.lazy(() => import('/src/views/welfare/soldiersKit.js'))
 const Widgets = React.lazy(() => import('./views/widgets/Widgets'))
+const s1dashboard = React.lazy(() => import('./views/dashboard/s1dashboard/S1Dashboard'))
+const s2dashboard = React.lazy(() => import('./views/dashboard/s2dashboard/S2Dashboard'))
+const S2widgets = React.lazy(() => import('./views/widgets/s2widgets'))
+
+
+
 
 const routes = [
   { path: '/home', exact: true, name: 'Home' },
-  { path: '/DashboardAdmin', name: 'Dashboard Admin', element: DashboardAdmin },
+  { path: '/DashboardAdmin', name: 'System Admin', element: DashboardAdmin },
   { path: '/dashboards1', name: 'Dashboard', element: Dashboards1 },
   { path: '/widgets', name: 'Widgets', element: Widgets },
-  
-
+   { path: '/S1Dashboard', name: 'S1Dashboard', element: s1dashboard },
+ { path: '/S2Dashboard', name: 'S2Dashboard', element: s2dashboard },
   { path: '/CaseFileList', name: 'CaseFileList', element: CaseFileList },
   { path: '/UserList', name: 'List Of Users', element: UserList },
   { path: '/ListofPersonnel', name: 'List Of Personnel', element: ListofPersonnel },
@@ -42,7 +48,7 @@ const routes = [
 { path: '/mission', name: 'Mission', element: mission },
 { path: '/rca', name: 'RCA', element: rca },
 { path: '/soldiersKit', name: 'Soldiers Kit', element: soldiersKit },
-
+{ path: '/s2widgets', name: 'S2widgets', element: S2widgets },
 
 
 
