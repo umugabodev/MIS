@@ -3,8 +3,32 @@ import { Button, Modal } from 'react-bootstrap';
 import jsPDF from 'jspdf';
 import 'jspdf-autotable';
 
-const mission = () => {
-  const [mission, setmission] = useState([]);
+const Mission = () => {
+  const [mission, setMission] = useState([
+    {
+      svcno: '12345',
+      rank: 'Captain',
+      fname: 'John',
+      lname: 'KARANI',
+      from: 'Unit 91',
+      to: 'Unit 05',
+      type: 'Combat',
+      noofmission: '5',
+      lastmission: '2023',
+    },
+    {
+      svcno: '54321',
+      rank: 'Major',
+      fname: 'Jane',
+      lname: 'MULISA',
+      from: 'Unit 83',
+      to: 'Unit 57',
+      type: 'Reconnaissance',
+      noofmission: '3',
+      lastmission: '2022',
+    },
+    // Add more static data objects as needed
+  ]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [formData, setFormData] = useState({
     svcno: '',
@@ -44,7 +68,7 @@ const mission = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setmission([...mission, formData]);
+    setMission([...mission, formData]);
     setIsModalOpen(false);
     setFormData({
         svcno: '',
@@ -66,7 +90,6 @@ const mission = () => {
 
   return (
     <>
-  
       <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
         <div className="btn-group">
           <Button variant="info" className="mr-2" onClick={handleAddDeployment}>Add</Button>
@@ -85,8 +108,8 @@ const mission = () => {
               <th>LNAME</th>
               <th>FROM</th>
               <th>TO</th>
-              <th>NO of MISSION</th>  
               <th>TYPE</th>
+              <th>NO OF MISSION</th>
               <th>LAST MISSION</th>
             </tr>
           </thead>
@@ -99,8 +122,8 @@ const mission = () => {
                 <td>{deployment.lname}</td>
                 <td>{deployment.from}</td>
                 <td>{deployment.to}</td>
-                <td>{deployment.noofmission}</td>
                 <td>{deployment.type}</td>
+                <td>{deployment.noofmission}</td>
                 <td>{deployment.lastmission}</td>
               </tr>
             ))}
@@ -161,4 +184,4 @@ const mission = () => {
   );
 };
 
-export default mission;
+export default Mission;

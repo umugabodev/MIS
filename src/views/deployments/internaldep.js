@@ -1,10 +1,14 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Button, Modal } from 'react-bootstrap';
 import jsPDF from 'jspdf';
 import 'jspdf-autotable';
 
 const Internaldep = () => {
-  const [deployments, setDeployments] = useState([]);
+  const [deployments, setDeployments] = useState([
+    { svcno: '123', rank: 'Captain', fname: 'John', lname: 'Doe', from: 'Regt1', to: 'Regt2', appointment: 'Commander' },
+    { svcno: '456', rank: 'Lieutenant', fname: 'Jane', lname: 'Smith', from: 'Regt3', to: 'Regt4', appointment: 'Officer' },
+    { svcno: '789', rank: 'Major', fname: 'James', lname: 'Johnson', from: 'Regt5', to: 'Regt6', appointment: 'Head' }
+  ]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [formData, setFormData] = useState({
     svcno: '',
@@ -36,10 +40,6 @@ const Internaldep = () => {
     setIsModalOpen(true);
   };
 
-  const handleSearch = () => {
-    // Add logic for searching deployments
-  };
-
   const handleSubmit = (e) => {
     e.preventDefault();
     setDeployments([...deployments, formData]);
@@ -60,13 +60,17 @@ const Internaldep = () => {
     setFormData({ ...formData, [name]: value });
   };
 
+  // Automatically close modal when deployments change
+  useEffect(() => {
+    setIsModalOpen(false);
+  }, [deployments]);
+
   return (
     <>
-    <h3>Internal Deployments</h3>
+      <h3>Internal Deployments</h3>
       <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
         <div className="btn-group">
           <Button variant="info" className="mr-2" onClick={handleAddDeployment}>Add</Button>
-          <Button variant="info" className="mr-6" onClick={handleSearch}>Search</Button>
           <Button variant="success" onClick={exportToPDF}>Export to PDF</Button>
         </div>
       </div>

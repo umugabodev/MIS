@@ -389,7 +389,7 @@ const getNavItems = (userRole) => {
     {
       component: CNavItem,
       name: 'Financial Docs',
-      href: '#',
+      href: '/#/FinancialReportForm',
       icon: <CIcon icon={cilDescription} customClassName="nav-icon" />,
     },
   ];

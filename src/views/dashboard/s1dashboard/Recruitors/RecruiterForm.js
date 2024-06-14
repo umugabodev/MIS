@@ -23,6 +23,8 @@ const RecruiterForm = () => {
         serviceNumber: '',
         rank: '',
         unit: '',
+        courseName: '', // New field
+        courseLocation: '' // New field
       });
     
       const [errors, setErrors] = useState({});
@@ -53,6 +55,8 @@ const RecruiterForm = () => {
           tempErrors.rank = formData.rank ? '' : 'Rank is required.';
           tempErrors.unit = formData.unit ? '' : 'Unit is required.';
         }
+        tempErrors.courseName = formData.processStatus === 'On Course' && !formData.courseName ? 'Course name is required.' : ''; // New field validation
+        tempErrors.courseLocation = formData.processStatus === 'On Course' && !formData.courseLocation ? 'Course location is required.' : ''; // New field validation
         setErrors(tempErrors);
         return Object.values(tempErrors).every((x) => x === '');
       };
@@ -67,7 +71,7 @@ const RecruiterForm = () => {
 
         <CCard className="mb-4" style={{ maxWidth: '800px', margin: '0 auto' }}>
         <CCardHeader className="d-flex justify-content-between align-items-center">
-          <h5 className="mb-0">Recruitor Registration Form</h5>
+          <h5 className="mb-0">Recruiter Registration Form</h5>
         </CCardHeader>
         <CCardBody style={{ flex: 1, padding: '20px', border: '1px solid #ccc', borderRadius: '5px', backgroundColor: '#DCDCDC' }}>
         <form onSubmit={handleSubmit} style={{ display: 'grid', gap: '20px', gridTemplateColumns: '1fr 1fr' }}>
@@ -107,6 +111,50 @@ const RecruiterForm = () => {
             />
             <div className="invalid-feedback">{errors.phone}</div>
           </div>
+          <div className="form-group">
+            <label htmlFor="processStatus">Process Status:</label>
+            <select
+              className={`form-control ${errors.processStatus ? 'is-invalid' : ''}`}
+              id="processStatus"
+              name="processStatus"
+              value={formData.processStatus}
+              onChange={handleChange}
+            >
+              <option value="">Select process status</option>
+              <option value="Pending">Pending</option>
+              <option value="On Course">On Course</option>
+              <option value="Joined">Joined</option>
+            </select>
+            <div className="invalid-feedback">{errors.processStatus}</div>
+          </div>
+          {formData.processStatus === 'On Course' && ( // Conditionally render courseName and courseLocation fields
+            <>
+              <div className="form-group">
+                <label htmlFor="courseName">Course Name:</label>
+                <input
+                  type="text"
+                  className={`form-control ${errors.courseName ? 'is-invalid' : ''}`}
+                  id="courseName"
+                  name="courseName"
+                  value={formData.courseName}
+                  onChange={handleChange}
+                />
+                <div className="invalid-feedback">{errors.courseName}</div>
+              </div>
+              <div className="form-group">
+                <label htmlFor="courseLocation">Course Location:</label>
+                <input
+                  type="text"
+                  className={`form-control ${errors.courseLocation ? 'is-invalid' : ''}`}
+                  id="courseLocation"
+                  name="courseLocation"
+                  value={formData.courseLocation}
+                  onChange={handleChange}
+                />
+                <div className="invalid-feedback">{errors.courseLocation}</div>
+              </div>
+            </>
+          )}
           <div className="form-group">
             <label htmlFor="currentStatus">Current Status:</label>
             <select

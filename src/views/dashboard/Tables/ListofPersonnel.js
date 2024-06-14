@@ -81,7 +81,7 @@ const Dashboards1 = () => {
   // Define initial data state
   const [data, setData] = useState([
     {pc: "", sNo: 1, rank: 'Pte', fName: 'Test', lName: 'Test 1', unit: 'Comms', dob: '21/12/2001', gender: 'M', action: 'Edit' },
-    // { sNo: 2, rank: '', fName: '', lName: '', unit: '', dob: '', gender: '', action: 'Delete' }
+    { sNo: 2, rank: 'Capt', fName: 'Denis', lName: 'MUKAMISHA', unit: 'Comms', dob: '12/05/1991', gender: 'm', action: 'Delete' }
   ]);
 
   // Function to handle editing of a row

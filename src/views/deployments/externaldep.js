@@ -1,10 +1,21 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Button, Modal } from 'react-bootstrap';
 import jsPDF from 'jspdf';
 import 'jspdf-autotable';
 
 const Internaldep = () => {
-  const [deployments, setDeployments] = useState([]);
+  const [deployments, setDeployments] = useState([
+    {
+      svcno: '12345',
+      rank: 'Captain',
+      fname: 'John',
+      lname: 'Doe',
+      from: 'Unit A',
+      to: 'Unit B',
+      appointment: 'Commanding Officer'
+    },
+    // Add more static data as needed
+  ]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [formData, setFormData] = useState({
     svcno: '',
@@ -16,6 +27,10 @@ const Internaldep = () => {
     appointment: ''
   });
   const tableRef = useRef(null);
+
+  useEffect(() => {
+    // If you need to fetch data from an API or perform other side effects when the component mounts, you can do it here.
+  }, []);
 
   const exportToPDF = () => {
     const doc = new jsPDF();
@@ -62,7 +77,7 @@ const Internaldep = () => {
 
   return (
     <>
-   <h3>External Deployments</h3>
+      <h3>External Deployments</h3>
       <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
         <div className="btn-group">
           <Button variant="info" className="mr-2" onClick={handleAddDeployment}>Add</Button>
@@ -102,7 +117,7 @@ const Internaldep = () => {
 
       <Modal show={isModalOpen} onHide={() => setIsModalOpen(false)}>
         <Modal.Header closeButton>
-          <Modal.Title>Add Internal Deployment</Modal.Title>
+          <Modal.Title>Add External Deployment</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <form onSubmit={handleSubmit}>
