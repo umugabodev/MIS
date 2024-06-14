@@ -33,7 +33,7 @@ const AppSidebar = () => {
             alt="RDF Logo"
             style={{ width: '50%', height: 'auto', marginRight: '%' }}
           />
-          <strong style={{ marginLeft: '6px', fontSize: '14px' }}>MIS- Management Information System</strong>
+          <strong style={{ marginLeft: '6px', fontSize: '45px' }}>MIS</strong>
         </div>
         <CSidebarBrand to="/" />
       </CSidebarHeader>

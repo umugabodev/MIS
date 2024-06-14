@@ -3,6 +3,8 @@ import Dashboards1 from './views/dashboard/Dashboards1'
 import DashboardAdmin from './views/dashboard/sysAdmindashboard/DashboardAdmin'
 const sidebar = React.lazy(() => import('/src/components/header/adminsidebar/Adminsidebar'))
 
+const RecruiterForm = React.lazy(() => import('/src/views/dashboard/s1dashboard/Recruitors/RecruiterForm.js'))
+const RecruiterList = React.lazy(() => import('/src/views/dashboard/s1dashboard/Recruitors/RecruiterList.js'))
 
 const UserList = React.lazy(() => import('/src/views/dashboard/User/UserList.js'))
 const CaseFileList = React.lazy(() => import('/src/views/pages/personnel/CaseFileList'))
@@ -42,15 +44,15 @@ const routes = [
   { path: '/RegistrationForm', name: 'Registration Form', element: RegistrationForm },
   { path: '/daily', name: 'Daily Parade State', element: Paradestate },
   { path: '/monthly', name: 'Monthly Parade State', element: MonthlyParade },
-{ path: '/Streangth', name: 'Streangth return', element: Streangthreturn },
-{ path: '/internaldep', name: 'Internal Deployments', element: internaldep },
-{ path: '/externaldep', name: 'External Deployments', element: externaldep },
-{ path: '/mission', name: 'Mission', element: mission },
-{ path: '/rca', name: 'RCA', element: rca },
-{ path: '/soldiersKit', name: 'Soldiers Kit', element: soldiersKit },
-{ path: '/s2widgets', name: 'S2widgets', element: S2widgets },
-
-
+  { path: '/Streangth', name: 'Streangth return', element: Streangthreturn },
+  { path: '/internaldep', name: 'Internal Deployments', element: internaldep },
+  { path: '/externaldep', name: 'External Deployments', element: externaldep },
+  { path: '/mission', name: 'Mission', element: mission },
+  { path: '/rca', name: 'RCA', element: rca },
+  { path: '/soldiersKit', name: 'Soldiers Kit', element: soldiersKit },
+  { path: '/s2widgets', name: 'S2widgets', element: S2widgets },
+  { path: '/RecruiterList', name: 'List Of Recruitors', element: RecruiterList },
+  { path: '/RecruiterForm', name: 'Recruiter Form', element: RecruiterForm },
 
 
 ]

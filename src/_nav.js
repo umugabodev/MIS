@@ -346,12 +346,12 @@ const getNavItems = (userRole) => {
         {
           component: CNavItem,
           name: 'Recruitors',
-          to: '#',
+          to: '/RecruiterForm',
         },
         {
           component: CNavItem,
           name: 'Pendings',
-          to: '#',
+          to: '/RecruiterList',
         },
         {
           component: CNavItem,
