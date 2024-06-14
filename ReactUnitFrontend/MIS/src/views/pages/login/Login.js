@@ -14,12 +14,14 @@ import {
 } from '@coreui/react';
 import CIcon from '@coreui/icons-react';
 import { cilLockLocked, cilUser } from '@coreui/icons';
+import { useSignIn } from "react-auth-kit";
 
 const Login = () => {
   const[user, setUser] = useState({
     username:'',
     password:'',
   })
+  const signIn = useSignIn();
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -38,6 +40,12 @@ const Login = () => {
       }else{
         localStorage.setItem('accessToken', data.accessToken); // Store access token in local storage
         localStorage.setItem('refreshToken', data.refreshToken); // Store refresh token in local storage
+        signIn({
+          token: data.accessToken,
+          expiresIn: 3600,
+          tokenType: "Bearer",
+          authState: {email: user.email}
+        })
         console.log('Login successful:', user);
         navigate("/dashboards1");
       }
