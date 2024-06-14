@@ -52,10 +52,7 @@ const getNavItems = (userRole) => {
       name: 'SYSTEM ADMIN',
       to: '/DashboardAdmin',
       icon: <CIcon icon={cilSpeedometer} customClassName="nav-icon" />,
-      badge: {
-        color: 'info',
-        text: 'NEW',
-      },
+      
       
     },
     {
@@ -223,10 +220,7 @@ const getNavItems = (userRole) => {
       name: 'S1 Dashboard',
       to: '/dashboards1',
       icon: <CIcon icon={cilSpeedometer} customClassName="nav-icon" />,
-      badge: {
-        color: 'info',
-        text: 'NEW',
-      },
+      
       
     },
     {
@@ -413,10 +407,7 @@ const getNavItems = (userRole) => {
       name: 'S2 Dashboard',
       to: '/s2dashboard',
       icon: <CIcon icon={cilSpeedometer} customClassName="nav-icon" />,
-      badge: {
-        color: 'info',
-        text: 'NEW',
-      },
+      
       
     },
     {
