@@ -17,7 +17,7 @@ import {
 import { Link } from 'react-router-dom';
 
 const Dashboards1 = () => {
-  const recruiters = [
+  const [recruiters, setRecruiters] = useState([
     {
       name: 'Liliane MUKAMUCYO',
       email: 'mukamucyo.lily@gmail.com',
@@ -29,7 +29,8 @@ const Dashboards1 = () => {
       currentStatus: 'Civilian',
       serviceNumber: '-',
       rank: '-',
-      unit:'-',
+      unit: '-',
+      processStatus: 'pending',
     },
     {
       name: 'Theogene BONANE',
@@ -42,13 +43,14 @@ const Dashboards1 = () => {
       currentStatus: 'Inservice',
       serviceNumber: '90192-',
       rank: 'Pte',
-      unit:'Artillery',
+      unit: 'Artillery',
+      processStatus: 'oncourse',
     },
     // Add more recruiter objects as needed
-  ];
-
+  ]);
   const [showModal, setShowModal] = useState(false);
   const [selectedRecruiter, setSelectedRecruiter] = useState(null);
+  const [filterStatus, setFilterStatus] = useState('');
 
   const handleViewMore = (recruiter) => {
     setSelectedRecruiter(recruiter);
@@ -60,6 +62,14 @@ const Dashboards1 = () => {
     setSelectedRecruiter(null);
   };
 
+  const handleFilter = (status) => {
+    setFilterStatus(status);
+  };
+
+  const filteredRecruiters = filterStatus
+    ? recruiters.filter((recruiter) => recruiter.processStatus === filterStatus)
+    : recruiters;
+
   return (
     <>
       <CRow>
@@ -67,9 +77,20 @@ const Dashboards1 = () => {
           <CCard className="mb-4">
             <CCardHeader className="d-flex justify-content-between align-items-center">
               <h5 className="mb-0">List Of Recruiters</h5>
-              <Link to="/RecruiterForm" className="btn btn-primary btn-sm">
-                <i className="fas fa-plus-circle"></i> Add New Recruiter
-              </Link>
+              <div>
+                <select
+                  className="form-control"
+                  onChange={(e) => handleFilter(e.target.value)}
+                >
+                  <option value="">Filter by Process Status</option>
+                  <option value="pending">Pending</option>
+                  <option value="oncourse">On Course</option>
+                  {/* Add more options as needed */}
+                </select></div><div>
+                <Link to="/RecruiterForm" className="btn btn-primary btn-sm ml-2">
+                  <i className="fas fa-plus-circle"></i> Add New Recruiter
+                </Link>
+              </div>
             </CCardHeader>
             <CCardBody>
               <CTable hover>
@@ -78,23 +99,17 @@ const Dashboards1 = () => {
                     <CTableHeaderCell>Name</CTableHeaderCell>
                     <CTableHeaderCell>Email</CTableHeaderCell>
                     <CTableHeaderCell>Phone</CTableHeaderCell>
-                    {/* <CTableHeaderCell>Company Name</CTableHeaderCell> */}
                     <CTableHeaderCell>Education Level</CTableHeaderCell>
-                    {/* <CTableHeaderCell>Employment Status</CTableHeaderCell>
-                    <CTableHeaderCell>Years of Experience</CTableHeaderCell> */}
                     <CTableHeaderCell>Actions</CTableHeaderCell>
                   </CTableRow>
                 </CTableHead>
                 <CTableBody>
-                  {recruiters.map((recruiter, index) => (
+                  {filteredRecruiters.map((recruiter, index) => (
                     <CTableRow key={index}>
                       <CTableDataCell>{recruiter.name}</CTableDataCell>
                       <CTableDataCell>{recruiter.email}</CTableDataCell>
                       <CTableDataCell>{recruiter.phone}</CTableDataCell>
-                      {/* <CTableDataCell>{recruiter.companyName}</CTableDataCell> */}
                       <CTableDataCell>{recruiter.educationLevel}</CTableDataCell>
-                      {/* <CTableDataCell>{recruiter.employmentStatus}</CTableDataCell>
-                      <CTableDataCell>{recruiter.yearsOfExperience}</CTableDataCell> */}
                       <CTableDataCell>
                         <CButton
                           color="info"
@@ -130,7 +145,7 @@ const Dashboards1 = () => {
             <p><strong>Service Number:</strong> {selectedRecruiter.serviceNumber}</p>
             <p><strong>Rank:</strong> {selectedRecruiter.rank}</p>
             <p><strong>Unit:</strong> {selectedRecruiter.unit}</p>
-
+            <p><strong>Process Status:</strong> {selectedRecruiter.processStatus}</p>
           </Modal.Body>
           <Modal.Footer>
             <CButton color="secondary" onClick={handleClose}>

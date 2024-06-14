@@ -60,6 +60,15 @@ const addPersonnel = () => {
                           'SSgt',
                           'SM',
                           'W0I',
+                          '2Lt',
+                          'Lt',
+                          'Capt',
+                          'Maj',
+                          'Lt Col',
+                          'Col',
+                          'B General',
+                          'M General',
+                          'L General',
                           
                         ],
                         defaultValue: formData['rank'] || ''
