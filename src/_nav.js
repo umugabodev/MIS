@@ -520,13 +520,13 @@ const getNavItems = (userRole) => {
   ];
 
   switch (userRole) {
-    case 'admin':
+    case 'role_admin':
       return [ ...adminItems];
-    case 'manager':
-      return [ ...managerItems];
-      case 's1comms':
+    // case 's1_regiment':
+    //   return [ ...managerItems];
+      case 's1_regiment':
         return [ ...s1commsItems];
-    case 's2comms':
+    case 's2_regiment':
       return [...s2commsItems];
       
     // default:

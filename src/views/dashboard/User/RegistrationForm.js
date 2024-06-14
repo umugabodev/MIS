@@ -6,15 +6,12 @@ import {
   CCardHeader,
   CCol,
 } from '@coreui/react';
-import axios from 'axios';
 
 const RegistrationForm = () => {
-  axios.defaults.withCredentials = true;
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
     phoneNumber: '',
-    username: '',
     email: '',
     password: '',
     type: '', // Added user type field
@@ -63,35 +60,32 @@ const RegistrationForm = () => {
     return validationErrors;
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     const validationErrors = validate();
+    console.log(formData)
     if (Object.keys(validationErrors).length === 0) {
-      try {
-        alert('To Register User');
-        if (response.data.message === 'User registered successfully') {
-          alert('User registered successfully' );
-          // Redirect or reset form
-          setFormData({
-            firstName: '',
-            lastName: '',
-            phoneNumber: '',
-            username: '',
-            email: '',
-            password: '',
-            type: '',
-          });
-        } else {
-          alert('Failed to register user');
-        }
-      } catch (error) {
-        console.error('Error registering user:', error);
-        alert('Failed to register user');
-      }
+        fetch('http://localhost:3007/api/v1/users', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(formData),
+        })
+        .then(response => response.json())
+        .then(data => {
+            alert('Form submitted successfully')
+            console.log('Form submitted successfully:', data);
+        })
+        .catch(error => {
+            console.error('Error submitting form:', error);
+            // Optionally handle error response
+        });
     } else {
-      setErrors(validationErrors);
+        setErrors(validationErrors);
     }
   };
+
 
   const labelStyle = { display: 'block', marginBottom: '8px' };
   const inputStyle = { width: '100%', padding: '10px', border: '1px solid #ccc', borderRadius: '5px', boxSizing: 'border-box' };

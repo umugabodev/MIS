@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import {
   CButton,
   CCard,
@@ -16,133 +16,121 @@ import CIcon from '@coreui/icons-react';
 import { cilLockLocked, cilUser } from '@coreui/icons';
 
 const Login = () => {
+  let role;
+  const[user, setUser] = useState({
+    username:'',
+    password:'',
+  })
   const navigate = useNavigate();
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
 
-  const handleUsernameChange = (e) => {
-    setUsername(e.target.value);
-  };
-
-  const handlePasswordChange = (e) => {
-    setPassword(e.target.value);
-  };
-
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    try {
+        const response = await fetch('http://localhost:3007/api/v1/auth/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(user),
+        });
+        const data = await response.json();
+        if (!response.ok) {
+          alert('Invalid Username or Password');
+      }else{
+        console.log(data.roles[0].name)
+        localStorage.setItem('accessToken', data.accessToken); // Store access token in local storage
+        localStorage.setItem('refreshToken', data.refreshToken); // Store refresh token in local storage
+        console.log('Login successful:', user);
+        role = data.roles[0].name;
 
-    const credentials = {
-      admin: { username: 'adminUser', password: 'adminUser' },
-      s1comms: { username: 's1comms', password: 's1comms' },
-      s2comms: { username: 's2comms', password: 's2comms' },
-      manager: { username: 'managerUser', password: 'managerPass' },
-      
-      
-    };
+        // Store user role in localStorage
+        localStorage.setItem('userRole', role);
 
-    let role;
-
-    if (username === credentials.admin.username && password === credentials.admin.password) {
-      role = 'admin';
-      localStorage.setItem('authToken', 'adminToken'); 
-    } else if (username === credentials.manager.username && password === credentials.manager.password) {
-      role = 'manager';
-      localStorage.setItem('authToken', 'managerToken'); 
-
-    } else if (username === credentials.s1comms.username && password === credentials.s1comms.password) {
-      role = 's1comms';
-      localStorage.setItem('authToken', 's1commsToken'); 
-
-    } else if (username === credentials.s2comms.username && password === credentials.s2comms.password) {
-      role = 's2comms';
-      localStorage.setItem('authToken', 's2commsToken');
-
-    
-    } else {
-      setError('Invalid username or password');
-      return;
-    }
-
-    // Store user role in localStorage
-    localStorage.setItem('userRole', role);
-
-    // Navigate to the appropriate dashboard based on role
-    switch (role) {
-      case 'admin':
-        navigate('/DashboardAdmin');
-        break;
-        case 's1comms':
-          navigate('/s1dashboard');
-          break;
-          case 's2comms':
-          navigate('/s2dashboard');
-          break;
-         case 'manager':
-        navigate('#');
-        break;
-      default:
-        navigate('/Login');
+        // Navigate to the appropriate dashboard based on role
+        switch (role) {
+          case 'role_admin':
+            navigate('/DashboardAdmin');
+            break;
+            case 's1_regiment':
+              navigate('/s1dashboard');
+              break;
+              case 's2_regiment':
+              navigate('/s2dashboard');
+              break;
+            case 'role_staff':
+            navigate('#');
+            break;
+          default:
+            navigate('/Login');
+        }
+      }
+    } catch (error) {
+        console.error('Login error:', error);
+        alert('Login failed');
     }
   };
 
   return (
-    <div className="bg-white min-vh-100 d-flex flex-column justify-content-center">
+    <div className="bg-white min-vh-100 d-flex flex-row align-items-center justify-content-center">
       <CContainer>
-        <CRow className="justify-content-center">
-          <CCol md={6} className="d-none d-md-flex align-items-center justify-content-center">
+        <CRow>
+          <CCol md={6}>
             <img
               src="/src/assets/images/Da.jpg" // Adjust the path to your image
               alt="Company Logo"
               style={{ width: '100%', height: 'auto' }}
             />
           </CCol>
-          <CCol md={6} xs={12} className="d-flex align-items-center justify-content-center">
-            <CCardBody style={{ width: '100%', maxWidth: '400px' }}>
-              <div className="text-center mb-4">
-                <img
-                  src="/src/assets/Logo_altogethe.png" // Adjust the path to your image
-                  alt="Company Logo"
-                  style={{ width: '50%', height: 'auto' }}
+          <CCol md={6} style={{justifyContent: 'center'}}>
+      
+          <CCardBody className='' style={{ maxWidth: '400px', margin: 'auto',marginright:'280x' }}>
+            <div className="text-center mb-4">
+              <img
+                src="/src/assets/Logo_altogethe.png" // Adjust the path to your image
+                alt="Company Logo"
+                style={{ maxWidth: '50%', height: '20' }}
+              />
+              <h2 className="mt-4 text-3xl font-bold text-gray-900" style={{ color: 'black' }}>
+                MIS SYSTEM
+              </h2>
+            </div>
+            <CCard className='bg-white '>
+            <CForm onSubmit={handleSubmit} className='mx-4 my-12 '>
+            <p style={{ color: 'black' }}>Username</p>
+
+
+              <CInputGroup className="mb-3">
+                <CInputGroupText>
+                  <CIcon icon={cilUser} />
+                </CInputGroupText>
+                <CFormInput placeholder="Username" onChange={e => setUser({...user,username:e.target.value})} autoComplete="username" />
+              </CInputGroup>
+              <p style={{ color: 'black' }}>Password</p>
+              <CInputGroup className="mb-4">
+                <CInputGroupText>
+                  <CIcon icon={cilLockLocked} />
+                </CInputGroupText>
+                <CFormInput
+                  type="password"
+                  placeholder="Password"
+                  onChange={e => setUser({...user,password:e.target.value})}
+                  autoComplete="current-password"
+                  on
                 />
-                <h2 className="mt-4 text-3xl font-bold" style={{ color: 'black' }}>
-                  MIS SYSTEM
-                </h2>
-              </div>
-              <CCard className="bg-white">
-                <CForm onSubmit={handleSubmit}>
-                  {error && <div className="text-danger mb-3">{error}</div>}
-                  <p style={{ color: 'black' }}>Username</p>
-                  <CInputGroup className="mb-3">
-                    <CInputGroupText>
-                      <CIcon icon={cilUser} />
-                    </CInputGroupText>
-                    <CFormInput
-                      placeholder="Username"
-                      autoComplete="username"
-                      value={username}
-                      onChange={handleUsernameChange}
-                    />
-                  </CInputGroup>
-                  <p style={{ color: 'black' }}>Password</p>
-                  <CInputGroup className="mb-4">
-                    <CInputGroupText>
-                      <CIcon icon={cilLockLocked} />
-                    </CInputGroupText>
-                    <CFormInput
-                      type="password"
-                      placeholder="Password"
-                      autoComplete="current-password"
-                      value={password}
-                      onChange={handlePasswordChange}
-                    />
-                  </CInputGroup>
-                  <CButton color="primary" className="w-100" type="submit">
-                    Login
-                  </CButton>
-                </CForm>
-              </CCard>
-            </CCardBody>
+              </CInputGroup>
+              <CButton type='submit' color="primary" className="w-100" >
+                Login
+              </CButton>
+            </CForm>
+            <div className="text-center mt-3">
+            {/* <Link to="#" className="text-body-secondary" style={{ color: 'black' }}>
+  Forgot password?
+</Link> */}
+
+            </div></CCard>
+          </CCardBody>
+       
+
           </CCol>
         </CRow>
       </CContainer>
