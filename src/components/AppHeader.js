@@ -59,19 +59,19 @@ const AppHeader = () => {
           <CIcon icon={cilMenu} size="lg" />
         </CHeaderToggler>
         <CHeaderNav className="d-none d-md-flex"  style={{color: 'white'}}>
-          <CNavItem>
-            <CNavLink to="/dashboards1" as={NavLink}
+          {/* <CNavItem>
+            <CNavLink to="" as={NavLink}
             style={{color: 'white'}}
-            >
+            > */}
               Dashboard
-            </CNavLink>
-          </CNavItem>
-          <CNavItem>
+            {/* </CNavLink>
+          </CNavItem> */}
+          {/* <CNavItem>
             <CNavLink href="#" style={{color: 'white'}}>Users</CNavLink>
           </CNavItem>
           <CNavItem>
             <CNavLink href="#" style={{color: 'white'}}>Settings</CNavLink>
-          </CNavItem>
+          </CNavItem> */}
         </CHeaderNav>
         <CHeaderNav className="ms-auto">
           <CNavItem>
@@ -91,11 +91,11 @@ const AppHeader = () => {
           </CNavItem>
         </CHeaderNav>
         <CHeaderNav>
-          <li className="nav-item py-1">
+          {/* <li className="nav-item py-1">
             <div className="vr h-100 mx-2 text-body text-opacity-75"></div>
-          </li>
+          </li> */}
           <CDropdown variant="nav-item" placement="bottom-end">
-            <CDropdownToggle caret={false}>
+            {/* <CDropdownToggle caret={false}>
               {colorMode === 'light' ? (
                 <CIcon icon={cilMoon} size="lg" />
               ) : colorMode === 'auto' ? (
@@ -103,7 +103,7 @@ const AppHeader = () => {
               ) : (
                 <CIcon icon={cilSun} size="lg" />
               )}
-            </CDropdownToggle>
+            </CDropdownToggle> */}
             {/* <CDropdownMenu>
               <CDropdownItem
                 active={colorMode === 'light'}

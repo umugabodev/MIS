@@ -1,66 +1,50 @@
-import React from 'react'
-import { useSelector, useDispatch } from 'react-redux'
-import customColors from '/src/assets/js/customColors'
-
+import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import {
-  CCloseButton,
   CSidebar,
   CSidebarBrand,
   CSidebarFooter,
   CSidebarHeader,
   CSidebarToggler,
-} from '@coreui/react'
-import CIcon from '@coreui/icons-react'
-
-import { AppSidebarNav } from './AppSidebarNav'
-
-import { logo } from 'src/assets/brand/logo'
-import { sygnet } from 'src/assets/brand/sygnet'
-
-// sidebar nav config
-import navigation from '/src/_nav'
+} from '@coreui/react';
+import CIcon from '@coreui/icons-react';
+import { AppSidebarNav } from './AppSidebarNav';
+import navigation from '/src/_nav'; // Import your navigation configuration
 
 const AppSidebar = () => {
-  const dispatch = useDispatch()
-  const unfoldable = useSelector((state) => state.sidebarUnfoldable)
-  const sidebarShow = useSelector((state) => state.sidebarShow)
+  const dispatch = useDispatch();
+  const unfoldable = useSelector((state) => state.sidebarUnfoldable);
+  const sidebarShow = useSelector((state) => state.sidebarShow);
 
   return (
     <CSidebar
       className="border-end"
-      // style={{backgroundColor: "#FF0000", color: "#FFFFFF"}}
       position="fixed"
       unfoldable={unfoldable}
       visible={sidebarShow}
       onVisibleChange={(visible) => {
-        dispatch({ type: 'set', sidebarShow: visible })
+        dispatch({ type: 'set', sidebarShow: visible });
       }}
-      
     >
       <CSidebarHeader className="border-bottom">
-      <img
-              src="/src/assets/rdf.png" // Adjust the path to your image
-              alt="Company Logo"
-              style={{ width: '50%', height: 'auto', marginLeft:"20%" }}
-            />
-        <CSidebarBrand to="/">
-          {/* <CIcon customClassName="sidebar-brand-full" icon={logo} height={32} /> */}
-          {/* <CIcon customClassName="sidebar-brand-narrow" icon={sygnet} height={32} /> */}
-        </CSidebarBrand>
-        <CCloseButton
-          className="d-lg-none"
-          dark
-          onClick={() => dispatch({ type: 'set', sidebarShow: false })}
-        />
+        <div style={{ display: 'flex', alignItems: 'center' }}>
+          <img
+            src="/src/assets/rdf.png"
+            alt="RDF Logo"
+            style={{ width: '50%', height: 'auto', marginRight: '%' }}
+          />
+          <strong style={{ marginLeft: '6px', fontSize: '45px' }}>MIS</strong>
+        </div>
+        <CSidebarBrand to="/" />
       </CSidebarHeader>
-      <AppSidebarNav items={navigation}/>
+
+      <AppSidebarNav items={navigation} /> {/* Pass navigation items to AppSidebarNav */}
+
       <CSidebarFooter className="border-top d-none d-lg-flex">
-        <CSidebarToggler
-          onClick={() => dispatch({ type: 'set', sidebarUnfoldable: !unfoldable })}
-        />
+        <CSidebarToggler />
       </CSidebarFooter>
     </CSidebar>
-  )
-}
+  );
+};
 
-export default AppSidebar
+export default AppSidebar;

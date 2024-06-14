@@ -1,124 +1,59 @@
 import React from 'react'
-import Dashboards1 from './views/dashboardS1/Dashboards1'
-import DashboardAdmin from './views/dashboardS1/sysAdmindashboard/DashboardAdmin'
-
-
-
-const Colors = React.lazy(() => import('./views/theme/colors/Colors'))
+import Dashboards1 from './views/dashboard/Dashboards1'
+import DashboardAdmin from './views/dashboard/sysAdmindashboard/DashboardAdmin'
 const sidebar = React.lazy(() => import('/src/components/header/adminsidebar/Adminsidebar'))
-const Typography = React.lazy(() => import('./views/theme/typography/Typography'))
 
-// Base
-const Accordion = React.lazy(() => import('./views/base/accordion/Accordion'))
-const Breadcrumbs = React.lazy(() => import('./views/base/breadcrumbs/Breadcrumbs'))
-const Cards = React.lazy(() => import('./views/base/cards/Cards'))
-const Carousels = React.lazy(() => import('./views/base/carousels/Carousels'))
-const Collapses = React.lazy(() => import('./views/base/collapses/Collapses'))
-const ListGroups = React.lazy(() => import('./views/base/list-groups/ListGroups'))
-const Navs = React.lazy(() => import('./views/base/navs/Navs'))
-const Paginations = React.lazy(() => import('./views/base/paginations/Paginations'))
-const Placeholders = React.lazy(() => import('./views/base/placeholders/Placeholders'))
-const Popovers = React.lazy(() => import('./views/base/popovers/Popovers'))
-const Progress = React.lazy(() => import('./views/base/progress/Progress'))
-const Spinners = React.lazy(() => import('./views/base/spinners/Spinners'))
-const Tables = React.lazy(() => import('./views/base/tables/Tables'))
-const Tooltips = React.lazy(() => import('./views/base/tooltips/Tooltips'))
+const RecruiterForm = React.lazy(() => import('/src/views/dashboard/s1dashboard/Recruitors/RecruiterForm.js'))
+const RecruiterList = React.lazy(() => import('/src/views/dashboard/s1dashboard/Recruitors/RecruiterList.js'))
 
-// Buttons
-const Buttons = React.lazy(() => import('./views/buttons/buttons/Buttons'))
-const ButtonGroups = React.lazy(() => import('./views/buttons/button-groups/ButtonGroups'))
-const Dropdowns = React.lazy(() => import('./views/buttons/dropdowns/Dropdowns'))
-
-//Forms
-const ChecksRadios = React.lazy(() => import('./views/forms/checks-radios/ChecksRadios'))
-const FloatingLabels = React.lazy(() => import('./views/forms/floating-labels/FloatingLabels'))
-const FormControl = React.lazy(() => import('./views/forms/form-control/FormControl'))
-const InputGroup = React.lazy(() => import('./views/forms/input-group/InputGroup'))
-const Layout = React.lazy(() => import('./views/forms/layout/Layout'))
-const Range = React.lazy(() => import('./views/forms/range/Range'))
-const Select = React.lazy(() => import('./views/forms/select/Select'))
-const Validation = React.lazy(() => import('./views/forms/validation/Validation'))
-const PersonnelList = React.lazy(() => import('/src/views/pages/personnel/PersonnelList'))
-const Charts = React.lazy(() => import('./views/charts/Charts'))
-const ListofPersonnel = React.lazy(() => import('/src/views/dashboardS1/Tables/ListofPersonnel'))
+const UserList = React.lazy(() => import('/src/views/dashboard/User/UserList.js'))
+const CaseFileList = React.lazy(() => import('/src/views/pages/personnel/CaseFileList'))
+const ListofPersonnel = React.lazy(() => import('/src/views/dashboard/Tables/ListofPersonnel'))
+const mission = React.lazy(() => import('/src/views/welfare/mission.js'))
+const AddCase = React.lazy(() => import('/src/views/pages/personnel/addCase.js'))
 const AddPersonnel = React.lazy(() => import('/src/views/pages/personnel/addPersonnel.js'))
-const RegistrationForm = React.lazy(() => import('/src/views/dashboardS1/User/RegistrationForm.js'))
-
-
-// Icons
-const CoreUIIcons = React.lazy(() => import('./views/icons/coreui-icons/CoreUIIcons'))
-const Flags = React.lazy(() => import('./views/icons/flags/Flags'))
-const Brands = React.lazy(() => import('./views/icons/brands/Brands'))
-
-// Notifications
-const Alerts = React.lazy(() => import('./views/notifications/alerts/Alerts'))
-const Badges = React.lazy(() => import('./views/notifications/badges/Badges'))
-const Modals = React.lazy(() => import('./views/notifications/modals/Modals'))
-const Toasts = React.lazy(() => import('./views/notifications/toasts/Toasts'))
-
+const RegistrationForm = React.lazy(() => import('/src/views/dashboard/User/RegistrationForm.js'))
+const Paradestate = React.lazy(() => import('/src/views/parade state/daily.js'))
+const MonthlyParade = React.lazy(() => import('/src/views/parade state/monthly.js'))
+const Streangthreturn = React.lazy(() => import('/src/views/parade state/Streangth.js'))
+const internaldep = React.lazy(() => import('/src/views/deployments/internaldep.js'))
+const externaldep = React.lazy(() => import('/src/views/deployments/externaldep.js'))
+const rca = React.lazy(() => import('/src/views/welfare/rca.js'))
+const soldiersKit = React.lazy(() => import('/src/views/welfare/soldiersKit.js'))
 const Widgets = React.lazy(() => import('./views/widgets/Widgets'))
+const s1dashboard = React.lazy(() => import('./views/dashboard/s1dashboard/S1Dashboard'))
+const s2dashboard = React.lazy(() => import('./views/dashboard/s2dashboard/S2Dashboard'))
+const S2widgets = React.lazy(() => import('./views/widgets/s2widgets'))
+
+
+
 
 const routes = [
   { path: '/home', exact: true, name: 'Home' },
-  { path: '/DashboardAdmin', name: 'Dashboard Admin', element: DashboardAdmin },
+  { path: '/DashboardAdmin', name: 'System Admin', element: DashboardAdmin },
   { path: '/dashboards1', name: 'Dashboard', element: Dashboards1 },
   { path: '/widgets', name: 'Widgets', element: Widgets },
-  { path: '/PersonnelList', name: 'PersonnelList', element: PersonnelList },
+   { path: '/S1Dashboard', name: 'S1Dashboard', element: s1dashboard },
+ { path: '/S2Dashboard', name: 'S2Dashboard', element: s2dashboard },
+  { path: '/CaseFileList', name: 'CaseFileList', element: CaseFileList },
+  { path: '/UserList', name: 'List Of Users', element: UserList },
   { path: '/ListofPersonnel', name: 'List Of Personnel', element: ListofPersonnel },
+  { path: '/AddCase', name: 'Add Case', element: AddCase },
   { path: '/AddPersonnel', name: 'Add Personnel', element: AddPersonnel },
   { path: '/sidebar', name: 'sidebar', element: sidebar },
   { path: '/RegistrationForm', name: 'Registration Form', element: RegistrationForm },
+  { path: '/daily', name: 'Daily Parade State', element: Paradestate },
+  { path: '/monthly', name: 'Monthly Parade State', element: MonthlyParade },
+  { path: '/Streangth', name: 'Streangth return', element: Streangthreturn },
+  { path: '/internaldep', name: 'Internal Deployments', element: internaldep },
+  { path: '/externaldep', name: 'External Deployments', element: externaldep },
+  { path: '/mission', name: 'Mission', element: mission },
+  { path: '/rca', name: 'RCA', element: rca },
+  { path: '/soldiersKit', name: 'Soldiers Kit', element: soldiersKit },
+  { path: '/s2widgets', name: 'S2widgets', element: S2widgets },
+  { path: '/RecruiterList', name: 'List Of Recruitors', element: RecruiterList },
+  { path: '/RecruiterForm', name: 'Recruiter Form', element: RecruiterForm },
 
-
-
-
-
-
-
-
-
-  { path: '/theme', name: 'Theme', element: Colors, exact: true },
-  { path: '/theme/colors', name: 'Colors', element: Colors },
-  { path: '/theme/typography', name: 'Typography', element: Typography },
-  { path: '/base', name: 'Base', element: Cards, exact: true },
-  { path: '/base/accordion', name: 'Accordion', element: Accordion },
-  { path: '/base/breadcrumbs', name: 'Breadcrumbs', element: Breadcrumbs },
-  { path: '/base/cards', name: 'Cards', element: Cards },
-  { path: '/base/carousels', name: 'Carousel', element: Carousels },
-  { path: '/base/collapses', name: 'Collapse', element: Collapses },
-  { path: '/base/list-groups', name: 'List Groups', element: ListGroups },
-  { path: '/base/navs', name: 'Navs', element: Navs },
-  { path: '/base/paginations', name: 'Paginations', element: Paginations },
-  { path: '/base/placeholders', name: 'Placeholders', element: Placeholders },
-  { path: '/base/popovers', name: 'Popovers', element: Popovers },
-  { path: '/base/progress', name: 'Progress', element: Progress },
-  { path: '/base/spinners', name: 'Spinners', element: Spinners },
-  { path: '/base/tables', name: 'Tables', element: Tables },
-  { path: '/base/tooltips', name: 'Tooltips', element: Tooltips },
-  { path: '/buttons', name: 'Buttons', element: Buttons, exact: true },
-  { path: '/buttons/buttons', name: 'Buttons', element: Buttons },
-  { path: '/buttons/dropdowns', name: 'Dropdowns', element: Dropdowns },
-  { path: '/buttons/button-groups', name: 'Button Groups', element: ButtonGroups },
-  { path: '/charts', name: 'Charts', element: Charts },
-  { path: '/forms', name: 'Forms', element: FormControl, exact: true },
-  { path: '/forms/form-control', name: 'Form Control', element: FormControl },
-  { path: '/forms/select', name: 'Select', element: Select },
-  { path: '/forms/checks-radios', name: 'Checks & Radios', element: ChecksRadios },
-  { path: '/forms/range', name: 'Range', element: Range },
-  { path: '/forms/input-group', name: 'Input Group', element: InputGroup },
-  { path: '/forms/floating-labels', name: 'Floating Labels', element: FloatingLabels },
-  { path: '/forms/layout', name: 'Layout', element: Layout },
-  { path: '/forms/validation', name: 'Validation', element: Validation },
-  { path: '/icons', exact: true, name: 'Icons', element: CoreUIIcons },
-  { path: '/icons/coreui-icons', name: 'CoreUI Icons', element: CoreUIIcons },
-  { path: '/icons/flags', name: 'Flags', element: Flags },
-  { path: '/icons/brands', name: 'Brands', element: Brands },
-  { path: '/notifications', name: 'Notifications', element: Alerts, exact: true },
-  { path: '/notifications/alerts', name: 'Alerts', element: Alerts },
-  { path: '/notifications/badges', name: 'Badges', element: Badges },
-  { path: '/notifications/modals', name: 'Modals', element: Modals },
-  { path: '/notifications/toasts', name: 'Toasts', element: Toasts },
- 
 
 ]
 

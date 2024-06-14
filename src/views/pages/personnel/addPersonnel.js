@@ -36,6 +36,8 @@ const addPersonnel = () => {
                   {
                     name: 'page1',
                     elements: [
+                      
+                      
                       {
                         type: 'text',
                         name: 'serviceNumber',
@@ -100,6 +102,16 @@ const addPersonnel = () => {
                         choices: ['Male', 'Female'],
                         defaultValue: formData['gender'] || ''
                       },
+                      {
+                        type: 'file',
+                        name: 'Photo',
+                        title: 'Photo',
+                        isRequired: false,
+                        defaultValue: formData['Photo'] || '',
+                        accept: '.png,.jpg,.jpeg', // Restrict to PNG and JPG file formats
+                        maxSize: 5 * 100 * 120 // 5 MB maximum file size (in bytes)
+                      },
+                      
                       {
                         type: 'text',
                         name: 'fathername',

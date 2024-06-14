@@ -13,10 +13,9 @@ const Login = React.lazy(() => import('./views/pages/login/Login'));
 const Register = React.lazy(() => import('./views/pages/register/Register'));
 const Page404 = React.lazy(() => import('./views/pages/page404/Page404'));
 const Page500 = React.lazy(() => import('./views/pages/page500/Page500'));
-// const RegistrationForm = React.lazy(() => import('/src/views/dashboardS1/User/RegistrationForm'))
-// const DashboardAdmin = React.lazy(() => import('/src/views/dashboardS1/sysAdmindashboard/DashboardAdmin'));
 
-const DashboardAdmin = React.lazy(() => import('/src/views/dashboardS1/sysAdmindashboard/DashboardAdmin'));
+
+const DashboardAdmin = React.lazy(() => import('/src/views/dashboard/sysAdmindashboard/DashboardAdmin'));
 
 
 const App = () => {
@@ -52,7 +51,7 @@ const App = () => {
           <Route exact path="/404" name="Page 404" element={<Page404 />} />
           <Route exact path="/500" name="Page 500" element={<Page500 />} />
           <Route path="/" name="Login Page" element={<Login />} />
-          <Route exact path="/DashboardAdmin" name="Dashboard Admin" element={<DashboardAdmin />} />
+
         </Routes>
       </Suspense>
     </HashRouter>
