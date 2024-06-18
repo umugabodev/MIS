@@ -1,19 +1,19 @@
-import React from 'react'
-import { AppContent, AppSidebar, AppFooter, AppHeader } from '../components/index'
+import React from 'react';
+import { AppContent, AppSidebar, AppFooter, AppHeader } from '../components';
 
 const DefaultLayout = () => {
   return (
-    <div>
+    <div className="d-flex flex-column min-vh-100">
       <AppSidebar />
-      <div className="wrapper d-flex flex-column min-vh-100">
+      <div className="d-flex flex-column flex-grow-1">
         <AppHeader />
-        <div className="body flex-grow-1">
+        <main className="flex-grow-1">
           <AppContent />
-        </div>
+        </main>
         <AppFooter />
       </div>
     </div>
-  )
+  );
 }
 
-export default DefaultLayout
+export default DefaultLayout;
