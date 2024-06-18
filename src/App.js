@@ -15,7 +15,7 @@ const Unauthorized = React.lazy(() => import('./views/pages/unauthorized/Unautho
 const PrivateRoute = React.lazy(() => import('./components/PrivateRoute'));
 
 const App = () => {
-  const { isColorModeSet, setColorMode } = useColorModes('dark');
+  const { isColorModeSet, setColorMode } = useColorModes('light');
   const storedTheme = useSelector((state) => state.theme);
 
   useEffect(() => {
@@ -29,7 +29,7 @@ const App = () => {
       return;
     }
 
-    setColorMode(storedTheme || 'dark');
+    setColorMode(storedTheme || 'light');
   }, [setColorMode, isColorModeSet, storedTheme]);
 
   return (

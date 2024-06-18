@@ -61,7 +61,7 @@ const Login = () => {
             navigate('#');
             break;
           default:
-            navigate('/Login');
+            navigate('/Unauthorized');
         }
       }
     } catch (error) {

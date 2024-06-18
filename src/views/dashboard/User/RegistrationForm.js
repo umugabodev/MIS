@@ -5,6 +5,11 @@ import {
   CCardBody,
   CCardHeader,
   CCol,
+  CModal,
+  CModalBody,
+  CModalFooter,
+  CModalHeader,
+  CModalTitle
 } from '@coreui/react';
 
 const RegistrationForm = () => {
@@ -16,8 +21,9 @@ const RegistrationForm = () => {
     password: '',
     type: '', // Added user type field
   });
-  
+
   const [errors, setErrors] = useState({});
+  const [modalVisible, setModalVisible] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -63,29 +69,36 @@ const RegistrationForm = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     const validationErrors = validate();
-    console.log(formData)
     if (Object.keys(validationErrors).length === 0) {
-        fetch('http://localhost:3007/api/v1/users', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(formData),
-        })
+      fetch('http://localhost:3007/api/v1/users', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      })
         .then(response => response.json())
         .then(data => {
-            alert('Form submitted successfully')
-            console.log('Form submitted successfully:', data);
+          console.log('Form submitted successfully:', data);
+          setModalVisible(true);
+          setFormData({
+            firstName: '',
+            lastName: '',
+            phoneNumber: '',
+            email: '',
+            password: '',
+            type: '',
+          });
+          setErrors({});
         })
         .catch(error => {
-            console.error('Error submitting form:', error);
-            // Optionally handle error response
+          console.error('Error submitting form:', error);
+          // Optionally handle error response
         });
     } else {
-        setErrors(validationErrors);
+      setErrors(validationErrors);
     }
   };
-
 
   const labelStyle = { display: 'block', marginBottom: '8px' };
   const inputStyle = { width: '100%', padding: '10px', border: '1px solid #ccc', borderRadius: '5px', boxSizing: 'border-box' };
@@ -175,7 +188,7 @@ const RegistrationForm = () => {
                   onChange={handleChange}
                   style={inputStyle}
                 >
-                  <option value="">Select User Type</option>
+                  <option value="">Select User Role</option>
                   <option value="BDEADMIN">BDEADMIN</option>
                   <option value="S1">S1</option>
                   <option value="S2">S2</option>
@@ -190,6 +203,18 @@ const RegistrationForm = () => {
           </form>
         </CCardBody>
       </CCard>
+
+      <CModal visible={modalVisible} onClose={() => setModalVisible(false)}>
+        <CModalHeader onClose={() => setModalVisible(false)}>
+          <CModalTitle>Thank You!</CModalTitle>
+        </CModalHeader>
+        <CModalBody>
+         Your registration has been successfully submitted.
+        </CModalBody>
+        <CModalFooter>
+          <CButton color="primary" onClick={() => setModalVisible(false)}>Close</CButton>
+        </CModalFooter>
+      </CModal>
     </CCol>
   );
 };
