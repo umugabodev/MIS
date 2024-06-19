@@ -1,6 +1,6 @@
-import React, { useEffect, useRef } from 'react'
-import { NavLink } from 'react-router-dom'
-import { useSelector, useDispatch } from 'react-redux'
+import React, { useEffect, useRef } from 'react';
+import { NavLink } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
 import {
   CContainer,
   CDropdown,
@@ -12,8 +12,9 @@ import {
   CHeaderToggler,
   CNavLink,
   CNavItem,
-} from '@coreui/react'
-import CIcon from '@coreui/icons-react'
+  useColorModes,
+} from '@coreui/react';
+import CIcon from '@coreui/icons-react';
 import {
   cilBell,
   cilContrast,
@@ -22,90 +23,79 @@ import {
   cilMenu,
   cilMoon,
   cilSun,
-} from '@coreui/icons'
+} from '@coreui/icons';
 
-import { AppBreadcrumb } from './index'
-import { AppHeaderDropdown } from './header/index'
+import { AppBreadcrumb } from './index';
+import { AppHeaderDropdown } from './header/index';
 
 const AppHeader = () => {
-  const headerRef = useRef()
+  const headerRef = useRef();
+  // Setting 'light' as the default color mode
+  const { colorMode, setColorMode } = useColorModes('light');  // Ensure this is the initial value
 
-  const dispatch = useDispatch()
-  const sidebarShow = useSelector((state) => state.sidebarShow)
+  const dispatch = useDispatch();
+  const sidebarShow = useSelector((state) => state.sidebarShow);
 
   useEffect(() => {
     document.addEventListener('scroll', () => {
-      headerRef.current &&
-        headerRef.current.classList.toggle('shadow-sm', document.documentElement.scrollTop > 0)
-    })
-  }, [])
-
-  const setColorMode = (mode) => {
-    // Add your logic for setting color mode here
-  }
-
-  // Set 'dark' as the default color mode
-  const colorMode = 'dark';
+      headerRef.current && headerRef.current.classList.toggle('shadow-sm', document.documentElement.scrollTop > 0);
+    });
+  }, []);
 
   return (
-    <CHeader position="sticky" className="mb-4 p-0" 
-    style={{background: '#134228'}}
-    >
-      <CContainer className="border-bottom px-4" fluid >
+    <CHeader position="sticky" className="mb-4 p-0" ref={headerRef}>
+      <CContainer className="border-bottom px-4" fluid>
         <CHeaderToggler
           onClick={() => dispatch({ type: 'set', sidebarShow: !sidebarShow })}
-          style={{ marginInlineStart: '-14px' }} 
+          style={{ marginInlineStart: '-14px' }}
         >
           <CIcon icon={cilMenu} size="lg" />
         </CHeaderToggler>
-        <CHeaderNav className="d-none d-md-flex"  style={{color: 'white'}}>
-          {/* <CNavItem>
-            <CNavLink to="" as={NavLink}
-            style={{color: 'white'}}
-            > */}
+        <CHeaderNav className="d-none d-md-flex">
+          <CNavItem>
+            <CNavLink to="/dashboard" as={NavLink}>
               Dashboard
-            {/* </CNavLink>
-          </CNavItem> */}
-          {/* <CNavItem>
-            <CNavLink href="#" style={{color: 'white'}}>Users</CNavLink>
+            </CNavLink>
           </CNavItem>
           <CNavItem>
-            <CNavLink href="#" style={{color: 'white'}}>Settings</CNavLink>
-          </CNavItem> */}
+            <CNavLink href="#">Users</CNavLink>
+          </CNavItem>
+          <CNavItem>
+            <CNavLink href="#">Settings</CNavLink>
+          </CNavItem>
         </CHeaderNav>
         <CHeaderNav className="ms-auto">
           <CNavItem>
-            <CNavLink>
+            <CNavLink href="#">
               <CIcon icon={cilBell} size="lg" />
             </CNavLink>
           </CNavItem>
           <CNavItem>
-            {/* <CNavLink href="#"> */}
-            <CNavLink>
+            <CNavLink href="#">
               <CIcon icon={cilList} size="lg" />
             </CNavLink>
           </CNavItem>
           <CNavItem>
-            <CNavLink href="/#/MessagePanel">
+            <CNavLink href="#">
               <CIcon icon={cilEnvelopeOpen} size="lg" />
             </CNavLink>
           </CNavItem>
         </CHeaderNav>
         <CHeaderNav>
-          {/* <li className="nav-item py-1">
+          <li className="nav-item py-1">
             <div className="vr h-100 mx-2 text-body text-opacity-75"></div>
-          </li> */}
+          </li>
           <CDropdown variant="nav-item" placement="bottom-end">
-            {/* <CDropdownToggle caret={false}>
-              {colorMode === 'light' ? (
+            <CDropdownToggle caret={false}>
+              {colorMode === 'dark' ? (
                 <CIcon icon={cilMoon} size="lg" />
               ) : colorMode === 'auto' ? (
                 <CIcon icon={cilContrast} size="lg" />
               ) : (
                 <CIcon icon={cilSun} size="lg" />
               )}
-            </CDropdownToggle> */}
-            {/* <CDropdownMenu>
+            </CDropdownToggle>
+            <CDropdownMenu>
               <CDropdownItem
                 active={colorMode === 'light'}
                 className="d-flex align-items-center"
@@ -113,14 +103,14 @@ const AppHeader = () => {
                 type="button"
                 onClick={() => setColorMode('light')}
               >
-                <CIcon className="me-2" icon={cilSun} size="lg" />Light
+                <CIcon className="me-2" icon={cilSun} size="lg" /> Light
               </CDropdownItem>
               <CDropdownItem
                 active={colorMode === 'dark'}
                 className="d-flex align-items-center"
                 as="button"
                 type="button"
-                onClick={() => setColorMode('')}
+                onClick={() => setColorMode('dark')}
               >
                 <CIcon className="me-2" icon={cilMoon} size="lg" /> Dark
               </CDropdownItem>
@@ -133,19 +123,19 @@ const AppHeader = () => {
               >
                 <CIcon className="me-2" icon={cilContrast} size="lg" /> Auto
               </CDropdownItem>
-            </CDropdownMenu>*/}
+            </CDropdownMenu>
           </CDropdown>
           <li className="nav-item py-1">
             <div className="vr h-100 mx-2 text-body text-opacity-75"></div>
-          </li> 
+          </li>
           <AppHeaderDropdown />
         </CHeaderNav>
       </CContainer>
-      <CContainer className="px-4" fluid style={{ backgroundColor: '#1b1b2b' }}>
-  <AppBreadcrumb />
-</CContainer>
+      <CContainer className="px-4" fluid>
+        <AppBreadcrumb />
+      </CContainer>
     </CHeader>
-  )
-}
+  );
+};
 
-export default AppHeader
+export default AppHeader;

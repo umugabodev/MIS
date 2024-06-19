@@ -94,7 +94,7 @@ const Dashboards1 = () => {
             </CCardHeader>
             <CCardBody>
               <CTable hover>
-                <CTableHead color="dark">
+                <CTableHead color="light">
                   <CTableRow>
                     <CTableHeaderCell>Name</CTableHeaderCell>
                     <CTableHeaderCell>Email</CTableHeaderCell>

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import {
   CButton,
   CCard,
@@ -209,10 +210,12 @@ const RegistrationForm = () => {
           <CModalTitle>Thank You!</CModalTitle>
         </CModalHeader>
         <CModalBody>
-         Your registration has been successfully submitted.
+          Your registration has been successfully submitted.
         </CModalBody>
         <CModalFooter>
-          <CButton color="primary" onClick={() => setModalVisible(false)}>Close</CButton>
+          <Link to="/userlist">
+            <CButton color="primary">Close</CButton>
+          </Link>
         </CModalFooter>
       </CModal>
     </CCol>
