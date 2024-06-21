@@ -115,7 +115,7 @@ const DashboardAdmin = () => {
 
       {/* Rank Distribution Section */}
       <CCard className="mb-4">
-        <CCardHeader>Rank Distribution</CCardHeader>
+        <CCardHeader>Rank Distribution </CCardHeader>
         <CCardBody>
           <CRow>
             {rankDistributionData.map((rank, index) => (

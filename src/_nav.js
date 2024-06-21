@@ -93,12 +93,12 @@ const getNavItems = (userRole) => {
         {
           component: CNavItem,
           name: 'Add Unit',
-          to: '#',
+          to: '/UnitRegistration',
         },
         {
           component: CNavItem,
           name: 'Manage Unit',
-          to: '#',
+          to: '/UnitInfoList',
         },
         
         {

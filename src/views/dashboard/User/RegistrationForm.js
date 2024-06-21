@@ -111,10 +111,10 @@ const RegistrationForm = () => {
   return (
     <CCol xs="12" className=" ">
       <CCard className="mb-4" style={{ maxWidth: '800px', margin: '0 auto' }}>
-        <CCardHeader className="d-flex justify-content-between align-items-center">
+        <CCardHeader className="d-flex justify-content-between align-items-center ">
           <h5 className="mb-0">User Registration Form</h5>
         </CCardHeader>
-        <CCardBody style={{ flex: 1, padding: '20px', border: '1px solid #ccc', borderRadius: '5px', backgroundColor: '#DCDCDC' }}>
+        <CCardBody style={{ flex: 1, padding: '20px', border: '1px solid #ccc', borderRadius: '5px', backgroundColor: '#f2f0f0' }}>
           <form onSubmit={handleSubmit}>
             <div style={twoColumnStyle}>
               <div style={columnStyle}>

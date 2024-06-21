@@ -19,10 +19,12 @@ const Userlist = () => {
   const [error, setError] = useState(null);
   const [page, setPage] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     const fetchUsers = async () => {
-      const token = localStorage.getItem('accessToken'); // Retrieve token from localStorage
+      setIsLoading(true);
+      const token = localStorage.getItem('accessToken');
       try {
         const response = await fetch(`http://localhost:3007/api/v1/users?page=${page}`, {
           method: 'GET',
@@ -34,21 +36,23 @@ const Userlist = () => {
         if (response.ok) {
           const result = await response.json();
           if (result.status === "Successful") {
-            setUsers(result.data.content); // Assuming the users are in the 'content' field of the Page object
+            setUsers(result.data.content);
             setTotalPages(result.data.totalPages);
           } else {
-            setError(result.message);
+            setError(result.message || 'Unknown error');
           }
         } else {
           setError('Failed to fetch users');
         }
       } catch (error) {
         setError('Error fetching users');
+      } finally {
+        setIsLoading(false);
       }
     };
 
     fetchUsers();
-  }, [page]);
+  }, [page]); // Ensure useEffect runs when page changes
 
   const toggleActive = (id) => {
     setUsers(users.map(user => {
@@ -60,7 +64,7 @@ const Userlist = () => {
   };
 
   const handleDelete = async (id) => {
-    const token = localStorage.getItem('accessToken'); // Retrieve token from localStorage
+    const token = localStorage.getItem('accessToken');
     try {
       const response = await fetch(`http://localhost:3007/api/v1/users/${id}`, {
         method: 'DELETE',
@@ -73,9 +77,11 @@ const Userlist = () => {
         setUsers(users.filter(user => user.id !== id));
       } else {
         console.error('Failed to delete user:', response.statusText);
+        setError(`Failed to delete user: ${response.statusText}`);
       }
     } catch (error) {
       console.error('Error deleting user:', error);
+      setError(`Error deleting user: ${error.message}`);
     }
   };
 
@@ -99,37 +105,41 @@ const Userlist = () => {
           </CCardHeader>
           <CCardBody>
             {error && <div className="alert alert-danger">{error}</div>}
-            <CTable bordered hover>
-              <CTableHead className="bg-body-secondary">
-                <CTableRow>
-                  <CTableHeaderCell>First Name</CTableHeaderCell>
-                  <CTableHeaderCell>Last Name</CTableHeaderCell>
-                  <CTableHeaderCell>Email</CTableHeaderCell>
-                  <CTableHeaderCell>Phone Number</CTableHeaderCell>
-                  <CTableHeaderCell>Role</CTableHeaderCell>
-                  <CTableHeaderCell>Action</CTableHeaderCell>
-                </CTableRow>
-              </CTableHead>
-              <CTableBody>
-                {users.map(user => (
-                  <CTableRow key={user.id}>
-                    <CTableHeaderCell>{user.firstName}</CTableHeaderCell>
-                    <CTableHeaderCell>{user.lastName}</CTableHeaderCell>
-                    <CTableHeaderCell>{user.username}</CTableHeaderCell>
-                    <CTableHeaderCell>{user.phoneNumber}</CTableHeaderCell>
-                    <CTableHeaderCell>{user.roles[0].name}</CTableHeaderCell>
-                    <CTableHeaderCell>
-                      <CButton className={user.active ? "btn-success" : "btn-secondary"} size="sm" onClick={() => toggleActive(user.id)}>
-                        {user.active ? "Active" : "Inactive"}
-                      </CButton>
-                      <CButton className="btn-info" size="sm" onClick={() => handleUpdate(user.id)}>Update</CButton>
-                      <CButton className="btn-danger" size="sm" onClick={() => handleDelete(user.id)}>Delete</CButton>
-                    </CTableHeaderCell>
+            {isLoading ? (
+              <div className="text-center">Loading...</div>
+            ) : (
+              <CTable bordered hover>
+                <CTableHead className="bg-body-secondary">
+                  <CTableRow>
+                    <CTableHeaderCell>First Name</CTableHeaderCell>
+                    <CTableHeaderCell>Last Name</CTableHeaderCell>
+                    <CTableHeaderCell>Email</CTableHeaderCell>
+                    <CTableHeaderCell>Phone Number</CTableHeaderCell>
+                    <CTableHeaderCell>Role</CTableHeaderCell>
+                    <CTableHeaderCell>Action</CTableHeaderCell>
                   </CTableRow>
-                ))}
-              </CTableBody>
-            </CTable>
-            <div className="d-flex justify-content-between">
+                </CTableHead>
+                <CTableBody>
+                  {users.map(user => (
+                    <CTableRow key={user.id}>
+                      <CTableHeaderCell>{user.firstName}</CTableHeaderCell>
+                      <CTableHeaderCell>{user.lastName}</CTableHeaderCell>
+                      <CTableHeaderCell>{user.username}</CTableHeaderCell>
+                      <CTableHeaderCell>{user.phoneNumber}</CTableHeaderCell>
+                      <CTableHeaderCell>{user.roles[0]?.name}</CTableHeaderCell>
+                      <CTableHeaderCell>
+                        <CButton className={user.active ? "btn btn-success" : "btn btn-secondary"} size="sm" onClick={() => toggleActive(user.id)}>
+                          {user.active ? "Active" : "Inactive"}
+                        </CButton>
+                        <CButton className="btn btn-info" size="sm" onClick={() => handleUpdate(user.id)}>Update</CButton>
+                        <CButton className="btn btn-danger" size="sm" onClick={() => handleDelete(user.id)}>Delete</CButton>
+                      </CTableHeaderCell>
+                    </CTableRow>
+                  ))}
+                </CTableBody>
+              </CTable>
+            )}
+            <div className="d-flex justify-content-between mt-3">
               <button className="btn btn-primary" onClick={() => handlePageChange(page - 1)} disabled={page === 0}>
                 Previous
               </button>

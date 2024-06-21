@@ -2,6 +2,11 @@ import React from 'react'
 import Dashboards1 from './views/dashboard/Dashboards1'
 import DashboardAdmin from './views/dashboard/sysAdmindashboard/DashboardAdmin'
 const sidebar = React.lazy(() => import('/src/components/header/adminsidebar/Adminsidebar'))
+const UnitRegistration = React.lazy(() => import('/src/views/pages/formation/UnitRegistration.js'))
+const Brigade = React.lazy(() => import('/src/views/pages/formation/Brigade.js'))
+const Battalion = React.lazy(() => import('/src/views/pages/formation/Battalion.js'))
+const UnitInfoList = React.lazy(() => import('/src/views/pages/formation/UnitInfoList.js'))
+
 
 const RecruiterForm = React.lazy(() => import('/src/views/dashboard/s1dashboard/Recruitors/RecruiterForm.js'))
 const RecruiterList = React.lazy(() => import('/src/views/dashboard/s1dashboard/Recruitors/RecruiterList.js'))
@@ -58,6 +63,10 @@ const routes = [
   { path: '/MessagePanel', name: 'MessagePanel Form', element: MessagePanel },
  { path: '/MessageList', name: 'Messages List', element: MessageList },
  { path: '/FinancialReportForm', name: 'Financial Report Form', element: FinancialReportForm },
+ { path: '/UnitRegistration', name: 'UnitRegistration  Form', element: UnitRegistration },
+ { path: '/Brigade', name: 'Brigade Registration  Form', element: Brigade },
+ { path: '/Battalion', name: 'Battalion Registration  Form', element: Battalion },
+ { path: '/UnitInfoList', name: 'Unit Information List', element: UnitInfoList },
 
 
 ]
