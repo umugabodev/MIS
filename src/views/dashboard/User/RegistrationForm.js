@@ -45,8 +45,9 @@ const RegistrationForm = () => {
     }
     if (!formData.phoneNumber.trim()) {
       validationErrors.phoneNumber = 'Phone Number is required';
-    } else if (!/^\d{10}$/.test(formData.phoneNumber)) {
-      validationErrors.phoneNumber = 'Phone Number must be exactly 10 digits';
+    } 
+    else if (!/^\d{10}$/.test(formData.phoneNumber)) {
+      validationErrors.phoneNumber = 'Phone Number must be 10 digits';
     }
     if (!formData.email.trim()) {
       validationErrors.email = 'Email is required';

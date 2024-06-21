@@ -24,8 +24,7 @@ import avatar1 from 'src/assets/images/avatars/1.jpg';
 import avatar2 from 'src/assets/images/avatars/2.jpg';
 import avatar3 from 'src/assets/images/avatars/3.jpg';
 import avatar4 from 'src/assets/images/avatars/4.jpg';
-import avatar5 from 'src/assets/images/avatars/5.jpg';
-import avatar6 from 'src/assets/images/avatars/6.jpg';
+import Userlist from '../User/UserList';
 
 const DashboardAdmin = () => {
   const userData = [
@@ -96,24 +95,6 @@ const DashboardAdmin = () => {
 
 
 
-      {/* Deployments Section
-      <CCard className="mb-4">
-        <CCardHeader>Deployments</CCardHeader>
-        <CCardBody>
-          <CRow>
-            {deploymentsData.map((deployment, index) => (
-              <CCol xs={6} md={3} key={index}>
-                <div style={{ border: '1px solid #ccc', padding: '10px', marginBottom: '10px' }}>
-                  <div className="text-body-secondary">{deployment.division}</div>
-                  <div className="fs-5 fw-semibold">{deployment.strength}</div>
-                </div>
-              </CCol>
-            ))}
-          </CRow>
-        </CCardBody>
-      </CCard> */}
-
-      {/* Rank Distribution Section */}
       <CCard className="mb-4">
         <CCardHeader>Rank Distribution </CCardHeader>
         <CCardBody>
@@ -138,38 +119,8 @@ const DashboardAdmin = () => {
         </CCardBody>
       </CCard>
       {/* User Info Section */}
-      <CCard className="mb-4">
-        <CCardHeader>User Info</CCardHeader>
-        <CCardBody>
-          <CTable align="middle" className="mb-0 border" hover responsive>
-            <CTableHead className="text-nowrap">
-              <CTableRow>
-                <CTableHeaderCell className="bg-body-tertiary text-center">
-                  <CIcon icon={cilPeople} />
-                </CTableHeaderCell>
-                <CTableHeaderCell className="bg-body-tertiary">Name</CTableHeaderCell>
-                <CTableHeaderCell className="bg-body-tertiary">Registered</CTableHeaderCell>
-                <CTableHeaderCell className="bg-body-tertiary">Role</CTableHeaderCell>
-                <CTableHeaderCell className="bg-body-tertiary">Location</CTableHeaderCell>
-              </CTableRow>
-            </CTableHead>
-            <CTableBody>
-              {userData.map((user, index) => (
-                <CTableRow key={index}>
-                  <CTableDataCell className="text-center">
-                    <CAvatar size="md" src={user.avatar} />
-                  </CTableDataCell>
-                  <CTableDataCell>{user.name}</CTableDataCell>
-                  <CTableDataCell>{user.registered}</CTableDataCell>
-                  <CTableDataCell>{user.role}</CTableDataCell>
-                  <CTableDataCell>{user.location}</CTableDataCell>
-                </CTableRow>
-              ))}
-            </CTableBody>
-          </CTable>
-        </CCardBody>
-      </CCard>
-
+      <Userlist/>
+     
       {/* Permission Info Section */}
       <CCard className="mb-4">
         <CCardHeader>Permission Info</CCardHeader>
