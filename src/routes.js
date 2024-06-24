@@ -31,7 +31,7 @@ const Widgets = React.lazy(() => import('./views/widgets/Widgets'))
 const s1dashboard = React.lazy(() => import('./views/dashboard/s1dashboard/S1Dashboard'))
 const s2dashboard = React.lazy(() => import('./views/dashboard/s2dashboard/S2Dashboard'))
 const S2widgets = React.lazy(() => import('./views/widgets/s2widgets'))
-
+const PersonnelDetail = React.lazy(() => import('./views/pages/personnel/PersonnelDetail'))
 
 
 
@@ -67,7 +67,7 @@ const routes = [
  { path: '/Brigade', name: 'Brigade Registration  Form', element: Brigade },
  { path: '/Battalion', name: 'Battalion Registration  Form', element: Battalion },
  { path: '/UnitInfoList', name: 'Unit Information List', element: UnitInfoList },
-
+ { path: '/personnel/:id', name: 'Personnel Detail', element: PersonnelDetail },
 
 ]
 
