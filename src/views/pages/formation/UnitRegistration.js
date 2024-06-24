@@ -1,5 +1,14 @@
 import React, { useState } from 'react';
-import { CButton, CCard, CCardBody, CCardHeader } from '@coreui/react';
+import {
+  CButton,
+  CCard,
+  CCardBody,
+  CCardHeader,
+  CModal,
+  CModalHeader,
+  CModalBody,
+  CModalFooter
+} from '@coreui/react';
 import UnitList from './UnitList'; // Import UnitList component
 
 const UnitRegistration = () => {
@@ -51,7 +60,11 @@ const UnitRegistration = () => {
     const updatedUnits = [...units];
     const brigades = updatedUnits[unitIndex].brigades;
     const newBrigadeId = brigades.length > 0 ? brigades[brigades.length - 1].id + 1 : 1;
-    updatedUnits[unitIndex].brigades.push({ id: newBrigadeId, brigadeName: '', battalions: [{ id: 1, battalionName: '' }] });
+    updatedUnits[unitIndex].brigades.push({
+      id: newBrigadeId,
+      brigadeName: '',
+      battalions: [{ id: 1, battalionName: '' }]
+    });
     setUnits(updatedUnits);
   };
 
@@ -63,24 +76,43 @@ const UnitRegistration = () => {
 
   const handleAddBattalion = (unitIndex, brigadeIndex) => {
     const updatedUnits = [...units];
-    const battalions = updatedUnits[unitIndex].brigades[brigadeIndex].battalions;
-    const newBattalionId = battalions.length > 0 ? battalions[battalions.length - 1].id + 1 : 1;
-    updatedUnits[unitIndex].brigades[brigadeIndex].battalions.push({ id: newBattalionId, battalionName: '' });
+    const battalions =
+      updatedUnits[unitIndex].brigades[brigadeIndex].battalions;
+    const newBattalionId =
+      battalions.length > 0 ? battalions[battalions.length - 1].id + 1 : 1;
+    updatedUnits[unitIndex].brigades[brigadeIndex].battalions.push({
+      id: newBattalionId,
+      battalionName: ''
+    });
     setUnits(updatedUnits);
   };
 
-  const handleBattalionNameChange = (e, unitIndex, brigadeIndex, battalionIndex) => {
+  const handleBattalionNameChange = (
+    e,
+    unitIndex,
+    brigadeIndex,
+    battalionIndex
+  ) => {
     const updatedUnits = [...units];
-    updatedUnits[unitIndex].brigades[brigadeIndex].battalions[battalionIndex].battalionName = e.target.value;
+    updatedUnits[unitIndex].brigades[brigadeIndex].battalions[
+      battalionIndex
+    ].battalionName = e.target.value;
     setUnits(updatedUnits);
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Logic to submit the form (e.g., send data to server)
-    // For demonstration purposes, you can handle submission logic here
-    // After submission logic, you might want to clear the form or perform other actions
-    setModalVisible(true); // Show modal or any other feedback
+
+    // Here you can perform any submission logic (e.g., sending data to server)
+    // For demonstration, we'll just log the units data to console
+    console.log('Submitted Units:', units);
+
+    // Show modal or any other feedback on successful submission
+    setModalVisible(true);
+  };
+
+  const closeModal = () => {
+    setModalVisible(false);
   };
 
   return (
@@ -93,7 +125,7 @@ const UnitRegistration = () => {
           <form onSubmit={handleSubmit}>
             {units.map((unit, unitIndex) => (
               <div key={unit.id} className="mb-4 border p-3 rounded">
-                <h2 className="mb-3">Unit {unitIndex + 1}</h2>
+                <h2 className="mb-2">Unit Details</h2>
                 <div className="form-group">
                   <label htmlFor={`unitName-${unit.id}`}>Unit Name:</label>
                   <input
@@ -129,35 +161,58 @@ const UnitRegistration = () => {
 
                 {unit.brigades.map((brigade, brigadeIndex) => (
                   <div key={brigade.id} className="mb-3 border p-3 rounded">
-                    <h4>Brigade {brigadeIndex + 1}</h4>
+                    <h4>Brigades under: {unit.unitName} Div</h4>
                     <div className="form-group">
                       <label>Brigade Name:</label>
                       <input
                         type="text"
                         className="form-control"
                         value={brigade.brigadeName}
-                        onChange={(e) => handleBrigadeNameChange(e, unitIndex, brigadeIndex)}
+                        onChange={(e) =>
+                          handleBrigadeNameChange(e, unitIndex, brigadeIndex)
+                        }
                       />
                     </div>
                     <ul className="list-unstyled">
-                      {brigade.battalions.map((battalion, battalionIndex) => (
-                        <li key={battalion.id} className="mb-2">
-                          <label>Battalion Name:</label>
-                          <input
-                            type="text"
-                            className="form-control"
-                            value={battalion.battalionName}
-                            onChange={(e) => handleBattalionNameChange(e, unitIndex, brigadeIndex, battalionIndex)}
-                          />
-                        </li>
-                      ))}
+                      {brigade.battalions.map(
+                        (battalion, battalionIndex) => (
+                          <li
+                            key={battalion.id}
+                            className="mb-1"
+                          >
+                            <h4>Battalion under: {brigade.brigadeName} Bde</h4>
+                            <label>Battalion Name:</label>
+                            <input
+                              type="text"
+                              className="form-control"
+                              value={battalion.battalionName}
+                              onChange={(e) =>
+                                handleBattalionNameChange(
+                                  e,
+                                  unitIndex,
+                                  brigadeIndex,
+                                  battalionIndex
+                                )
+                              }
+                            />
+                          </li>
+                        )
+                      )}
                     </ul>
-                    <CButton color="primary" onClick={() => handleAddBattalion(unitIndex, brigadeIndex)}>
+                    <CButton
+                      color="primary"
+                      onClick={() =>
+                        handleAddBattalion(unitIndex, brigadeIndex)
+                      }
+                    >
                       Add Battalion
                     </CButton>
                   </div>
                 ))}
-                <CButton color="primary" onClick={() => handleAddBrigade(unitIndex)}>
+                <CButton
+                  color="primary"
+                  onClick={() => handleAddBrigade(unitIndex)}
+                >
                   Add Brigade
                 </CButton>
               </div>
@@ -168,6 +223,19 @@ const UnitRegistration = () => {
           </form>
         </CCardBody>
       </CCard>
+
+      {/* Modal for showing submission success */}
+      <CModal show={modalVisible} onClose={closeModal}>
+        <CModalHeader closeButton>Submission Successful</CModalHeader>
+        <CModalBody>
+          Your unit registration form has been successfully submitted.
+        </CModalBody>
+        <CModalFooter>
+          <CButton color="primary" onClick={closeModal}>
+            Close
+          </CButton>
+        </CModalFooter>
+      </CModal>
     </>
   );
 };
