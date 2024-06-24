@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import * as Survey from 'survey-react';
 import 'survey-react/survey.css';
-import axios from 'axios';
+
+import { v4 as uuidv4 } from 'uuid';
 import {
   CCard,
   CCardBody,
@@ -9,15 +10,25 @@ import {
   CCol,
   CRow,
 } from '@coreui/react';
-import { Button } from '@coreui/coreui';
+
 
 const addPersonnel = () => {
+  const token = localStorage.getItem('accessToken');
   const [selectedSection, setSelectedSection] = useState('Personnel Information');
   const [formData, setFormData] = useState(() => {
     const storedData = localStorage.getItem('surveyFormData');
     return storedData ? JSON.parse(storedData) : {};
-    
+
   });
+
+  useEffect(() => {
+    let personnelId = localStorage.getItem('personnelId');
+    if (!personnelId) {
+      personnelId = uuidv4();
+      localStorage.setItem('personnelId', personnelId);
+    }
+    setFormData(prevData => ({ ...prevData, personnelId }));
+  }, []);
 
   useEffect(() => {
     localStorage.setItem('surveyFormData', JSON.stringify(formData));
@@ -26,23 +37,30 @@ const addPersonnel = () => {
   const handleSectionClick = (sectionId) => {
     setSelectedSection(sectionId);
   };
-  // Function to handle form submission
-  const handleFormSubmit = async (formData) => {
-      console.log('Form data:', formData); // Log form data to inspect it
-      try {
-          const response = await axios.post('http://localhost:3007/api/v1/addpersonnel', formData, {
-              headers: {
-                  'Content-Type': 'application/json',
-              },
-          });
-          console.log('Form submitted successfully:', response.data);
-      } catch (error) {
-          console.error('Error submitting form:', error.response ? error.response.data : error.message);
+
+  const handleFormSubmit = async (formDataToSend, endpoint, token) => {
+    try {
+      const response = await fetch(endpoint, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+           // Do not set Content-Type manually for multipart/form-data
+    // 'Content-Type': 'multipart/form-data; boundary=----WebKitFormBoundary7lqPA2axIsrMFHoX',
+        },
+        body: formDataToSend,
+      });
+
+      if (!response.ok) {
+        throw new Error(`Error: ${response.statusText}`);
       }
+
+      const data = await response.json();
+      console.log('Form submitted successfully:', data);
+    } catch (error) {
+      console.error('Error submitting form:', error.message);
+    }
   };
   
-
-// Call handleFormSubmit with the form data on form completion
 
   const renderFormFields = () => {
     switch (selectedSection) {
@@ -55,24 +73,18 @@ const addPersonnel = () => {
                   {
                     name: 'page1',
                     elements: [
-                      
-                      
-                      { type: 'text', name: 'serviceNumber', title: 'Service No', inputType: 'number', isRequired: true },
-                      { type: 'dropdown', name: 'rank', title: 'Rank', isRequired: true, choices: ['Pte', 'Cpl', 'Sgt', 'SSgt', 'SM', 'W0I', '2Lt', 'Lt', 'Capt', 'Maj', 'Lt Col', 'Col', 'B General', 'M General', 'L General'] },
+                      { type: 'text', name: 'servicenumber', title: 'Service No', inputType: 'number', isRequired: true },
+                      { type: 'dropdown', name: 'rank', title: 'Rank', isRequired: true, choices: ['Pte', 'Cpl', 'Sgt', 'SSgt', 'SM', 'W0I', 'W0II','2Lt', 'Lt', 'Capt', 'Maj', 'Lt Col', 'Col', 'Brig Gen', 'Maj Gen', 'Lt Gen'] },
                       { type: 'text', name: 'firstname', title: 'First Name', isRequired: true },
                       { type: 'text', name: 'lastname', title: 'Last Name', isRequired: true },
                       { type: 'text', name: 'currentunit', title: 'Unit', isRequired: true },
                       { type: 'text', name: 'dob', title: 'Date of Birth', inputType: 'date', isRequired: true },
                       { type: 'radiogroup', name: 'gender', title: 'Gender', isRequired: true, choices: ['Male', 'Female'] },
-                      { type: 'file', name: 'Photo', title: 'Photo',  isRequired: true, accept: '.png,.jpg,.jpeg', maxSize: 5 * 1024 * 1024 },
-                      { type: 'text', name: 'fathername',  isRequired: true, title: 'Father Name' },
-                      { type: 'text', name: 'mothername',  isRequired: true, title: 'Mother Name' },
-                      { type: 'text', name: 'religious',  isRequired: true, title: 'Religious' },
-                      { type: 'text', name: 'placeOfBirth', title: 'Place Of Birth', isRequired: true },
-                      { type: 'dropdown', name: 'martialStutus', title: 'Martial Status', isRequired: true, choices: ['Single', 'Married', 'Widower', 'Divorced'] },
-                      
-                      
-                      // Add other form fields as needed, with defaultValue set from formData
+                      { type: 'text', name: 'fathername', isRequired: true, title: 'Father Name' },
+                      { type: 'text', name: 'mothername', isRequired: true, title: 'Mother Name' },
+                      { type: 'text', name: 'religious', isRequired: true, title: 'Religious' },
+                      { type: 'text', name: 'placeofbirth', title: 'Place Of Birth', isRequired: true },
+                      { type: 'dropdown', name: 'maritalStatus', title: 'Marital Status', isRequired: true, choices: ['Single', 'Married', 'Widower', 'Divorced'] },
                     ],
                   },
                 ],
@@ -80,18 +92,25 @@ const addPersonnel = () => {
               showNavigationButtons={true}
               completeText="Next"
               onComplete={(survey) => {
-
-                // Handle form submission here
                 console.log('Form data:', survey.data);
-                setFormData({ ...formData, ...survey.data });
-                setSelectedSection("Academic Qualification")
+                const formSectionData = { ...survey.data, id: formData.personnelId };
+
+                const formDataToSend = new FormData();
+                for (const key in formSectionData) {
+                  if (key ===  formSectionData[key] && formSectionData[key][0]) {
+                    formDataToSend.append(key, formSectionData[key][0]);
+                  } else {
+                    formDataToSend.append(key, formSectionData[key]);
+                  }
+                }
+
+                setFormData({ ...formData, ...formSectionData });
+                handleFormSubmit(formDataToSend, 'http://localhost:3007/api/v1/personnel', token);
+                setSelectedSection("Academic Qualification");
               }}
-        
-              
             />
-            
           </>
-        );
+        );        
         case 'Academic Qualification':
         return (
           <>
@@ -104,12 +123,13 @@ const addPersonnel = () => {
                       
                       { type: 'text', name: 'school', title: 'School/University', isRequired: true },
                       { type: 'text', name: 'degree', title: 'Degree', isRequired: true },
+                      { type: 'text', name: 'option', title: 'Option', isRequired: true },
                       { type: 'text', name: 'starteddegree', title: 'Started', inputType: 'date', isRequired: true },
                       { type: 'text', name: 'enddegree', title: 'End', inputType: 'date' },
                       
                       {
                         "type": "dropdown",
-                        "name": "country",
+                        "name": "place",
                         "title": "Country",
                         "isRequired": true,
                         "choices": [
@@ -139,11 +159,17 @@ const addPersonnel = () => {
               showNavigationButtons={true}
               completeText="Next"
               onComplete={(survey) => {
-
-                // Handle form submission here
                 console.log('Form data:', survey.data);
-                setFormData({ ...formData, ...survey.data });
-                setSelectedSection("Course and Training")
+                const formSectionData = { ...survey.data, id: formData.personnelId };
+
+                const formDataToSend = new FormData();
+                for (const key in formSectionData) {
+                  formDataToSend.append(key, formSectionData[key]);
+                }
+
+                setFormData({ ...formData, ...formSectionData });
+                handleFormSubmit(formDataToSend, 'http://localhost:3007/api/v1/academicqualifications', token);
+                setSelectedSection("Course and Training");
               }}
             />
           </>
@@ -160,10 +186,10 @@ const addPersonnel = () => {
                       elements: [
                         
                         { type: 'text', name: 'course', title: 'Course Name', isRequired: true },
-    { type: 'text', name: 'place', title: 'Place', isRequired: true },
-    { type: 'text', name: 'startedcourse', title: 'Started', inputType: 'date', isRequired: true },
-    { type: 'text', name: 'endcourse', title: 'End', inputType: 'date' },
-    { type: 'dropdown', name: 'status', title: 'Status', isRequired: true, choices: ['On course', 'Completed'] },
+                        { type: 'text', name: 'place', title: 'Place', isRequired: true },
+                        { type: 'text', name: 'startedcourse', title: 'Started', inputType: 'date', isRequired: true },
+                        { type: 'text', name: 'endcourse', title: 'End', inputType: 'date' },
+                        { type: 'dropdown', name: 'status', title: 'Status', isRequired: true, choices: ['On course', 'Completed'] },
                       ],
                     },
                   ],
@@ -191,9 +217,9 @@ const addPersonnel = () => {
                     elements: [
                       
                       { type: 'text', name: 'division', title: 'Division', isRequired: true },
-    { type: 'text', name: 'brigade', title: 'Brigade', isRequired: true },
-    { type: 'text', name: 'regment', title: 'Regment/Battalion', isRequired: true },
-    { type: 'text', name: 'appointment', title: 'Appointment', isRequired: true },
+                      { type: 'text', name: 'brigade', title: 'Brigade', isRequired: true },
+                      { type: 'text', name: 'regment', title: 'Regment/Battalion', isRequired: true },
+                      { type: 'text', name: 'appointment', title: 'Appointment', isRequired: true },
   ],
                   },
                 ],
@@ -222,9 +248,9 @@ const addPersonnel = () => {
                     elements: [
                       
                       { type: 'text', name: 'name', title: 'Name', isRequired: true },
-    { type: 'text', name: 'contact', title: 'Contact', isRequired: true },
-    { type: 'text', name: 'relationship', title: 'Relationship', isRequired: true },
-    { type: 'text', name: 'location', title: 'Location', isRequired: true },
+                      { type: 'text', name: 'contact', title: 'Contact', isRequired: true },
+                      { type: 'text', name: 'relationship', title: 'Relationship', isRequired: true },
+                      { type: 'text', name: 'location', title: 'Location', isRequired: true },
   ],
                   },
                 ],
@@ -282,9 +308,9 @@ const addPersonnel = () => {
                     elements: [
                      
                       { type: 'text', name: 'doe', title: 'Date Of Entry', inputType: 'date', isRequired: true },
-    { type: 'dropdown', name: 'poe', title: 'Place Of Entry', isRequired: true, choices: ['BMTC Nasho', 'RMA Gako', 'Other'] },
-    { type: 'text', name: 'css', title: 'CSS ACC No', inputType: 'number', isRequired: true },
-  ],
+                      { type: 'dropdown', name: 'poe', title: 'Place Of Entry', isRequired: true, choices: ['BMTC Nasho', 'RMA Gako', 'Other'] },
+                      { type: 'text', name: 'css', title: 'CSS ACC No', inputType: 'number', isRequired: true },
+                    ],
                     
                   },
                   
@@ -399,6 +425,7 @@ const addPersonnel = () => {
                     {
                       name: 'page1',
                       elements: [
+                        { type: 'text', name: 'spouseName', title: 'spouseName', inputType: 'text', isRequired: true, defaultValue: formData['spouseName'] || '' },
                         { type: 'text', name: 'nationId', title: 'NationId', inputType: 'number', isRequired: true, defaultValue: formData['nationId'] || '' },
                         { type: 'text', name: 'contact', title: 'Contact', inputType: 'number', isRequired: true, defaultValue: formData['contact'] || '' },
                         { type: 'text', name: 'province', title: 'Province', isRequired: true, defaultValue: formData['province'] || '' },
@@ -428,6 +455,7 @@ const addPersonnel = () => {
                     {
                       name: 'page1',
                       elements: [
+                        { type: 'text', name: 'firstname', title: 'firstname', inputType: 'text', isRequired: true, defaultValue: formData['firstname'] || '' },
                         { type: 'text', name: 'nationId', title: 'NationId', inputType: 'number', isRequired: true, defaultValue: formData['nationId'] || '' },
                         { type: 'text', name: 'contact', title: 'Contact', inputType: 'number', isRequired: true, defaultValue: formData['contact'] || '' },
                         { type: 'text', name: 'relationship', title: 'Relationship', isRequired: true, defaultValue: formData['relationship'] || '' },
@@ -467,12 +495,18 @@ const addPersonnel = () => {
                 showNavigationButtons={true}
                 onComplete={(survey) => {
                   console.log('Form data:', survey.data);
-                  handleFormSubmit(survey.data);
+                  setSelectedSection("Complete Personnel Registration");
+
                 }}
               />
             );
         
-      // Add cases for other sections if needed
+      case 'Complete Personnel Registration':
+        // handle form completion, clear local storage, etc.
+        localStorage.removeItem('personnelId');
+        localStorage.removeItem('surveyFormData');
+        alert('Form completed successfully!');
+        return <div>Form completed successfully!</div>;
       default:
         return null;
     }

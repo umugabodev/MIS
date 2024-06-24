@@ -26,7 +26,7 @@ const Widgets = React.lazy(() => import('./views/widgets/Widgets'))
 const s1dashboard = React.lazy(() => import('./views/dashboard/s1dashboard/S1Dashboard'))
 const s2dashboard = React.lazy(() => import('./views/dashboard/s2dashboard/S2Dashboard'))
 const S2widgets = React.lazy(() => import('./views/widgets/s2widgets'))
-
+const PersonnelDetail = React.lazy(() => import('./views/pages/personnel/PersonnelDetail'))
 
 
 
@@ -58,6 +58,7 @@ const routes = [
   { path: '/MessagePanel', name: 'MessagePanel Form', element: MessagePanel },
  { path: '/MessageList', name: 'Messages List', element: MessageList },
  { path: '/FinancialReportForm', name: 'Financial Report Form', element: FinancialReportForm },
+ { path: '/personnel/:id', name: 'Personnel Detail', element: PersonnelDetail },
 
 
 ]

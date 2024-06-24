@@ -15,7 +15,7 @@ const Unauthorized = React.lazy(() => import('./views/pages/unauthorized/Unautho
 const PrivateRoute = React.lazy(() => import('./components/PrivateRoute'));
 
 const App = () => {
-  const { isColorModeSet, setColorMode } = useColorModes('coreui-free-react-admin-template-theme')
+  const { isColorModeSet, setColorMode } = useColorModes('')
   const storedTheme = useSelector((state) => state.theme)
 
   useEffect(() => {
