@@ -18,6 +18,8 @@ Font.register({
 const PersonnelDetail = () => {
   const { id } = useParams();
   const [personnel, setPersonnel] = useState(null);
+  const [academic, setAcademic] = useState(null);
+const [qualification, setqualification] = useState(null);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
   const [showPDF, setShowPDF] = useState(false);
@@ -77,6 +79,7 @@ const PersonnelDetail = () => {
           const result = await response.json();
           if (result.id != null) {
             setPersonnel(result);
+            fetchAcademicQualificationDetail(result.personnelId); // Assuming personnelId is the identifier for academic qualifications
           } else {
             setError(result.message);
           }
@@ -89,9 +92,31 @@ const PersonnelDetail = () => {
         setLoading(false);
       }
     };
-
+  
     fetchPersonnelDetail();
   }, [id, token]);
+  
+  const fetchAcademicQualificationDetail = async () => {
+    try {
+      const response = await fetch(`http://localhost:3007/api/v1/academicqualifications/personnel/${id}`, {
+        method: 'GET',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        }
+      });
+      if (response.ok) {
+        const result = await response.json();
+        setAcademic(result); // Assuming the response is an array of academic qualifications
+      } else {
+        setError('Failed to fetch Academic Qualifications details');
+      }
+    } catch (error) {
+      setError('Error fetching Academic Qualifications details');
+    }
+  };
+  
+
 
   const handleExportPDF = () => {
     setShowPDF(true);
@@ -152,47 +177,22 @@ const PersonnelDetail = () => {
             </div>
 
             {/* Section 2 */}
-            <div style={pdfStyles.sectionContainer}>
-              <div style={sectionStyle}>
-                <h2 style={pdfStyles.heading}>Academic Qualification</h2>
-                <p style={pdfStyles.text}>School: {personnel.school}</p>
-                <p style={pdfStyles.text}>Degree: {personnel.degree}</p>
-                <p style={pdfStyles.text}>Option: {personnel.option}</p>
-                <p style={pdfStyles.text}>Started: {personnel.starteddegree}</p>
-                <p style={pdfStyles.text}>End: {personnel.enddegree}</p>
-                <p style={pdfStyles.text}>Country: {personnel.country}</p>
-                <p style={pdfStyles.text}>Status: {personnel.status}</p>
-              </div>
-            </div>
-          </div>
+            {academic && academic.map((qualification, index) => (
+  <div key={index} style={pdfStyles.sectionContainer}>
+    <div style={sectionStyle}>
+      <h2 style={pdfStyles.heading}>Academic Qualification {index + 1}</h2>
+      <p style={pdfStyles.text}>School: {qualification.school}</p>
+      <p style={pdfStyles.text}>Degree: {qualification.degree}</p>
+      <p style={pdfStyles.text}>Option: {qualification.option}</p>
+      <p style={pdfStyles.text}>Started: {qualification.fromDate}</p>
+      <p style={pdfStyles.text}>End: {qualification.toDate}</p>
+      <p style={pdfStyles.text}>Country: {qualification.place}</p>
+      <p style={pdfStyles.text}>Status: {qualification.status}</p>
+    </div>
+  </div>
+))}
 
-          {/* Parallel Sections */}
-          <div style={pdfStyles.parallelSections}>
-            {/* Section 1 */}
-            <div style={pdfStyles.sectionContainer}>
-              <div style={sectionStyle}>
-              <h2 style={pdfStyles.heading}>Course and Training</h2>
-            <p style={pdfStyles.text}>School: {personnel.school}</p>
-            <p style={pdfStyles.text}>Degree: {personnel.degree}</p>
-            <p style={pdfStyles.text}>Started: {personnel.starteddegree}</p>
-            <p style={pdfStyles.text}>End: {personnel.enddegree}</p>
-            <p style={pdfStyles.text}>Country: {personnel.country}</p>
-            <p style={pdfStyles.text}>Status: {personnel.status}</p>
-              </div>
-            </div>
-
-            {/* Section 2 */}
-            <div style={pdfStyles.sectionContainer}>
-              <div style={sectionStyle}>
-              <h2 style={pdfStyles.heading}>Deployment Data</h2>
-            <p style={pdfStyles.text}>Division: {personnel.div}</p>
-            <p style={pdfStyles.text}>Brigade: {personnel.bde}</p>
-            <p style={pdfStyles.text}>Battalion: {personnel.btn}</p>
-            <p style={pdfStyles.text}>Regiment: {personnel.regiment}</p>
-            <p style={pdfStyles.text}>Appointment: {personnel.appointment}</p>
-              </div>
-            </div>
-          </div>
+     </div>    
 
           {/* PDF Viewer */}
           {showPDF && (

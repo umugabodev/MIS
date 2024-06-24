@@ -38,28 +38,32 @@ const addPersonnel = () => {
     setSelectedSection(sectionId);
   };
 
-  const handleFormSubmit = async (formDataToSend, endpoint, token) => {
-    try {
-      const response = await fetch(endpoint, {
-        method: 'POST',
-        headers: {
-          'Authorization': `Bearer ${token}`,
-           // Do not set Content-Type manually for multipart/form-data
-    // 'Content-Type': 'multipart/form-data; boundary=----WebKitFormBoundary7lqPA2axIsrMFHoX',
-        },
-        body: formDataToSend,
-      });
+  const handleFormSubmit = async (formDataToSend, endpoint, token, contentType) => {
+  try {
+    const headers = {
+      'Authorization': `Bearer ${token}`,
+    };
 
-      if (!response.ok) {
-        throw new Error(`Error: ${response.statusText}`);
-      }
-
-      const data = await response.json();
-      console.log('Form submitted successfully:', data);
-    } catch (error) {
-      console.error('Error submitting form:', error.message);
+    if (contentType) {
+      headers['Content-Type'] = contentType;
     }
-  };
+
+    const response = await fetch(endpoint, {
+      method: 'POST',
+      headers: headers,
+      body: formDataToSend,
+    });
+
+    if (!response.ok) {
+      throw new Error(`Error: ${response.statusText}`);
+    }
+
+    const data = await response.json();
+    console.log('Form submitted successfully:', data);
+  } catch (error) {
+    console.error('Error submitting form:', error.message);
+  }
+};
   
 
   const renderFormFields = () => {
@@ -124,8 +128,8 @@ const addPersonnel = () => {
                       { type: 'text', name: 'school', title: 'School/University', isRequired: true },
                       { type: 'text', name: 'degree', title: 'Degree', isRequired: true },
                       { type: 'text', name: 'option', title: 'Option', isRequired: true },
-                      { type: 'text', name: 'starteddegree', title: 'Started', inputType: 'date', isRequired: true },
-                      { type: 'text', name: 'enddegree', title: 'End', inputType: 'date' },
+                      { type: 'text', name: 'fromDate', title: 'Started', inputType: 'date', isRequired: true },
+                      { type: 'text', name: 'toDate', title: 'End', inputType: 'date' },
                       
                       {
                         "type": "dropdown",
@@ -151,7 +155,7 @@ const addPersonnel = () => {
                         ],
                         defaultValue: formData['country'] || ''
                       },
-                        { type: 'dropdown', name: 'stutus', title: 'Status', isRequired: true, choices: ['At School', 'Completed', 'Pending'] },
+                        { type: 'dropdown', name: 'status', title: 'Status', isRequired: true, choices: ['At School', 'Completed', 'Pending'] },
                     ],
                   },
                 ],
@@ -159,8 +163,9 @@ const addPersonnel = () => {
               showNavigationButtons={true}
               completeText="Next"
               onComplete={(survey) => {
+                console.log("Id: ", localStorage.getItem('personnelId'));
                 console.log('Form data:', survey.data);
-                const formSectionData = { ...survey.data, id: formData.personnelId };
+                const formSectionData = { personnelId: localStorage.getItem('personnelId') , ...survey.data};
 
                 const formDataToSend = new FormData();
                 for (const key in formSectionData) {
@@ -168,7 +173,7 @@ const addPersonnel = () => {
                 }
 
                 setFormData({ ...formData, ...formSectionData });
-                handleFormSubmit(formDataToSend, 'http://localhost:3007/api/v1/academicqualifications', token);
+                handleFormSubmit(JSON.stringify(formSectionData), 'http://localhost:3007/api/v1/academicqualifications', token, 'application/json');
                 setSelectedSection("Course and Training");
               }}
             />
