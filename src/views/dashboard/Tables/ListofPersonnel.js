@@ -92,8 +92,19 @@ const Dashboards1 = () => {
 
   return (
     <CRow>
+      
       <CCol xs="12">
+        
         <CCard className="mb-4">
+        {deletePersonId !== null && (
+              <div className="confirmation-dialog bg-warning text-dark p-3 rounded mt-3">
+                <p className="mb-0">Are you sure you want to delete this person?</p>
+                <div className="mt-2">
+                  <CButton color="danger" onClick={handleDeleteConfirmed}>Delete</CButton>{' '}
+                  <CButton color="secondary" onClick={handleCancelDelete}>Cancel</CButton>
+                </div>
+              </div>
+            )}
           <CCardHeader className="d-flex justify-content-between align-items-center bg-dark text-light">
             <h5 className="mb-0">List of Personnel</h5>
             <Link to="/addPersonnel" className="btn btn-outline-light">
@@ -140,15 +151,7 @@ const Dashboards1 = () => {
               </tbody>
             </table>
 
-            {deletePersonId !== null && (
-              <div className="confirmation-dialog bg-warning text-dark p-3 rounded mt-3">
-                <p className="mb-0">Are you sure you want to delete this person?</p>
-                <div className="mt-2">
-                  <CButton color="danger" onClick={handleDeleteConfirmed}>Delete</CButton>{' '}
-                  <CButton color="secondary" onClick={handleCancelDelete}>Cancel</CButton>
-                </div>
-              </div>
-            )}
+           
 
             <div className="d-flex justify-content-between mt-3">
               <button className="btn btn-outline-primary" onClick={() => handlePageChange(page - 1)} disabled={page === 0}>
