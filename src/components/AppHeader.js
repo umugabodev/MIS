@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import {
@@ -23,6 +23,9 @@ import {
   cilMenu,
   cilMoon,
   cilSun,
+  cilClock,
+  cilCalendar,
+  cilLocationPin,
 } from '@coreui/icons';
 
 import { AppBreadcrumb } from './index';
@@ -30,21 +33,52 @@ import { AppHeaderDropdown } from './header/index';
 
 const AppHeader = () => {
   const headerRef = useRef();
-  // Setting 'light' as the default color mode
-  const { colorMode, setColorMode } = useColorModes('light');  // Ensure this is the initial value
-
+  const { colorMode, setColorMode } = useColorModes('light'); // Ensure 'light' mode initially
   const dispatch = useDispatch();
   const sidebarShow = useSelector((state) => state.sidebarShow);
+
+  const [militaryTime, setMilitaryTime] = useState('');
+  const [date, setDate] = useState('');
+  const [coordinates, setCoordinates] = useState({ lat: '', lon: '' });
 
   useEffect(() => {
     document.addEventListener('scroll', () => {
       headerRef.current && headerRef.current.classList.toggle('shadow-sm', document.documentElement.scrollTop > 0);
     });
+
+    // Update military time and date every second
+    const interval = setInterval(() => {
+      const now = new Date();
+      const hours = now.getHours().toString().padStart(2, '0');
+      const minutes = now.getMinutes().toString().padStart(2, '0');
+      const seconds = now.getSeconds().toString().padStart(2, '0');
+      setMilitaryTime(`${hours}:${minutes}:${seconds}`);
+
+      const day = now.getDate().toString().padStart(2, '0');
+      const month = (now.getMonth() + 1).toString().padStart(2, '0');
+      const year = now.getFullYear();
+      setDate(`${day}/${month}/${year}`);
+    }, 1000);
+
+    // Get coordinates
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        setCoordinates({
+          lat: position.coords.latitude.toFixed(2),
+          lon: position.coords.longitude.toFixed(2),
+        });
+      },
+      (error) => {
+        console.error('Error getting location:', error);
+      }
+    );
+
+    return () => clearInterval(interval);
   }, []);
 
   return (
     <CHeader position="sticky" className="mb-4 p-0" ref={headerRef}>
-      <CContainer className="border-bottom px-4" fluid>
+      <CContainer className="border-bottom px-4 d-flex justify-content-between align-items-center" fluid>
         <CHeaderToggler
           onClick={() => dispatch({ type: 'set', sidebarShow: !sidebarShow })}
           style={{ marginInlineStart: '-14px' }}
@@ -64,7 +98,15 @@ const AppHeader = () => {
             <CNavLink href="#">Settings</CNavLink>
           </CNavItem>
         </CHeaderNav>
-        <CHeaderNav className="ms-auto">
+        <div className="flex-grow-1 d-flex justify-content-center align-items-center" style={{ fontFamily: 'Courier, monospace', color: 'black' }}>
+          <CIcon icon={cilClock} style={{ marginRight: '5px' }} />
+          <div style={{ marginRight: '20px' }}>{`Time: ${militaryTime}`}</div>
+          <CIcon icon={cilCalendar} style={{ marginRight: '5px' }} />
+          <div style={{ marginRight: '20px' }}>{`Date: ${date}`}</div>
+          <CIcon icon={cilLocationPin} style={{ marginRight: '5px' }} />
+          <div>{`Coordinates: ${coordinates.lat}, ${coordinates.lon}`}</div>
+        </div>
+        <CHeaderNav className="d-flex align-items-center">
           <CNavItem>
             <CNavLink href="#">
               <CIcon icon={cilBell} size="lg" />
@@ -82,11 +124,11 @@ const AppHeader = () => {
           </CNavItem>
         </CHeaderNav>
         <CHeaderNav>
-          <li className="nav-item py-1">
+          {/* <li className="nav-item py-1">
             <div className="vr h-100 mx-2 text-body text-opacity-75"></div>
           </li>
-          <CDropdown variant="nav-item" placement="bottom-end">
-            <CDropdownToggle caret={false}>
+          <CDropdown variant="nav-item" placement="bottom-end"> */}
+            {/* <CDropdownToggle caret={false}>
               {colorMode === 'light' ? (
                 <CIcon icon={cilMoon} size="lg" />
               ) : colorMode === 'auto' ? (
@@ -94,8 +136,8 @@ const AppHeader = () => {
               ) : (
                 <CIcon icon={cilSun} size="lg" />
               )}
-            </CDropdownToggle>
-            <CDropdownMenu>
+            </CDropdownToggle> */}
+            {/* <CDropdownMenu>
               <CDropdownItem
                 active={colorMode === 'light'}
                 className="d-flex align-items-center"
@@ -123,11 +165,11 @@ const AppHeader = () => {
               >
                 <CIcon className="me-2" icon={cilContrast} size="lg" /> Auto
               </CDropdownItem>
-            </CDropdownMenu>
-          </CDropdown>
+            </CDropdownMenu> */}
+          {/* </CDropdown>
           <li className="nav-item py-1">
             <div className="vr h-100 mx-2 text-body text-opacity-75"></div>
-          </li>
+          </li> */}
           <AppHeaderDropdown />
         </CHeaderNav>
       </CContainer>

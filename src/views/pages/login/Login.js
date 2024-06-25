@@ -37,10 +37,10 @@ const Login = () => {
         if (!response.ok) {
           alert('Invalid Username or Password');
       }else{
-        console.log("Log nahageze")
         console.log(data)
         localStorage.setItem('accessToken', data.accessToken); // Store access token in local storage
         localStorage.setItem('refreshToken', data.refreshToken); // Store refresh token in local storage
+        localStorage.setItem('light', "light"); 
         console.log('Login successful:', user);
         role = data.roles[0].name;
 
