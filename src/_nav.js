@@ -429,7 +429,7 @@ const getNavItems = (userRole) => {
         },
         {
           component: CNavItem,
-          name: 'Manage Users',
+          name: 'Manage Cases',
           to: '/CaseFileList',
         },
   
@@ -448,12 +448,12 @@ const getNavItems = (userRole) => {
         {
           component: CNavItem,
           name: 'Add security issue',
-          to: '#',
+          to: '/SecurityForm',
         },
         {
           component: CNavItem,
           name: 'Issues List',
-          to: '#',
+          to: '/IssueList',
         },
         {
           component: CNavItem,

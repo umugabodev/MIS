@@ -6,8 +6,10 @@ const UnitRegistration = React.lazy(() => import('/src/views/pages/formation/Uni
 const Brigade = React.lazy(() => import('/src/views/pages/formation/Brigade.js'))
 const Battalion = React.lazy(() => import('/src/views/pages/formation/Battalion.js'))
 const UnitInfoList = React.lazy(() => import('/src/views/pages/formation/UnitInfoList.js'))
+const SecurityForm = React.lazy(() => import('/src/views/pages/security/SecurityForm.js'))
+const IssueList = React.lazy(() => import('/src/views/pages/security/IssueList.js'))
 
-
+ 
 const RecruiterForm = React.lazy(() => import('/src/views/dashboard/s1dashboard/Recruitors/RecruiterForm.js'))
 const RecruiterList = React.lazy(() => import('/src/views/dashboard/s1dashboard/Recruitors/RecruiterList.js'))
 const MessagePanel = React.lazy(() => import('/src/views/dashboard/messages/MessagePanel'))
@@ -68,6 +70,8 @@ const routes = [
  { path: '/Battalion', name: 'Battalion Registration  Form', element: Battalion },
  { path: '/UnitInfoList', name: 'Unit Information List', element: UnitInfoList },
  { path: '/personnel/:id', name: 'Personnel Detail', element: PersonnelDetail },
+ { path: '/SecurityForm', name: 'Security Report Form', element: SecurityForm },
+{ path: '/IssueList', name: 'Security Issues List', element: IssueList },
 
 ]
 

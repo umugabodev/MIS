@@ -9,7 +9,6 @@ import {
   CModalBody,
   CModalFooter
 } from '@coreui/react';
-import UnitList from './UnitList'; // Import UnitList component
 
 const UnitRegistration = () => {
   const [units, setUnits] = useState([
@@ -55,6 +54,7 @@ const UnitRegistration = () => {
     updatedUnits[unitIndex].description = e.target.value;
     setUnits(updatedUnits);
   };
+
 
   const handleAddBrigade = (unitIndex) => {
     const updatedUnits = [...units];
@@ -117,109 +117,128 @@ const UnitRegistration = () => {
 
   return (
     <>
-      <CCard className="shadow mb-4" style={{ maxWidth: '800px', margin: '0 auto' }}>
+      <CCard className="shadow mb-2" style={{ maxWidth: '1200px', margin: '0 auto' }}>
         <CCardHeader className="bg-primary text-white d-flex justify-content-between align-items-center">
-          <h5 className="mb-0">Unit Registration Form</h5>
+          <h6 className="mb-0">Unit Registration Form</h6>
         </CCardHeader>
         <CCardBody className="p-4">
           <form onSubmit={handleSubmit}>
             {units.map((unit, unitIndex) => (
-              <div key={unit.id} className="mb-4 border p-3 rounded">
-                <h2 className="mb-2">Unit Details</h2>
-                <div className="form-group">
-                  <label htmlFor={`unitName-${unit.id}`}>Unit Name:</label>
-                  <input
-                    type="text"
-                    id={`unitName-${unit.id}`}
-                    className="form-control"
-                    value={unit.unitName}
-                    onChange={(e) => handleUnitNameChange(e, unitIndex)}
-                    required
-                  />
-                </div>
-                <div className="form-group">
-                  <label htmlFor={`address-${unit.id}`}>Address:</label>
-                  <input
-                    type="text"
-                    id={`address-${unit.id}`}
-                    className="form-control"
-                    value={unit.address}
-                    onChange={(e) => handleAddressChange(e, unitIndex)}
-                    required
-                  />
-                </div>
-                <div className="form-group">
-                  <label htmlFor={`description-${unit.id}`}>Description:</label>
-                  <textarea
-                    id={`description-${unit.id}`}
-                    className="form-control"
-                    value={unit.description}
-                    onChange={(e) => handleDescriptionChange(e, unitIndex)}
-                    rows={4}
-                  />
-                </div>
-
-                {unit.brigades.map((brigade, brigadeIndex) => (
-                  <div key={brigade.id} className="mb-3 border p-3 rounded">
-                    <h4>Brigades under: {unit.unitName} Div</h4>
+              <div key={unit.id} className="mb-4 row">
+                {/* Left Column: Unit Details */}
+                <div className="col-lg-4 mb-4">
+                  <div className="border p-3 rounded">
+                    <h4 className="mb-3">Unit Details</h4>
                     <div className="form-group">
-                      <label>Brigade Name:</label>
+                      <label htmlFor={`unitName-${unit.id}`}>Unit Name:</label>
                       <input
                         type="text"
+                        id={`unitName-${unit.id}`}
                         className="form-control"
-                        value={brigade.brigadeName}
-                        onChange={(e) =>
-                          handleBrigadeNameChange(e, unitIndex, brigadeIndex)
-                        }
+                        value={unit.unitName}
+                        onChange={(e) => handleUnitNameChange(e, unitIndex)}
+                        required
                       />
                     </div>
-                    <ul className="list-unstyled">
-                      {brigade.battalions.map(
-                        (battalion, battalionIndex) => (
-                          <li
-                            key={battalion.id}
-                            className="mb-1"
-                          >
-                            <h4>Battalion under: {brigade.brigadeName} Bde</h4>
-                            <label>Battalion Name:</label>
-                            <input
-                              type="text"
-                              className="form-control"
-                              value={battalion.battalionName}
-                              onChange={(e) =>
-                                handleBattalionNameChange(
-                                  e,
-                                  unitIndex,
-                                  brigadeIndex,
-                                  battalionIndex
-                                )
-                              }
-                            />
-                          </li>
-                        )
-                      )}
-                    </ul>
-                    <CButton
-                      color="primary"
-                      onClick={() =>
-                        handleAddBattalion(unitIndex, brigadeIndex)
-                      }
-                    >
-                      Add Battalion
-                    </CButton>
+                    <div className="form-group">
+                      <label htmlFor={`address-${unit.id}`}>Address:</label>
+                      <input
+                        type="text"
+                        id={`address-${unit.id}`}
+                        className="form-control"
+                        value={unit.address}
+                        onChange={(e) => handleAddressChange(e, unitIndex)}
+                        required
+                      />
+                    </div>
+                    <div className="form-group">
+                      <label htmlFor={`description-${unit.id}`}>Description:</label>
+                      <textarea
+                        id={`description-${unit.id}`}
+                        className="form-control"
+                        value={unit.description}
+                        onChange={(e) => handleDescriptionChange(e, unitIndex)}
+                        rows={4}
+                      />
+                    </div>
                   </div>
-                ))}
-                <CButton
-                  color="primary"
-                  onClick={() => handleAddBrigade(unitIndex)}
-                >
-                  Add Brigade
-                </CButton>
+                  <button type="submit" className="btn btn-primary">
+              Submit Unit
+            </button>
+                
+            {/* <button type="button" class="btn btn-clear" onclick="refreshPage()">
+              Clear
+            </button> */}
+                </div>
+                
+
+                {/* Middle Column: Brigades */}
+                <div className="col-lg-4 mb-4">
+                  {unit.brigades.map((brigade, brigadeIndex) => (
+                    <div key={brigade.id} className="mb-4 border p-3 rounded">
+                      <h6>Brigades under: {unit.unitName} Div</h6>
+                      <div className="form-group">
+                        <label>Brigade Name:</label>
+                        <input
+                          type="text"
+                          className="form-control"
+                          value={brigade.brigadeName}
+                          onChange={(e) =>
+                            handleBrigadeNameChange(e, unitIndex, brigadeIndex)
+                          }
+                        />
+                      </div>
+                      {/* Removed battalion input from here */}
+                    </div>
+                  ))}
+                  <button
+                    className="btn btn-primary"
+                    onClick={() => handleAddBrigade(unitIndex)}
+                  >
+                    Add Brigade
+                  </button>
+                </div>
+
+                {/* Right Column: Battalions */}
+                <div className="col-lg-4 mb-4">
+                  {unit.brigades.map((brigade, brigadeIndex) => (
+                    <div key={brigade.id} className="mb-4 border p-3 rounded">
+                      <h6>Battalions under: {brigade.brigadeName} Bde</h6>
+                      <ul className="list-unstyled">
+                        {brigade.battalions.map((battalion, battalionIndex) => (
+                          <li key={battalion.id} className="mb-3">
+                            <div className="form-group">
+                              <label>Battalion Name:</label>
+                              <input
+                                type="text"
+                                className="form-control"
+                                value={battalion.battalionName}
+                                onChange={(e) =>
+                                  handleBattalionNameChange(
+                                    e,
+                                    unitIndex,
+                                    brigadeIndex,
+                                    battalionIndex
+                                  )
+                                }
+                              />
+                            </div>
+                          </li>
+                        ))}
+                      </ul>
+                      <button
+                        className="btn btn-primary"
+                        onClick={() => handleAddBattalion(unitIndex, brigadeIndex)}
+                      >
+                        Add Battalion
+                      </button>
+                    </div>
+                  ))}
+                </div>
               </div>
             ))}
-            <CButton type="submit" color="primary">
-              Submit
-            </CButton>
+           
+
           </form>
         </CCardBody>
       </CCard>
