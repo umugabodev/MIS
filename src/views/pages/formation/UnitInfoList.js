@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   CButton,
   CCard,
@@ -64,6 +64,24 @@ const UnitInfoList = ({ units }) => {
   // Use staticUnits if units prop is not provided or is empty
   const unitsToDisplay = units && units.length > 0 ? units : staticUnits;
 
+  // State to keep track of the current page/index of units
+  const [currentPage, setCurrentPage] = useState(0);
+  const pageSize = 1; // Number of units per page
+
+  // Calculate the range of units to display on the current page
+  const startIndex = currentPage * pageSize;
+  const endIndex = startIndex + pageSize;
+  const unitsOnPage = unitsToDisplay.slice(startIndex, endIndex);
+
+  // Next and Previous page navigation handlers
+  const goToNextPage = () => {
+    setCurrentPage((prevPage) => prevPage + 1);
+  };
+
+  const goToPreviousPage = () => {
+    setCurrentPage((prevPage) => prevPage - 1);
+  };
+
   // Example functions for handling update and delete actions
   const handleUpdate = (id) => {
     console.log(`Update unit with id ${id}`);
@@ -92,21 +110,12 @@ const UnitInfoList = ({ units }) => {
                   <CTableHeaderCell>Unit Name</CTableHeaderCell>
                   <CTableHeaderCell>Address</CTableHeaderCell>
                   <CTableHeaderCell>Description</CTableHeaderCell>
-                  <CTableHeaderCell>
-                    {/* <div style={{ textAlign: 'center' }}>Brigades</div> */}
-                    <CTable striped responsive>
-                      <CTableHead>
-                        <CTableRow>
-                          <CTableHeaderCell style={{ textAlign: 'center' }}>Brigade</CTableHeaderCell>
-                          <CTableHeaderCell style={{ textAlign: 'center' }}>Battalions</CTableHeaderCell>
-                        </CTableRow>
-                      </CTableHead>
-                    </CTable>
-                  </CTableHeaderCell>
+                  <CTableHeaderCell>Brigades     and their  .Battalions</CTableHeaderCell> 
+                  <CTableHeaderCell>Actions</CTableHeaderCell>
                 </CTableRow>
               </CTableHead>
               <CTableBody>
-                {unitsToDisplay.map((unit) => (
+                {unitsOnPage.map((unit) => (
                   <CTableRow key={unit.id}>
                     <CTableDataCell>{unit.unitName}</CTableDataCell>
                     <CTableDataCell>{unit.address}</CTableDataCell>
@@ -116,7 +125,7 @@ const UnitInfoList = ({ units }) => {
                         <CTableBody>
                           {unit.brigades.map((brigade, brigadeIndex) => (
                             <CTableRow key={brigade.id}>
-                              <CTableHeaderCell style={{ textAlign: 'center' }}>{brigade.brigadeName}</CTableHeaderCell>
+                              <CTableHeaderCell>{brigade.brigadeName}</CTableHeaderCell>
                               <CTableDataCell>
                                 <ul>
                                   {brigade.battalions.map((battalion) => (
@@ -129,10 +138,36 @@ const UnitInfoList = ({ units }) => {
                         </CTableBody>
                       </CTable>
                     </CTableDataCell>
+                    <CTableDataCell>
+                      <CButton color="info" size="sm" onClick={() => handleUpdate(unit.id)}>
+                        Update
+                      </CButton>
+                      <CButton color="danger" size="sm" className="ml-1" onClick={() => handleDelete(unit.id)}>
+                        Delete
+                      </CButton>
+                    </CTableDataCell>
                   </CTableRow>
                 ))}
               </CTableBody>
             </CTable>
+            <div className="d-flex justify-content-between mt-3">
+              <CButton
+                color="primary"
+                size="sm"
+                disabled={currentPage === 0}
+                onClick={goToPreviousPage}
+              >
+                Previous
+              </CButton>
+              <CButton
+                color="primary"
+                size="sm"
+                disabled={unitsToDisplay.length <= endIndex}
+                onClick={goToNextPage}
+              >
+                Next
+              </CButton>
+            </div>
           </CCardBody>
         </CCard>
       </CCol>

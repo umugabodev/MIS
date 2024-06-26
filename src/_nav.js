@@ -123,12 +123,12 @@ const getNavItems = (userRole) => {
         {
           component: CNavItem,
           name: 'Add permissions',
-          to: '#',
+          to: '/PermissionForm',
         },
         {
           component: CNavItem,
-          name: 'Link UserRight',
-          to: '#',
+          name: 'User Permission Right',
+          to: '/UserPermissionList',
         },
         {
           component: CNavItem,
