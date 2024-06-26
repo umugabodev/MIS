@@ -14,6 +14,10 @@ import {
 
 const addPersonnel = () => {
   const token = localStorage.getItem('accessToken');
+  if (!token) {
+      console.error('No access token found in local storage.');
+  }
+  
   const [selectedSection, setSelectedSection] = useState('Personnel Information');
   const [formData, setFormData] = useState(() => {
     const storedData = localStorage.getItem('surveyFormData');
@@ -190,23 +194,30 @@ const addPersonnel = () => {
                       name: 'page1',
                       elements: [
                         
-                        { type: 'text', name: 'course', title: 'Course Name', isRequired: true },
+                        { type: 'text', name: 'courseName', title: 'Course Name', isRequired: true },
                         { type: 'text', name: 'place', title: 'Place', isRequired: true },
-                        { type: 'text', name: 'startedcourse', title: 'Started', inputType: 'date', isRequired: true },
-                        { type: 'text', name: 'endcourse', title: 'End', inputType: 'date' },
+                        { type: 'text', name: 'fromDate', title: 'Started', inputType: 'date', isRequired: true },
+                        { type: 'text', name: 'toDate', title: 'End', inputType: 'date' },
                         { type: 'dropdown', name: 'status', title: 'Status', isRequired: true, choices: ['On course', 'Completed'] },
                       ],
                     },
                   ],
                 }}
                 showNavigationButtons={true}
-                completeText="Next"
-                onComplete={(survey) => {
-  
-                  // Handle form submission here
-                  console.log('Form data:', survey.data);
-                  setFormData({ ...formData, ...survey.data });
-                  setSelectedSection("Deployment Data")
+              completeText="Next"
+              onComplete={(survey) => {
+                console.log("Id: ", localStorage.getItem('personnelId'));
+                console.log('Form data:', survey.data);
+                const formSectionData = { personnelId: localStorage.getItem('personnelId') , ...survey.data};
+
+                const formDataToSend = new FormData();
+                for (const key in formSectionData) {
+                  formDataToSend.append(key, formSectionData[key]);
+                }
+
+                setFormData({ ...formData, ...formSectionData });
+                handleFormSubmit(JSON.stringify(formSectionData), 'http://localhost:3007/api/v1/courses', token, 'application/json');
+                setSelectedSection("Deployment Data");
                 }}
               />
             </>
@@ -221,9 +232,10 @@ const addPersonnel = () => {
                     name: 'page1',
                     elements: [
                       
-                      { type: 'text', name: 'division', title: 'Division', isRequired: true },
-                      { type: 'text', name: 'brigade', title: 'Brigade', isRequired: true },
-                      { type: 'text', name: 'regment', title: 'Regment/Battalion', isRequired: true },
+                      { type: 'text', name: 'div', title: 'Division', isRequired: true },
+                      { type: 'text', name: 'bde', title: 'Brigade', isRequired: true },
+                      { type: 'text', name: 'btn', title: 'Battalion', isRequired: false },
+                      { type: 'text', name: 'regiment', title: 'Battalion', isRequired: false },
                       { type: 'text', name: 'appointment', title: 'Appointment', isRequired: true },
   ],
                   },
@@ -232,11 +244,18 @@ const addPersonnel = () => {
               showNavigationButtons={true}
               completeText="Next"
               onComplete={(survey) => {
-
-                // Handle form submission here
+                console.log("Id: ", localStorage.getItem('personnelId'));
                 console.log('Form data:', survey.data);
-                setFormData({ ...formData, ...survey.data });
-                setSelectedSection("Emergency Contact")
+                const formSectionData = { personnelId: localStorage.getItem('personnelId') , ...survey.data};
+
+                const formDataToSend = new FormData();
+                for (const key in formSectionData) {
+                  formDataToSend.append(key, formSectionData[key]);
+                }
+
+                setFormData({ ...formData, ...formSectionData });
+                handleFormSubmit(JSON.stringify(formSectionData), 'http://localhost:3007/api/v1/deployment', token, 'application/json');
+                setSelectedSection("Emergency Contact");
               }}
             />
           </>
@@ -252,10 +271,11 @@ const addPersonnel = () => {
                     name: 'page1',
                     elements: [
                       
-                      { type: 'text', name: 'name', title: 'Name', isRequired: true },
+                      { type: 'text', name: 'firstname', title: 'First Name', isRequired: true },
+                      { type: 'text', name: 'lastname', title: 'Last Name', isRequired: true },
                       { type: 'text', name: 'contact', title: 'Contact', isRequired: true },
                       { type: 'text', name: 'relationship', title: 'Relationship', isRequired: true },
-                      { type: 'text', name: 'location', title: 'Location', isRequired: true },
+                      { type: 'text', name: 'address', title: 'Location', isRequired: true },
   ],
                   },
                 ],
@@ -263,11 +283,18 @@ const addPersonnel = () => {
               showNavigationButtons={true}
               completeText="Next"
               onComplete={(survey) => {
-
-                // Handle form submission here
+                console.log("Id: ", localStorage.getItem('personnelId'));
                 console.log('Form data:', survey.data);
-                setFormData({ ...formData, ...survey.data });
-                setSelectedSection("Medical Data")
+                const formSectionData = { personnelId: localStorage.getItem('personnelId') , ...survey.data};
+
+                const formDataToSend = new FormData();
+                for (const key in formSectionData) {
+                  formDataToSend.append(key, formSectionData[key]);
+                }
+
+                setFormData({ ...formData, ...formSectionData });
+                handleFormSubmit(JSON.stringify(formSectionData), 'http://localhost:3007/api/v1/emergency', token, 'application/json');
+                setSelectedSection("Medical Data");
               }}
             />
           </>
@@ -282,8 +309,8 @@ const addPersonnel = () => {
                     name: 'page1',
                     elements: [
                      
-                      { type: 'dropdown', name: 'bgroup', title: 'Blood Group', isRequired: true, choices: ['A+', 'A-', 'B+', 'B-', 'O+', 'O-', 'AB+', 'AB-'] },
-                      { type: 'text', name: 'mmi', title: 'MMI No', inputType: 'number', isRequired: true },
+                      { type: 'dropdown', name: 'bloodGroup', title: 'Blood Group', isRequired: true, choices: ['A+', 'A-', 'B+', 'B-', 'O+', 'O-', 'AB+', 'AB-'] },
+                      { type: 'text', name: 'mmiNumber', title: 'MMI No', inputType: 'number', isRequired: true },
                       { type: 'text', name: 'height', title: 'Height', isRequired: true },
                       { type: 'text', name: 'weight', title: 'Weight', isRequired: true },
                     ],
@@ -293,11 +320,18 @@ const addPersonnel = () => {
               showNavigationButtons={true}
               completeText="Next"
               onComplete={(survey) => {
-
-                // Handle form submission here
+                console.log("Id: ", localStorage.getItem('personnelId'));
                 console.log('Form data:', survey.data);
-                setFormData({ ...formData, ...survey.data });
-                setSelectedSection("Military Information")
+                const formSectionData = { personnelId: localStorage.getItem('personnelId') , ...survey.data};
+
+                const formDataToSend = new FormData();
+                for (const key in formSectionData) {
+                  formDataToSend.append(key, formSectionData[key]);
+                }
+
+                setFormData({ ...formData, ...formSectionData });
+                handleFormSubmit(JSON.stringify(formSectionData), 'http://localhost:3007/api/v1/medicaldata', token, 'application/json');
+                setSelectedSection("Military Information");
               }}
             />
           </>
@@ -314,7 +348,7 @@ const addPersonnel = () => {
                      
                       { type: 'text', name: 'doe', title: 'Date Of Entry', inputType: 'date', isRequired: true },
                       { type: 'dropdown', name: 'poe', title: 'Place Of Entry', isRequired: true, choices: ['BMTC Nasho', 'RMA Gako', 'Other'] },
-                      { type: 'text', name: 'css', title: 'CSS ACC No', inputType: 'number', isRequired: true },
+                      { type: 'text', name: 'css_acc_no', title: 'CSS ACC No', inputType: 'number', isRequired: true },
                     ],
                     
                   },
@@ -325,11 +359,18 @@ const addPersonnel = () => {
               showNavigationButtons={true}
               completeText="Next"
               onComplete={(survey) => {
-
-                // Handle form submission here
+                console.log("Id: ", localStorage.getItem('personnelId'));
                 console.log('Form data:', survey.data);
-                setFormData({ ...formData, ...survey.data });
-                setSelectedSection("Mission and Operation")
+                const formSectionData = { personnelId: localStorage.getItem('personnelId') , ...survey.data};
+
+                const formDataToSend = new FormData();
+                for (const key in formSectionData) {
+                  formDataToSend.append(key, formSectionData[key]);
+                }
+
+                setFormData({ ...formData, ...formSectionData });
+                handleFormSubmit(JSON.stringify(formSectionData), 'http://localhost:3007/api/v1/militaryinfo', token, 'application/json');
+                setSelectedSection("Mission and Operation");
               }}
             />
           </>
@@ -343,12 +384,14 @@ const addPersonnel = () => {
                   {
                     name: 'page1',
                     elements: [
-                  
+
+                   { type: 'text', name: 'name', title: 'Name', isRequired: true },
                       { type: 'text', name: 'type', title: 'Type', isRequired: true },
                       { type: 'text', name: 'location', title: 'Location', isRequired: true },
-                      { type: 'text', name: 'name', title: 'Name', isRequired: true },
-                      { type: 'text', name: 'from', title: 'From', inputType: 'date', isRequired: true },
-                      { type: 'text', name: 'to', title: 'To', inputType: 'date' },
+                      { type: 'text', name: 'unity', title: 'Unity', isRequired: true },
+                      { type: 'text', name: 'fromDate', title: 'From', inputType: 'date', isRequired: true },
+                      { type: 'text', name: 'toDate', title: 'To', inputType: 'date' },
+                      { type: 'text', name: 'status', title: 'Status', inputType: 'date' },
                     ],
                   },
                 ],
@@ -356,11 +399,18 @@ const addPersonnel = () => {
               showNavigationButtons={true}
               completeText="Next"
               onComplete={(survey) => {
-
-                // Handle form submission here
+                console.log("Id: ", localStorage.getItem('personnelId'));
                 console.log('Form data:', survey.data);
-                setFormData({ ...formData, ...survey.data });
-                setSelectedSection("Promotion Record")
+                const formSectionData = { personnelId: localStorage.getItem('personnelId') , ...survey.data};
+
+                const formDataToSend = new FormData();
+                for (const key in formSectionData) {
+                  formDataToSend.append(key, formSectionData[key]);
+                }
+
+                setFormData({ ...formData, ...formSectionData });
+                handleFormSubmit(JSON.stringify(formSectionData), 'http://localhost:3007/api/v1/missions', token, 'application/json');
+                setSelectedSection("Promotion Record");
               }}
             />
           </>
@@ -374,11 +424,11 @@ const addPersonnel = () => {
                     {
                       name: 'page1',
                       elements: [
-                        { type: 'text', name: 'formerrank', title: 'Former Rank', isRequired: true, defaultValue: formData['formerrank'] || '' },
-                        { type: 'text', name: 'from', title: 'From', inputType: 'date', isRequired: true, defaultValue: formData['from'] || '' },
-                        { type: 'text', name: 'to', title: 'To', inputType: 'date', isRequired: false, defaultValue: formData['to'] || '' },
-                        { type: 'text', name: 'newleyrank', title: 'Newley Rank', defaultValue: formData['newleyrank'] || '', isRequired: true },
-                        { type: 'text', name: 'dop', title: 'Date of Promotion', inputType: 'date', isRequired: false, defaultValue: formData['dop'] || '' },
+                        { type: 'text', name: 'formerRank', title: 'Former Rank', isRequired: true, defaultValue: formData['formerrank'] || '' },
+                        { type: 'text', name: 'fromDate', title: 'From', inputType: 'date', isRequired: true, defaultValue: formData['from'] || '' },
+                        { type: 'text', name: 'toDate', title: 'To', inputType: 'date', isRequired: false, defaultValue: formData['to'] || '' },
+                        { type: 'text', name: 'newRank', title: 'Newley Rank', defaultValue: formData['newleyrank'] || '', isRequired: true },
+                        { type: 'text', name: 'dateOfPromotion', title: 'Date of Promotion', inputType: 'date', isRequired: false, defaultValue: formData['dop'] || '' },
                       ],
                     },
                   ],
@@ -386,8 +436,17 @@ const addPersonnel = () => {
                 showNavigationButtons={true}
                 completeText="Next"
                 onComplete={(survey) => {
+                  console.log("Id: ", localStorage.getItem('personnelId'));
                   console.log('Form data:', survey.data);
-                  setFormData({ ...formData, ...survey.data });
+                  const formSectionData = { personnelId: localStorage.getItem('personnelId') , ...survey.data};
+  
+                  const formDataToSend = new FormData();
+                  for (const key in formSectionData) {
+                    formDataToSend.append(key, formSectionData[key]);
+                  }
+  
+                  setFormData({ ...formData, ...formSectionData });
+                  handleFormSubmit(JSON.stringify(formSectionData), 'http://localhost:3007/api/v1/promotion', token, 'application/json');
                   setSelectedSection("Residence Address");
                 }}
               />
@@ -401,7 +460,7 @@ const addPersonnel = () => {
                     {
                       name: 'page1',
                       elements: [
-                        { type: 'text', name: 'nationId', title: 'NationId', inputType: 'number', isRequired: true, defaultValue: formData['nationId'] || '' },
+                        { type: 'text', name: 'nationalid', title: 'NationId', inputType: 'number', isRequired: true, defaultValue: formData['nationId'] || '' },
                         { type: 'text', name: 'contact', title: 'Contact', inputType: 'number', isRequired: true, defaultValue: formData['contact'] || '' },
                         { type: 'text', name: 'province', title: 'Province', isRequired: true, defaultValue: formData['province'] || '' },
                         { type: 'text', name: 'district', title: 'District', defaultValue: formData['district'] || '', isRequired: true },
@@ -415,9 +474,18 @@ const addPersonnel = () => {
                 showNavigationButtons={true}
                 completeText="Next"
                 onComplete={(survey) => {
+                  console.log("Id: ", localStorage.getItem('personnelId'));
                   console.log('Form data:', survey.data);
-                  setFormData({ ...formData, ...survey.data });
-                  setSelectedSection("Next of Kin Address");
+                  const formSectionData = { personnelId: localStorage.getItem('personnelId') , ...survey.data};
+  
+                  const formDataToSend = new FormData();
+                  for (const key in formSectionData) {
+                    formDataToSend.append(key, formSectionData[key]);
+                  }
+  
+                  setFormData({ ...formData, ...formSectionData });
+                  handleFormSubmit(JSON.stringify(formSectionData), 'http://localhost:3007/api/v1/residence', token, 'application/json');
+                  setSelectedSection("Spouse Address");
                 }}
               />
             );
@@ -430,8 +498,9 @@ const addPersonnel = () => {
                     {
                       name: 'page1',
                       elements: [
-                        { type: 'text', name: 'spouseName', title: 'spouseName', inputType: 'text', isRequired: true, defaultValue: formData['spouseName'] || '' },
-                        { type: 'text', name: 'nationId', title: 'NationId', inputType: 'number', isRequired: true, defaultValue: formData['nationId'] || '' },
+                        { type: 'text', name: 'firstname', title: 'Spouse First Name', inputType: 'text', isRequired: true, defaultValue: formData['firstname'] || '' },
+                        { type: 'text', name: 'lastname', title: 'Spouse Last Name', inputType: 'text', isRequired: true, defaultValue: formData['lastname'] || '' },
+                        { type: 'text', name: 'nationalId', title: 'Nation Id', inputType: 'number', isRequired: true, defaultValue: formData['nationId'] || '' },
                         { type: 'text', name: 'contact', title: 'Contact', inputType: 'number', isRequired: true, defaultValue: formData['contact'] || '' },
                         { type: 'text', name: 'province', title: 'Province', isRequired: true, defaultValue: formData['province'] || '' },
                         { type: 'text', name: 'district', title: 'District', defaultValue: formData['district'] || '', isRequired: true },
@@ -445,9 +514,18 @@ const addPersonnel = () => {
                 showNavigationButtons={true}
                 completeText="Next"
                 onComplete={(survey) => {
+                  console.log("Id: ", localStorage.getItem('personnelId'));
                   console.log('Form data:', survey.data);
-                  setFormData({ ...formData, ...survey.data });
-                  setSelectedSection("Soldier Kit");
+                  const formSectionData = { personnelId: localStorage.getItem('personnelId') , ...survey.data};
+  
+                  const formDataToSend = new FormData();
+                  for (const key in formSectionData) {
+                    formDataToSend.append(key, formSectionData[key]);
+                  }
+  
+                  setFormData({ ...formData, ...formSectionData });
+                  handleFormSubmit(JSON.stringify(formSectionData), 'http://localhost:3007/api/v1/spouse', token, 'application/json');
+                  setSelectedSection("Next of Kin Address");
                 }}
               />
             );
@@ -460,8 +538,9 @@ const addPersonnel = () => {
                     {
                       name: 'page1',
                       elements: [
-                        { type: 'text', name: 'firstname', title: 'firstname', inputType: 'text', isRequired: true, defaultValue: formData['firstname'] || '' },
-                        { type: 'text', name: 'nationId', title: 'NationId', inputType: 'number', isRequired: true, defaultValue: formData['nationId'] || '' },
+                        { type: 'text', name: 'firstname', title: 'Firstname', inputType: 'text', isRequired: true, defaultValue: formData['firstname'] || '' },
+                        { type: 'text', name: 'lastname', title: 'Lastname', inputType: 'text', isRequired: true, defaultValue: formData['lastname'] || '' },
+                        { type: 'text', name: 'nationalId', title: 'National Id', inputType: 'number', isRequired: true, defaultValue: formData['nationId'] || '' },
                         { type: 'text', name: 'contact', title: 'Contact', inputType: 'number', isRequired: true, defaultValue: formData['contact'] || '' },
                         { type: 'text', name: 'relationship', title: 'Relationship', isRequired: true, defaultValue: formData['relationship'] || '' },
                         { type: 'text', name: 'province', title: 'Province', isRequired: true, defaultValue: formData['province'] || '' },
@@ -476,8 +555,17 @@ const addPersonnel = () => {
                 showNavigationButtons={true}
                 completeText="Next"
                 onComplete={(survey) => {
+                  console.log("Id: ", localStorage.getItem('personnelId'));
                   console.log('Form data:', survey.data);
-                  setFormData({ ...formData, ...survey.data });
+                  const formSectionData = { personnelId: localStorage.getItem('personnelId') , ...survey.data};
+  
+                  const formDataToSend = new FormData();
+                  for (const key in formSectionData) {
+                    formDataToSend.append(key, formSectionData[key]);
+                  }
+  
+                  setFormData({ ...formData, ...formSectionData });
+                  handleFormSubmit(JSON.stringify(formSectionData), 'http://localhost:3007/api/v1/nextofkin', token, 'application/json');
                   setSelectedSection("Soldier Kit");
                 }}
               />
@@ -491,17 +579,35 @@ const addPersonnel = () => {
                     {
                       name: 'page1',
                       elements: [
-                        { type: 'text', name: 'size', title: 'Size', defaultValue: formData['size'] || '', isRequired: true },
-                        { type: 'text', name: 'type', title: 'Type', defaultValue: formData['type'] || '', isRequired: true },
+                        { type: 'text', name: 'bdu', title: 'BDU', defaultValue: formData['bdu'] || '', isRequired: true },
+                        { type: 'text', name: 'officedress', title: 'Officer Dress', defaultValue: formData['officedress'] || '', isRequired: true },
+                        { type: 'text', name: 'jungleboots', title: 'Jungle Boots', defaultValue: formData['jungleboots'] || '', isRequired: true },
+                        { type: 'text', name: 'plasticboots', title: 'Plastic Boots', defaultValue: formData['plasticboots'] || '', isRequired: true },
+                        { type: 'text', name: 'officeshoes', title: 'Officers Shoes', defaultValue: formData['officeshoes'] || '', isRequired: true },
+                        { type: 'text', name: 'bdusize', title: 'BDU Size', defaultValue: formData['bdusize'] || '', isRequired: true },
+                        { type: 'text', name: 'officedresssize', title: 'Officer Dress Size', defaultValue: formData['officedresssize'] || '', isRequired: true },
+                        { type: 'number', name: 'junglebootssize', title: 'Jungle Boots Size', defaultValue: formData['junglebootssize'] || '', isRequired: true },
+                        { type: 'number', name: 'plasticbootssize', title: 'Plastic Boots Size', defaultValue: formData['plasticbootssize'] || '', isRequired: true },
+                        { type: 'number', name: 'officeshoessize', title: 'Officers Shoes Size', defaultValue: formData['officeshoessize'] || '', isRequired: true },
                       ],
                     },
                   ],
                 }}
                 showNavigationButtons={true}
+                completeText="Next"
                 onComplete={(survey) => {
+                  console.log("Id: ", localStorage.getItem('personnelId'));
                   console.log('Form data:', survey.data);
+                  const formSectionData = { personnelId: localStorage.getItem('personnelId') , ...survey.data};
+  
+                  const formDataToSend = new FormData();
+                  for (const key in formSectionData) {
+                    formDataToSend.append(key, formSectionData[key]);
+                  }
+  
+                  setFormData({ ...formData, ...formSectionData });
+                  handleFormSubmit(JSON.stringify(formSectionData), 'http://localhost:3007/api/v1/kits', token, 'application/json');
                   setSelectedSection("Complete Personnel Registration");
-
                 }}
               />
             );
@@ -510,7 +616,7 @@ const addPersonnel = () => {
         // handle form completion, clear local storage, etc.
         localStorage.removeItem('personnelId');
         localStorage.removeItem('surveyFormData');
-        alert('Form completed successfully!');
+        alert('Form Kurangiza completed successfully!');
         return <div>Form completed successfully!</div>;
       default:
         return null;
