@@ -10,6 +10,9 @@ const SecurityForm = React.lazy(() => import('/src/views/pages/security/Security
 const IssueList = React.lazy(() => import('/src/views/pages/security/IssueList.js'))
 const PermissionForm = React.lazy(() => import('/src/views/pages/permission/PermissionForm.js'))
 const UserPermissionList = React.lazy(() => import('/src/views/pages/permission/UserPermissionList.js'))
+const CPUMonitor  = React.lazy(() => import('/src/views/pages/activities/CPUMonitor.js'))
+const MemoryMonitor  = React.lazy(() => import('/src/views/pages/activities/MemoryMonitor.js'))
+const ActiveUsers  = React.lazy(() => import('/src/views/pages/activities/ActiveUsers.js'))
 
 
 const RecruiterForm = React.lazy(() => import('/src/views/dashboard/s1dashboard/Recruitors/RecruiterForm.js'))
@@ -76,7 +79,9 @@ const routes = [
 { path: '/IssueList', name: 'Security Issues List', element: IssueList },
 { path: '/PermissionForm', name: 'Assign Permission Form', element: PermissionForm },
 { path: '/UserPermissionList', name: 'User Permission List', element: UserPermissionList },
-
+{ path: '/CPUMonitor', name: 'CPU Monitor Usage', element: CPUMonitor},
+{ path: '/MemoryMonitor', name: 'Memory Monitor Usage', element: MemoryMonitor},
+{ path: '/ActiveUsers', name: 'ActiveUsers Monitor', element: ActiveUsers},
 ]
 
 export default routes

@@ -11,39 +11,6 @@ import {
 import { CNavGroup, CNavItem, CNavTitle } from '@coreui/react';
 
 const getNavItems = (userRole) => {
-  // const commonItems = [
-  //   {
-  //     component: CNavItem,
-  //     name: 'Dashboard',
-  //     to: '/dashboards1',
-  //     icon: <CIcon icon={cilSpeedometer} customClassName="nav-icon" />,
-  //     badge: {
-  //       color: 'info',
-  //       text: 'NEW',
-  //     },
-  //   },
-  //   {
-  //     component: CNavTitle,
-  //     name: 'PERSONNEL INFO',
-  //   },
-  //   {
-  //     component: CNavGroup,
-  //     name: 'Personnel Data',
-  //     icon: <CIcon icon={cilStar} customClassName="nav-icon" />,
-  //     items: [
-  //       {
-  //         component: CNavItem,
-  //         name: 'Add Personnel',
-  //         to: '/AddPersonnel',
-  //       },
-  //       {
-  //         component: CNavItem,
-  //         name: 'Manage Personnel',
-  //         to: '/ListofPersonnel',
-  //       },
-  //     ],
-  //   },
-  // ];
 
   const adminItems = [
     {
@@ -152,17 +119,17 @@ const getNavItems = (userRole) => {
         {
           component: CNavItem,
           name: 'Active Users',
-          to: '#',
+          to: '/ActiveUsers',
         },
         {
           component: CNavItem,
           name: 'CPU Consumptions',
-          to: '#',
+          to: '/CPUMonitor',
         },
         {
           component: CNavItem,
           name: 'Memory Consumptions',
-          to: '#',
+          to: '/MemoryMonitor',
         },
         {
           component: CNavItem,
@@ -458,7 +425,7 @@ const getNavItems = (userRole) => {
         {
           component: CNavItem,
           name: 'Issues Report',
-          to: '#',
+          to: '/IssueList',
         },
         
       ],
@@ -472,18 +439,18 @@ const getNavItems = (userRole) => {
       items: [
         {
           component: CNavItem,
-          name: 'Add security issue',
-          to: '#',
+          name: 'Add EN security issue',
+          to: '/SecurityForm',
         },
         {
           component: CNavItem,
-          name: 'Issues List',
-          to: '#',
+          name: 'EN Issues List',
+          to: '/IssueList',
         },
         {
           component: CNavItem,
-          name: 'Issues Report',
-          to: '#',
+          name: 'EN Issues Report',
+          to: '/IssueList',
         },
         
       ],

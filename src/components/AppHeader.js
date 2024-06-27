@@ -91,12 +91,12 @@ const AppHeader = () => {
               Dashboard
             </CNavLink>
           </CNavItem>
-          <CNavItem>
+          {/* <CNavItem>
             <CNavLink href="#">Users</CNavLink>
           </CNavItem>
           <CNavItem>
             <CNavLink href="#">Settings</CNavLink>
-          </CNavItem>
+          </CNavItem> */}
         </CHeaderNav>
         <div className="flex-grow-1 d-flex justify-content-center align-items-center" style={{ fontFamily: 'Courier, monospace', color: 'black' }}>
           <CIcon icon={cilClock} style={{ marginRight: '5px' }} />
