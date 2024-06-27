@@ -18,12 +18,12 @@ const placesOfBirth = ['Gasabo', 'Huye', 'Rubavu', 'Rusizi', 'Nyagatare', 'Musan
 const units = ['1 Inf Div', '2 Inf Div', '77 Inf Bn', 'Engineering', 'Logistics', 'Medical', 'Comms'];
 const genders = ['MALE', 'FEMALE'];
 const maritalStatuses = ['MARRIED', 'SINGLE', 'DIVORCED'];
-const religiousBeliefs = ['Christian', 'Muslim', 'Hindu', 'Buddhist', 'Other'];
+const religiousBeliefs = ['Christian', 'Muslim', 'Adventist', 'Atheist', 'Other'];
 
 // Function to generate a random personnel record
 const generateRandomPersonnel = () => {
   const id = uuidv4(); // Generate a UUID for id
-  const serviceNumber = randomInt(100, 200000); // Random service number
+  const serviceNumber = randomInt(100, 150000); // Random service number
   const rank = ranks[Math.floor(Math.random() * ranks.length)]; // Random rank
   const firstname = getRandomRwandanFirstName(); // Function to get random Rwandan first name
   const lastname = getRandomRwandanLastName(); // Function to get random Rwandan last name
@@ -68,7 +68,7 @@ const getRandomRwandanLastName = () => {
 // Generate 100 random personnel records
 const generateRandomPersonnelData = () => {
   const personnelData = [];
-  for (let i = 0; i < 150; i++) {
+  for (let i = 0; i < 200; i++) {
     personnelData.push(generateRandomPersonnel());
   }
   return personnelData;

@@ -1,30 +1,13 @@
 import React from 'react';
-
-import {
-  CAvatar,
-  CButton,
-  CCard,
-  CCardBody,
-  CCardFooter,
-  CCardHeader,
-  CCol,
-  CProgress,
-  CRow,
-  CTable,
-  CTableBody,
-  CTableDataCell,
-  CTableHead,
-  CTableHeaderCell,
-  CTableRow,
-} from '@coreui/react';
+import { CCard, CCardBody, CCardHeader, CCol, CRow, CTable, CTableBody, CTableDataCell, CTableHead, CTableHeaderCell, CTableRow } from '@coreui/react';
 import CIcon from '@coreui/icons-react';
-import { cilUser, cilPeople, cilSettings, cilDataTransferDown, cilStorage, cilChartPie, cilList } from '@coreui/icons';
-
+import { cilUser, cilSettings } from '@coreui/icons';
 import avatar1 from 'src/assets/images/avatars/1.jpg';
 import avatar2 from 'src/assets/images/avatars/2.jpg';
 import avatar3 from 'src/assets/images/avatars/3.jpg';
 import avatar4 from 'src/assets/images/avatars/4.jpg';
 import Userlist from '../User/UserList';
+import SystemInfoCard from './SystemInfoCard';
 
 const DashboardAdmin = () => {
   const userData = [
@@ -63,37 +46,22 @@ const DashboardAdmin = () => {
     { rank: 'NCOs', male: 64, female: 43 },
   ];
 
+  const styles = {
+    progressGroup: {
+      border: '1px solid #ccc',
+      padding: '10px',
+      marginBottom: '10px',
+    },
+    progressGroupBar: {
+      height: '8px',
+      borderRadius: '4px',
+      marginBottom: '4px',
+    },
+  };
+
   return (
     <>
-      
-
-      {/* System Info Section */}
-      <CRow>
-  <CCol xs="12">
-    <CCard className="mb-4" style={{ backgroundColor: '#2E3B4E', border: '1px solid #4E617A', borderRadius: '8px' }}>
-      <CCardHeader style={{ backgroundColor: '#2E3B4E', borderBottom: 'none', color: '#FFFFFF', fontSize: '18px', fontWeight: 'bold', padding: '16px' }}>
-        System Information
-      </CCardHeader>
-      <CCardBody style={{ padding: '16px' }}>
-        <CRow className="mb-3">
-          {systemInfoData.map((info, index) => (
-            <CCol key={index} xs="6" md="3" className="mb-3">
-              <div style={{ border: '1px solid #4E617A', backgroundColor: '#36465A', padding: '16px', borderRadius: '8px' }}>
-                <div className="text-body-secondary" style={{ color: '#7E8EAB', marginBottom: '8px' }}>{info.activity}</div>
-                {info.users !== undefined && <div className="fw-semibold" style={{ color: '#FFFFFF' }}>{info.users}</div>}
-                {info.percentage !== undefined && <div className="fw-semibold" style={{ color: '#FFFFFF' }}>{info.percentage}%</div>}
-                {info.count !== undefined && <div className="fw-semibold" style={{ color: '#FFFFFF' }}>{info.count}</div>}
-              </div>
-            </CCol>
-          ))}
-        </CRow>
-      </CCardBody>
-    </CCard>
-  </CCol>
-</CRow>
-
-
-
+      <SystemInfoCard systemInfoData={systemInfoData} />
 
       <CCard className="mb-4">
         <CCardHeader>Rank Distribution</CCardHeader>
@@ -101,15 +69,21 @@ const DashboardAdmin = () => {
           <CRow>
             {rankDistributionData.map((rank, index) => (
               <CCol xs={6} key={index}>
-                <div style={{ border: '1px solid #ccc', padding: '10px', marginBottom: '10px' }}>
+                <div style={styles.progressGroup}>
                   <div className="progress-group mb-4">
                     <div className="progress-group-header">
                       <CIcon className="me-2" icon={cilUser} size="lg" />
                       <span>{rank.rank}</span>
                     </div>
                     <div className="progress-group-bars">
-                      <div className="progress-group-bar" style={{ width: `${rank.male}%`, backgroundColor: '#ffc107', height: '8px', borderRadius: '4px', marginBottom: '4px' }}></div>
-                      <div className="progress-group-bar" style={{ width: `${rank.female}%`, backgroundColor: '#17a2b8', height: '8px', borderRadius: '4px' }}></div>
+                      <div
+                        className="progress-group-bar"
+                        style={{ ...styles.progressGroupBar, width: `${rank.male}%`, backgroundColor: '#ffc107' }}
+                      ></div>
+                      <div
+                        className="progress-group-bar"
+                        style={{ ...styles.progressGroupBar, width: `${rank.female}%`, backgroundColor: '#17a2b8' }}
+                      ></div>
                     </div>
                   </div>
                 </div>
@@ -118,10 +92,9 @@ const DashboardAdmin = () => {
           </CRow>
         </CCardBody>
       </CCard>
-      {/* User Info Section */}
-      <Userlist/>
-     
-      {/* Permission Info Section */}
+
+      <Userlist />
+
       <CCard className="mb-4">
         <CCardHeader>Permission Info</CCardHeader>
         <CCardBody>

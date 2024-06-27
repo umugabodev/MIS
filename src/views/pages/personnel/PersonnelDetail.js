@@ -649,7 +649,7 @@ const fetchdeployment = async () => {
             </PDFViewer>
           )}
         </CCard>
-      </CCol>
+      </CCol>  
     </CRow>
   );
 };

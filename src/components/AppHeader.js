@@ -77,7 +77,7 @@ const AppHeader = () => {
   }, []);
 
   return (
-    <CHeader position="sticky" className="mb-4 p-0" ref={headerRef}>
+    <CHeader position="sticky" className="mb-4 p-0" ref={headerRef} style={styles.header}>
       <CContainer className="border-bottom px-4 d-flex justify-content-between align-items-center" fluid>
         <CHeaderToggler
           onClick={() => dispatch({ type: 'set', sidebarShow: !sidebarShow })}
@@ -87,97 +87,79 @@ const AppHeader = () => {
         </CHeaderToggler>
         <CHeaderNav className="d-none d-md-flex">
           <CNavItem>
-            <CNavLink to="/dashboard" as={NavLink}>
+            <CNavLink to="/dashboard" as={NavLink} style={styles.navLink}>
               Dashboard
             </CNavLink>
           </CNavItem>
           <CNavItem>
-            <CNavLink href="#">Users</CNavLink>
+            <CNavLink href="#" style={styles.navLink}>Users</CNavLink>
           </CNavItem>
           <CNavItem>
-            <CNavLink href="#">Settings</CNavLink>
+            <CNavLink href="#" style={styles.navLink}>Settings</CNavLink>
           </CNavItem>
         </CHeaderNav>
-        <div className="flex-grow-1 d-flex justify-content-center align-items-center" style={{ fontFamily: 'Courier, monospace', color: 'black' }}>
-          <CIcon icon={cilClock} style={{ marginRight: '5px' }} />
-          <div style={{ marginRight: '20px' }}>{`Time: ${militaryTime}`}</div>
-          <CIcon icon={cilCalendar} style={{ marginRight: '5px' }} />
-          <div style={{ marginRight: '20px' }}>{`Date: ${date}`}</div>
-          <CIcon icon={cilLocationPin} style={{ marginRight: '5px' }} />
-          <div>{`Coordinates: ${coordinates.lat}, ${coordinates.lon}`}</div>
+        <div className="flex-grow-1 d-none d-md-flex justify-content-center align-items-center" style={styles.infoContainer}>
+          <CIcon icon={cilClock} style={styles.icon} />
+          <div style={styles.infoText}>{`Time: ${militaryTime}`}</div>
+          <CIcon icon={cilCalendar} style={styles.icon} />
+          <div style={styles.infoText}>{`Date: ${date}`}</div>
+          <CIcon icon={cilLocationPin} style={styles.icon} />
+          <div style={styles.infoText}>{`Coordinates: ${coordinates.lat}, ${coordinates.lon}`}</div>
         </div>
         <CHeaderNav className="d-flex align-items-center">
           <CNavItem>
-            <CNavLink href="#">
+            <CNavLink href="#" style={styles.navLink}>
               <CIcon icon={cilBell} size="lg" />
             </CNavLink>
           </CNavItem>
           <CNavItem>
-            <CNavLink href="#">
+            <CNavLink href="#" style={styles.navLink}>
               <CIcon icon={cilList} size="lg" />
             </CNavLink>
           </CNavItem>
           <CNavItem>
-            <CNavLink href="/MessageList">
+            <CNavLink href="/MessageList" style={styles.navLink}>
               <CIcon icon={cilEnvelopeOpen} size="lg" />
             </CNavLink>
           </CNavItem>
         </CHeaderNav>
         <CHeaderNav>
-          {/* <li className="nav-item py-1">
-            <div className="vr h-100 mx-2 text-body text-opacity-75"></div>
-          </li>
-          <CDropdown variant="nav-item" placement="bottom-end"> */}
-            {/* <CDropdownToggle caret={false}>
-              {colorMode === 'light' ? (
-                <CIcon icon={cilMoon} size="lg" />
-              ) : colorMode === 'auto' ? (
-                <CIcon icon={cilContrast} size="lg" />
-              ) : (
-                <CIcon icon={cilSun} size="lg" />
-              )}
-            </CDropdownToggle> */}
-            {/* <CDropdownMenu>
-              <CDropdownItem
-                active={colorMode === 'light'}
-                className="d-flex align-items-center"
-                as="button"
-                type="button"
-                onClick={() => setColorMode('light')}
-              >
-                <CIcon className="me-2" icon={cilSun} size="lg" /> Light
-              </CDropdownItem>
-              <CDropdownItem
-                active={colorMode === 'dark'}
-                className="d-flex align-items-center"
-                as="button"
-                type="button"
-                onClick={() => setColorMode('dark')}
-              >
-                <CIcon className="me-2" icon={cilMoon} size="lg" /> Dark
-              </CDropdownItem>
-              <CDropdownItem
-                active={colorMode === 'auto'}
-                className="d-flex align-items-center"
-                as="button"
-                type="button"
-                onClick={() => setColorMode('auto')}
-              >
-                <CIcon className="me-2" icon={cilContrast} size="lg" /> Auto
-              </CDropdownItem>
-            </CDropdownMenu> */}
-          {/* </CDropdown>
-          <li className="nav-item py-1">
-            <div className="vr h-100 mx-2 text-body text-opacity-75"></div>
-          </li> */}
           <AppHeaderDropdown />
         </CHeaderNav>
       </CContainer>
-      <CContainer className="px-4" fluid>
+      <CContainer className="px-4 d-md-none d-flex justify-content-between align-items-center" fluid style={styles.infoContainer}>
+        <div style={styles.infoText}>{`Time: ${militaryTime}`}</div>
+        <div style={styles.infoText}>{`Date: ${date}`}</div>
+        <div style={styles.infoText}>{`Coordinates: ${coordinates.lat}, ${coordinates.lon}`}</div>
+      </CContainer>
+      <CContainer className="px-4" fluid style={styles.breadcrumbContainer}>
         <AppBreadcrumb />
       </CContainer>
     </CHeader>
   );
+};
+
+const styles = {
+  header: {
+    backgroundColor: '#03381d', // Military-themed dark color
+  },
+  navLink: {
+    color: '#FFFFFF', // White text for contrast
+  },
+  infoContainer: {
+    fontFamily: 'Courier, monospace',
+    color: '#FFFFFF', // White text for contrast
+  },
+  icon: {
+    marginRight: '5px',
+    color: '#FFFFFF', // White icons for contrast
+  },
+  infoText: {
+    marginRight: '20px',
+  },
+  breadcrumbContainer: {
+    backgroundColor: '#4E617A', // New background color for the breadcrumb container
+  },
 };
 
 export default AppHeader;

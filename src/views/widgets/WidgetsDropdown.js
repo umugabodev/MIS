@@ -1,7 +1,6 @@
-import React, { useEffect, useRef } from 'react'
-import PropTypes from 'prop-types'
-import customColors from '/src/assets/js/customColors'
-
+import React, { useEffect, useRef } from 'react';
+import PropTypes from 'prop-types';
+import customColors from '/src/assets/js/customColors';
 import {
   CRow,
   CCol,
@@ -10,47 +9,51 @@ import {
   CDropdownItem,
   CDropdownToggle,
   CWidgetStatsA,
-} from '@coreui/react'
-import { getStyle } from '@coreui/utils'
-import { CChartBar, CChartLine } from '@coreui/react-chartjs'
-import CIcon from '@coreui/icons-react'
-import { cilArrowBottom, cilArrowTop, cilOptions } from '@coreui/icons'
+} from '@coreui/react';
+import { getStyle } from '@coreui/utils';
+import { CChartBar, CChartLine } from '@coreui/react-chartjs';
+import CIcon from '@coreui/icons-react';
+import { cilArrowBottom, cilArrowTop, cilOptions } from '@coreui/icons';
 
 const WidgetsDropdown = (props) => {
-  const widgetChartRef1 = useRef(null)
-  const widgetChartRef2 = useRef(null)
+  const widgetChartRef1 = useRef(null);
+  const widgetChartRef2 = useRef(null);
 
   useEffect(() => {
-    document.documentElement.addEventListener('ColorSchemeChange', () => {
+    const handleColorSchemeChange = () => {
       if (widgetChartRef1.current) {
         setTimeout(() => {
-          widgetChartRef1.current.data.datasets[0].pointBackgroundColor = getStyle('--cui-primary')
-          widgetChartRef1.current.update()
-        })
+          widgetChartRef1.current.data.datasets[0].pointBackgroundColor = getStyle('--cui-primary');
+          widgetChartRef1.current.update();
+        });
       }
 
       if (widgetChartRef2.current) {
         setTimeout(() => {
-          widgetChartRef2.current.data.datasets[0].pointBackgroundColor = getStyle('--cui-info')
-          widgetChartRef2.current.update()
-        })
+          widgetChartRef2.current.data.datasets[0].pointBackgroundColor = getStyle('--cui-info');
+          widgetChartRef2.current.update();
+        });
       }
-    })
-  }, [widgetChartRef1, widgetChartRef2])
+    };
+
+    document.documentElement.addEventListener('ColorSchemeChange', handleColorSchemeChange);
+    return () => {
+      document.documentElement.removeEventListener('ColorSchemeChange', handleColorSchemeChange);
+    };
+  }, []);
 
   return (
     <CRow className={props.className} xs={{ gutter: 4 }}>
       <CCol sm={6} xl={4} xxl={3}>
-      <CWidgetStatsA
-        style={{backgroundColor: customColors.primary, color: customColors.secondary}}
-  value={
-    <>
-      3000{' '}
-      <span className="fs-6 fw-normal">
-        {/* (+12.4% <CIcon icon={cilArrowTop} />) */}
+        <CWidgetStatsA
+          style={{ backgroundColor: customColors.primary, color: customColors.secondary }}
+          value={
+            <>
+              3000{' '}
+              <span className="fs-6 fw-normal">
+                {/* (+12.4% <CIcon icon={cilArrowTop} />) */}
               </span>
             </>
-            
           }
           title="Total Personnel"
           action={
@@ -75,7 +78,6 @@ const WidgetsDropdown = (props) => {
                 labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
                 datasets: [
                   {
-                    // label: 'data set',
                     backgroundColor: 'transparent',
                     borderColor: 'rgba(255,255,255,.55)',
                     pointBackgroundColor: getStyle('--cui-primary'),
@@ -85,55 +87,35 @@ const WidgetsDropdown = (props) => {
               }}
               options={{
                 plugins: {
-                  legend: {
-                    display: false,
-                  },
+                  legend: { display: false },
                 },
                 maintainAspectRatio: false,
                 scales: {
                   x: {
-                    border: {
-                      display: false,
-                    },
-                    grid: {
-                      display: false,
-                      drawBorder: false,
-                    },
-                    ticks: {
-                      display: false,
-                    },
+                    border: { display: false },
+                    grid: { display: false, drawBorder: false },
+                    ticks: { display: false },
                   },
                   y: {
                     min: 30,
                     max: 89,
                     display: false,
-                    grid: {
-                      display: false,
-                    },
-                    ticks: {
-                      display: false,
-                    },
+                    grid: { display: false },
+                    ticks: { display: false },
                   },
                 },
                 elements: {
-                  line: {
-                    borderWidth: 1,
-                    tension: 0.4,
-                  },
-                  point: {
-                    radius: 4,
-                    hitRadius: 10,
-                    hoverRadius: 4,
-                  },
+                  line: { borderWidth: 1, tension: 0.4 },
+                  point: { radius: 4, hitRadius: 10, hoverRadius: 4 },
                 },
               }}
             />
           }
         />
       </CCol>
+
       <CCol sm={6} xl={4} xxl={3}>
         <CWidgetStatsA
-          color=""
           value={
             <>
               300{' '}
@@ -165,7 +147,6 @@ const WidgetsDropdown = (props) => {
                 labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
                 datasets: [
                   {
-                    label: 'My First dataset',
                     backgroundColor: 'transparent',
                     borderColor: 'rgba(255,255,255,.55)',
                     pointBackgroundColor: getStyle('--cui-info'),
@@ -175,51 +156,33 @@ const WidgetsDropdown = (props) => {
               }}
               options={{
                 plugins: {
-                  legend: {
-                    display: false,
-                  },
+                  legend: { display: false },
                 },
                 maintainAspectRatio: false,
                 scales: {
                   x: {
-                    border: {
-                      display: false,
-                    },
-                    grid: {
-                      display: false,
-                      drawBorder: false,
-                    },
-                    ticks: {
-                      display: false,
-                    },
+                    border: { display: false },
+                    grid: { display: false, drawBorder: false },
+                    ticks: { display: false },
                   },
                   y: {
                     min: -9,
                     max: 39,
                     display: false,
-                    grid: {
-                      display: false,
-                    },
-                    ticks: {
-                      display: false,
-                    },
+                    grid: { display: false },
+                    ticks: { display: false },
                   },
                 },
                 elements: {
-                  line: {
-                    borderWidth: 1,
-                  },
-                  point: {
-                    radius: 4,
-                    hitRadius: 10,
-                    hoverRadius: 4,
-                  },
+                  line: { borderWidth: 1 },
+                  point: { radius: 4, hitRadius: 10, hoverRadius: 4 },
                 },
               }}
             />
           }
         />
       </CCol>
+
       <CCol sm={6} xl={4} xxl={3}>
         <CWidgetStatsA
           color="primary"
@@ -253,7 +216,6 @@ const WidgetsDropdown = (props) => {
                 labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
                 datasets: [
                   {
-                    label: 'My First dataset',
                     backgroundColor: 'rgba(255,255,255,.2)',
                     borderColor: 'rgba(255,255,255,.55)',
                     data: [78, 81, 80, 45, 34, 12, 40],
@@ -263,29 +225,16 @@ const WidgetsDropdown = (props) => {
               }}
               options={{
                 plugins: {
-                  legend: {
-                    display: false,
-                  },
+                  legend: { display: false },
                 },
                 maintainAspectRatio: false,
                 scales: {
-                  x: {
-                    display: false,
-                  },
-                  y: {
-                    display: false,
-                  },
+                  x: { display: false },
+                  y: { display: false },
                 },
                 elements: {
-                  line: {
-                    borderWidth: 2,
-                    tension: 0.4,
-                  },
-                  point: {
-                    radius: 0,
-                    hitRadius: 10,
-                    hoverRadius: 4,
-                  },
+                  line: { borderWidth: 2, tension: 0.4 },
+                  point: { radius: 0, hitRadius: 10, hoverRadius: 4 },
                 },
               }}
             />

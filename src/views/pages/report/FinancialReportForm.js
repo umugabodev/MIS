@@ -1,56 +1,148 @@
 import React, { useState } from 'react';
 import {
-  CButton,
   CCard,
-  CCardBody,
-  CCardHeader,
-  CCol,
+  CCardBody
 } from '@coreui/react';
-function FinancialReportForm() {
-  const [file1, setFile1] = useState(null);
-  const [file2, setFile2] = useState(null);
 
-  const handleFile1Change = (event) => {
-    setFile1(event.target.files[0]);
+const DocumentStoragePage = () => {
+  const [documents, setDocuments] = useState([]);
+  const [selectedDocument, setSelectedDocument] = useState(null);
+  const [file, setFile] = useState(null);
+
+  // Function to handle document selection
+  const handleDocumentSelect = (document) => {
+    setSelectedDocument(document);
   };
 
-  const handleFile2Change = (event) => {
-    setFile2(event.target.files[0]);
+  // Function to handle document upload
+  const handleDocumentUpload = () => {
+    if (file) {
+      const newDocument = {
+        name: file.name,
+        content: `Uploaded file: ${file.name}`,
+      };
+      setDocuments([...documents, newDocument]);
+      setFile(null);
+    }
   };
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    // Handle file submission, e.g., send files to backend or perform validation
-    console.log("File 1:", file1);
-    console.log("File 2:", file2);
+  // Function to handle file input change
+  const handleFileChange = (e) => {
+    const selectedFile = e.target.files[0];
+    setFile(selectedFile);
   };
 
   return (
-    <CCard className="mb-4" style={{ maxWidth: '800px', margin: '0 auto' }}>
-        <CCardHeader className="d-flex justify-content-between align-items-center">
-          <h5 className="mb-0">Recruiter Registration Form</h5>
-        </CCardHeader>
-        <CCardBody style={{ flex: 1, padding: '20px', border: '1px solid #ccc', borderRadius: '5px', backgroundColor: '#DCDCDC' }}>
-        <form onSubmit={handleSubmit} style={{ display: 'grid', gap: '20px', gridTemplateColumns: '1fr 1fr' }}>
-          <div className="form-group">
-    {/* <div>
-      <h2>Financial Report Form</h2>
-      <form onSubmit={handleSubmit}> */}
-        <div>
-          <label htmlFor="file1">Upload PDF Monthly Financial Report:</label>
-          <input type="file" id="file1" accept=".pdf" onChange={handleFile1Change} />
-        </div>
-        <div>
-          <label htmlFor="file2">Upload PDF File 2:</label>
-          <input type="file" id="file2" accept=".pdf" onChange={handleFile2Change} />
-        </div>
-        <button type="submit">Submit</button>
-        </div>
-        </form>
-         </CCardBody>
-      </CCard>
-    );
+    <div
+      style={{
+        display: 'flex',
+        justifyContent: 'space-between',
+        maxWidth: '1200px',
+        margin: '20px auto',
+        padding: '20px',
+        backgroundColor: '#e3e3e3', // Military-inspired background color
+        border: '1px solid #555555', // Military-inspired border color
+        borderRadius: '5px',
+        fontFamily: 'Arial, sans-serif', // Military standard font
+      }}
+    >
+      {/* Document List */}
+      <div
+        style={{
+          flex: '1',
+          marginRight: '20px',
+          backgroundColor: '#ffffff',
+          padding: '10px',
+          border: '1px solid #555555',
+          borderRadius: '5px',
+        }}
+      >
+        <h2 style={{ color: '#003366', marginBottom: '10px' }}>Documents</h2>
+        <ul style={{ listStyleType: 'none', padding: '0' }}>
+          {documents.map((document, index) => (
+            <li
+              key={index}
+              onClick={() => handleDocumentSelect(document)}
+              style={{
+                cursor: 'pointer',
+                padding: '10px',
+                margin: '5px 0',
+                backgroundColor: '#f2f2f2',
+                borderRadius: '3px',
+                border: '1px solid #dddddd',
+              }}
+            >
+              {document.name}
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      {/* Document Viewer */}
+      <div
+        style={{
+          flex: '2',
+          marginRight: '20px',
+          backgroundColor: '#ffffff',
+          padding: '20px',
+          border: '1px solid #555555',
+          borderRadius: '5px',
+        }}
+      >
+        {selectedDocument ? (
+          <>
+            <h2 style={{ color: '#003366', marginBottom: '10px' }}>
+              {selectedDocument.name}
+            </h2>
+            <p style={{ color: '#333333' }}>{selectedDocument.content}</p>
+          </>
+        ) : (
+          <div
+            style={{
+              textAlign: 'center',
+              fontStyle: 'italic',
+              color: '#888888',
+            }}
+          >
+            Select a document to view
+          </div>
+        )}
+      </div>
+
+      {/* Upload Form */}
+      <div
+        style={{
+          flex: '1',
+          backgroundColor: '#ffffff',
+          padding: '20px',
+          border: '1px solid #555555',
+          borderRadius: '5px',
+        }}
+      >
+        <h2 style={{ color: '#003366', marginBottom: '10px' }}>Upload Document</h2>
+        <input
+          type="file"
+          onChange={handleFileChange}
+          style={{ marginBottom: '10px' }}
+        />
+        <button
+          onClick={handleDocumentUpload}
+          style={{
+            backgroundColor: '#4CAF50', // Military green for upload button
+            color: 'white',
+            padding: '10px 20px',
+            border: 'none',
+            borderRadius: '3px',
+            cursor: 'pointer',
+            fontFamily: 'Arial, sans-serif', // Military standard font
+          }}
+        >
+          Upload
+        </button>
+      </div>
+    </div>
+  );
 };
 
+export default DocumentStoragePage;
 
-export default FinancialReportForm;
