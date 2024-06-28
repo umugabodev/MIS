@@ -616,7 +616,7 @@ const addPersonnel = () => {
         // handle form completion, clear local storage, etc.
         localStorage.removeItem('personnelId');
         localStorage.removeItem('surveyFormData');
-        alert('Form Kurangiza completed successfully!');
+        alert('Form  completed successfully!');
         return <div>Form completed successfully!</div>;
       default:
         return null;

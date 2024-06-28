@@ -13,14 +13,16 @@ import {
 const Dashboards1 = () => {
   const token = localStorage.getItem('accessToken');
   const [personnel, setPersonnel] = useState([]);
+  const [filteredPersonnel, setFilteredPersonnel] = useState([]);
   const [error, setError] = useState(null);
   const [page, setPage] = useState(0);
   const [totalPages, setTotalPages] = useState(1); // Default to 1 page
   const navigate = useNavigate();
   const [deletePersonId, setDeletePersonId] = useState(null);
+  const [searchTerm, setSearchTerm] = useState('');
 
   useEffect(() => {
-    const fetchPersonnel = async () => {
+    const fetchAllPersonnel = async () => {
       try {
         const response = await fetch(`http://localhost:3007/api/v1/personnel?page=${page}`, {
           method: 'GET',
@@ -33,6 +35,7 @@ const Dashboards1 = () => {
           const result = await response.json();
           if (result.status === "Successful") {
             setPersonnel(result.data.content);
+            setFilteredPersonnel(result.data.content); // Initialize filtered data with all personnel
             setTotalPages(result.data.page.totalPages);
           } else {
             setError(result.message);
@@ -45,8 +48,16 @@ const Dashboards1 = () => {
       }
     };
 
-    fetchPersonnel();
+    fetchAllPersonnel();
   }, [page, token]);
+
+  // Handle search input change
+  useEffect(() => {
+    const filteredData = personnel.filter(person =>
+      `${person.serviceNumber}`.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+    setFilteredPersonnel(filteredData);
+  }, [personnel, searchTerm]);
 
   const handleView = (id) => {
     navigate(`/personnel/${id}`);
@@ -63,6 +74,7 @@ const Dashboards1 = () => {
       });
       if (response.ok) {
         setPersonnel(personnel.filter(person => person.id !== id));
+        setFilteredPersonnel(filteredPersonnel.filter(person => person.id !== id));
         setDeletePersonId(null); // Reset deletePersonId after deletion
       } else {
         setError('Failed to delete Personnel');
@@ -70,10 +82,6 @@ const Dashboards1 = () => {
     } catch (error) {
       setError('Error deleting Personnel');
     }
-  };
-
-  const handlePageChange = (newPage) => {
-    setPage(newPage);
   };
 
   const confirmDelete = (id) => {
@@ -90,26 +98,52 @@ const Dashboards1 = () => {
     setDeletePersonId(null); // Reset deletePersonId
   };
 
+  const handlePageChange = (newPage) => {
+    setPage(newPage);
+  };
+
+  const handleNextPage = () => {
+    setPage(page + 1);
+  };
+
+  const handlePreviousPage = () => {
+    setPage(page - 1);
+  };
+
   return (
     <CRow>
-      
       <CCol xs="12">
-        
         <CCard className="mb-4">
-        {deletePersonId !== null && (
-              <div className="confirmation-dialog bg-warning text-dark p-3 rounded mt-3">
-                <p className="mb-0">Are you sure you want to delete this person?</p>
-                <div className="mt-2">
-                  <CButton color="danger" onClick={handleDeleteConfirmed}>Delete</CButton>{' '}
-                  <CButton color="secondary" onClick={handleCancelDelete}>Cancel</CButton>
-                </div>
+          {deletePersonId !== null && (
+            <div className="confirmation-dialog bg-warning text-dark p-3 rounded mt-3">
+              <p className="mb-0">Are you sure you want to delete this person?</p>
+              <div className="mt-2">
+                <CButton color="danger" onClick={handleDeleteConfirmed}>Delete</CButton>{' '}
+                <CButton color="secondary" onClick={handleCancelDelete}>Cancel</CButton>
               </div>
-            )}
+            </div>
+          )}
           <CCardHeader className="d-flex justify-content-between align-items-center bg-dark text-light">
             <h5 className="mb-0">List of Personnel</h5>
-            <Link to="/addPersonnel" className="btn btn-outline-light">
-              <i className="fas fa-plus-circle"></i> Add New Personnel
-            </Link>
+            <div className="d-flex align-items-center">
+              {/* Search input */}
+              <div className="input-group me-2">
+                <input
+                  type="text"
+                  className="form-control"
+                  placeholder="Search..."
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                />
+                <button className="btn btn-light" type="button">
+                  <i className="fas fa-search"></i>
+                </button>
+              </div>
+              {/* Add New Personnel link */}
+              <Link to="/addPersonnel" className="btn btn-outline-light">
+                <i className="fas fa-plus-circle"></i> Add New Personnel
+              </Link>
+            </div>
           </CCardHeader>
           <CCardBody className="table-responsive">
             {error && <div className="alert alert-danger">{error}</div>}
@@ -128,7 +162,7 @@ const Dashboards1 = () => {
                 </tr>
               </thead>
               <tbody>
-                {personnel.map((person, index) => (
+                {filteredPersonnel.map((person, index) => (
                   <tr key={person.id}>
                     <td>{person.serviceNumber}</td>
                     <td>{person.rank}</td>
@@ -151,15 +185,17 @@ const Dashboards1 = () => {
               </tbody>
             </table>
 
-           
-
             <div className="d-flex justify-content-between mt-3">
-              <button className="btn btn-outline-primary" onClick={() => handlePageChange(page - 1)} disabled={page === 0}>
+              <button className="btn btn-outline-primary" onClick={handlePreviousPage} disabled={page === 0}>
                 Previous
               </button>
-              <button className="btn btn-outline-primary" onClick={() => handlePageChange(page + 1)} disabled={page >= totalPages - 1}>
-                Next
-              </button>
+              <button
+              className={`btn btn-outline-primary ${page >= totalPages - 1 ? 'disabled' : ''}`}
+              onClick={handleNextPage}
+              disabled={page >= totalPages - 1}
+            >
+              Next
+            </button>
             </div>
           </CCardBody>
         </CCard>
