@@ -17,12 +17,9 @@ import {
 import CIcon from '@coreui/icons-react';
 import {
   cilBell,
-  cilContrast,
   cilEnvelopeOpen,
   cilList,
   cilMenu,
-  cilMoon,
-  cilSun,
   cilClock,
   cilCalendar,
   cilLocationPin,
@@ -30,6 +27,7 @@ import {
 
 import { AppBreadcrumb } from './index';
 import { AppHeaderDropdown } from './header/index';
+import "../assets/styles/themes.css";
 
 const AppHeader = () => {
   const headerRef = useRef();
@@ -60,24 +58,12 @@ const AppHeader = () => {
       setDate(`${day}/${month}/${year}`);
     }, 1000);
 
-    // Get coordinates
-    navigator.geolocation.getCurrentPosition(
-      (position) => {
-        setCoordinates({
-          lat: position.coords.latitude.toFixed(2),
-          lon: position.coords.longitude.toFixed(2),
-        });
-      },
-      (error) => {
-        console.error('Error getting location:', error);
-      }
-    );
-
+    
     return () => clearInterval(interval);
   }, []);
 
   return (
-    <CHeader position="sticky" className="mb-4 p-0" ref={headerRef} style={styles.header}>
+    <CHeader position="sticky" className="mb-4 p-0 bg-dark" ref={headerRef}>
       <CContainer className="border-bottom px-4 d-flex justify-content-between align-items-center" fluid>
         <CHeaderToggler
           onClick={() => dispatch({ type: 'set', sidebarShow: !sidebarShow })}
@@ -91,20 +77,14 @@ const AppHeader = () => {
               Dashboard
             </CNavLink>
           </CNavItem>
-          <CNavItem>
-            <CNavLink href="#" style={styles.navLink}>Users</CNavLink>
-          </CNavItem>
-          <CNavItem>
-            <CNavLink href="#" style={styles.navLink}>Settings</CNavLink>
-          </CNavItem>
+         
         </CHeaderNav>
         <div className="flex-grow-1 d-none d-md-flex justify-content-center align-items-center" style={styles.infoContainer}>
           <CIcon icon={cilClock} style={styles.icon} />
           <div style={styles.infoText}>{`Time: ${militaryTime}`}</div>
           <CIcon icon={cilCalendar} style={styles.icon} />
           <div style={styles.infoText}>{`Date: ${date}`}</div>
-          <CIcon icon={cilLocationPin} style={styles.icon} />
-          <div style={styles.infoText}>{`Coordinates: ${coordinates.lat}, ${coordinates.lon}`}</div>
+          
         </div>
         <CHeaderNav className="d-flex align-items-center">
           <CNavItem>
@@ -118,7 +98,7 @@ const AppHeader = () => {
             </CNavLink>
           </CNavItem>
           <CNavItem>
-            <CNavLink href="/MessageList" style={styles.navLink}>
+            <CNavLink href="" style={styles.navLink}>
               <CIcon icon={cilEnvelopeOpen} size="lg" />
             </CNavLink>
           </CNavItem>
@@ -127,11 +107,7 @@ const AppHeader = () => {
           <AppHeaderDropdown />
         </CHeaderNav>
       </CContainer>
-      <CContainer className="px-4 d-md-none d-flex justify-content-between align-items-center" fluid style={styles.infoContainer}>
-        <div style={styles.infoText}>{`Time: ${militaryTime}`}</div>
-        <div style={styles.infoText}>{`Date: ${date}`}</div>
-        <div style={styles.infoText}>{`Coordinates: ${coordinates.lat}, ${coordinates.lon}`}</div>
-      </CContainer>
+    
       <CContainer className="px-4" fluid style={styles.breadcrumbContainer}>
         <AppBreadcrumb />
       </CContainer>
