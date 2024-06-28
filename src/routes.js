@@ -15,8 +15,8 @@ const MemoryMonitor  = React.lazy(() => import('/src/views/pages/activities/Memo
 const ActiveUsers  = React.lazy(() => import('/src/views/pages/activities/ActiveUsers.js'))
 
 
-const RecruiterForm = React.lazy(() => import('/src/views/dashboard/s1dashboard/Recruitors/RecruiterForm.js'))
-const RecruiterList = React.lazy(() => import('/src/views/dashboard/s1dashboard/Recruitors/RecruiterList.js'))
+const RecruiterForm = React.lazy(() => import('/src/views/pages/recruitors/RecruiterForm.js'))
+const RecruiterList = React.lazy(() => import('/src/views/pages/recruitors/RecruiterList.js'))
 const MessagePanel = React.lazy(() => import('/src/views/dashboard/messages/MessagePanel'))
 const MessageList = React.lazy(() => import('/src/views/dashboard/messages/MessageList'))
 const UserList = React.lazy(() => import('/src/views/dashboard/User/UserList.js'))
