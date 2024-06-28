@@ -2,6 +2,18 @@ import React from 'react'
 import Dashboards1 from './views/dashboard/Dashboards1'
 import DashboardAdmin from './views/dashboard/sysAdmindashboard/DashboardAdmin'
 const sidebar = React.lazy(() => import('/src/components/header/adminsidebar/Adminsidebar'))
+const UnitRegistration = React.lazy(() => import('/src/views/pages/formation/UnitRegistration.js'))
+const Brigade = React.lazy(() => import('/src/views/pages/formation/Brigade.js'))
+const Battalion = React.lazy(() => import('/src/views/pages/formation/Battalion.js'))
+const UnitInfoList = React.lazy(() => import('/src/views/pages/formation/UnitInfoList.js'))
+const SecurityForm = React.lazy(() => import('/src/views/pages/security/SecurityForm.js'))
+const IssueList = React.lazy(() => import('/src/views/pages/security/IssueList.js'))
+const PermissionForm = React.lazy(() => import('/src/views/pages/permission/PermissionForm.js'))
+const UserPermissionList = React.lazy(() => import('/src/views/pages/permission/UserPermissionList.js'))
+const CPUMonitor  = React.lazy(() => import('/src/views/pages/activities/CPUMonitor.js'))
+const MemoryMonitor  = React.lazy(() => import('/src/views/pages/activities/MemoryMonitor.js'))
+const ActiveUsers  = React.lazy(() => import('/src/views/pages/activities/ActiveUsers.js'))
+
 
 const RecruiterForm = React.lazy(() => import('/src/views/dashboard/s1dashboard/Recruitors/RecruiterForm.js'))
 const RecruiterList = React.lazy(() => import('/src/views/dashboard/s1dashboard/Recruitors/RecruiterList.js'))
@@ -58,9 +70,18 @@ const routes = [
   { path: '/MessagePanel', name: 'MessagePanel Form', element: MessagePanel },
  { path: '/MessageList', name: 'Messages List', element: MessageList },
  { path: '/FinancialReportForm', name: 'Financial Report Form', element: FinancialReportForm },
+ { path: '/UnitRegistration', name: 'UnitRegistration  Form', element: UnitRegistration },
+ { path: '/Brigade', name: 'Brigade Registration  Form', element: Brigade },
+ { path: '/Battalion', name: 'Battalion Registration  Form', element: Battalion },
+ { path: '/UnitInfoList', name: 'Unit Information List', element: UnitInfoList },
  { path: '/personnel/:id', name: 'Personnel Detail', element: PersonnelDetail },
-
-
+ { path: '/SecurityForm', name: 'Security Report Form', element: SecurityForm },
+{ path: '/IssueList', name: 'Security Issues List', element: IssueList },
+{ path: '/PermissionForm', name: 'Assign Permission Form', element: PermissionForm },
+{ path: '/UserPermissionList', name: 'User Permission List', element: UserPermissionList },
+{ path: '/CPUMonitor', name: 'CPU Monitor Usage', element: CPUMonitor},
+{ path: '/MemoryMonitor', name: 'Memory Monitor Usage', element: MemoryMonitor},
+{ path: '/ActiveUsers', name: 'ActiveUsers Monitor', element: ActiveUsers},
 ]
 
 export default routes

@@ -7,6 +7,7 @@ import {
   CSidebarHeader,
   CSidebarToggler,
 } from '@coreui/react';
+
 import CIcon from '@coreui/icons-react';
 import { AppSidebarNav } from './AppSidebarNav';
 import navigation from '/src/_nav'; // Import your navigation configuration

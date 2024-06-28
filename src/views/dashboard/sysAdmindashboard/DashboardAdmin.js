@@ -64,7 +64,7 @@ const DashboardAdmin = () => {
       <SystemInfoCard systemInfoData={systemInfoData} />
 
       <CCard className="mb-4">
-        <CCardHeader>Rank Distribution</CCardHeader>
+        <CCardHeader>Rank Distribution </CCardHeader>
         <CCardBody>
           <CRow>
             {rankDistributionData.map((rank, index) => (

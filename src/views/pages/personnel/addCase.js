@@ -8,7 +8,6 @@ import {
   CCol,
   CRow,
 } from '@coreui/react';
-import { Button } from '@coreui/coreui';
 
 const addCase = () => {
   const [selectedSection, setSelectedSection] = useState('DISCIPLINARY FORM');
@@ -41,11 +40,12 @@ const addCase = () => {
                         name: 'serviceNumber',
                         title: 'Service No',
                         inputType: 'number',
-                        isRequired: true,                   
-                        defaultValue: formData['serviceNumber'] || ''
+                        isRequired: true,
+                        defaultValue: formData['serviceNumber'] || '',
+                        maxLength: 10, // Example: set a maximum length for input
+                        size: 40, // Example: set a size for the input field
+                        width: '100%', // Ensure the field takes full width
                       },
-                      
-                      
                       {
                         type: 'dropdown',
                         name: 'rank',
@@ -58,61 +58,62 @@ const addCase = () => {
                           'SSgt',
                           'SM',
                           'W0I',
-                          
                         ],
-                        defaultValue: formData['rank'] || ''
+                        defaultValue: formData['rank'] || '',
+                        width: '100%', // Ensure the dropdown takes full width
                       },
                       {
                         type: 'text',
                         name: 'firstname',
-                        title: 'First Name ',
+                        title: 'First Name',
                         isRequired: true,
-                        defaultValue: formData['firstname'] || ''
+                        defaultValue: formData['firstname'] || '',
+                        width: '100%', // Ensure the text field takes full width
                       },
-                      
                       {
                         type: 'text',
                         name: 'lastname',
-                        title: 'Last Name ',
+                        title: 'Last Name',
                         isRequired: true,
-                        defaultValue: formData['lastname'] || ''
+                        defaultValue: formData['lastname'] || '',
+                        width: '100%', // Ensure the text field takes full width
                       },
                       {
                         type: 'text',
                         name: 'description',
-                        title: 'Short Note ',
+                        title: 'Short Note',
                         isRequired: true,
-                        defaultValue: formData['description'] || ''
+                        defaultValue: formData['description'] || '',
+                        width: '100%', // Ensure the text field takes full width
                       },
                       {
-                        "type": "dropdown",
-                        "name": "category",
-                        "title": "Category",
-                        "isRequired": true,
-                        "choices": [
-                          "UDC",
-                          "Statement",                         
+                        type: 'dropdown',
+                        name: 'category',
+                        title: 'Category',
+                        isRequired: true,
+                        choices: [
+                          'UDC',
+                          'Statement',
                         ],
-                        defaultValue: formData['category'] || ''
-                      },         
+                        defaultValue: formData['category'] || '',
+                        width: '100%', // Ensure the dropdown takes full width
+                      },
                       {
                         type: 'file',
                         name: 'fileupload',
-                        title: 'Upload File ',
+                        title: 'Upload File',
                         isRequired: true,
-                        defaultValue: formData['fileupload'] || ''
-                      },                   
-                    
+                        defaultValue: formData['fileupload'] || '',
+                        width: '100%', // Ensure the file upload takes full width
+                      },
                     ],
                   },
                 ],
               }}
-             
             />
           </>
         );
         
-            
       // Add cases for other sections if needed
       default:
         return null;
@@ -122,45 +123,13 @@ const addCase = () => {
   return (
     
     <>
-    
-      <CRow>
-      {/* /*<CCol xs="3">
-          <CCard className="mb-4">
-            { <CCardHeader className="d-flex justify-content-between align-items-center">
-              <h5 className="mb-0">Case Category</h5>
-            </CCardHeader>
-            { <CCardBody>            
-      
-              <ul style={{ listStyleType: 'none', padding: 0, marginLeft: "" }}>
-                <li
-                  style={{ marginBottom: '10px', cursor: 'pointer' }}
-                  onClick={() => handleSectionClick('DISCIPLINARY FORM')}
-                >
-                  <a>UDS File</a>
-                </li>
-                <li
-                  style={{ marginBottom: '10px', cursor: 'pointer' }}
-                  onClick={() => handleSectionClick('Academic Qualification')}
-                >
-                  <a>Statement File</a>
-                </li>
-              </ul>
-              
-            </CCardBody> } 
-          </CCard>
-        </CCol> */}
-      
-      
+     <CRow>     
         <CCol xs="8" className=" ">
           <CCard className="mb-4 justify-center justify-content-start">
             <CCardHeader className="d-flex justify-content-between align-items-center">
               
               <h5 className="mb-0">{selectedSection}</h5>
-              {/* <button className="btn btn-primary btn-sm">
-                <i className="fas fa-plus-circle"></i>
-                Add New
-              </button> */}
-            </CCardHeader>
+              </CCardHeader>
             <CCardBody>{renderFormFields()}</CCardBody>
           </CCard>
         </CCol>
