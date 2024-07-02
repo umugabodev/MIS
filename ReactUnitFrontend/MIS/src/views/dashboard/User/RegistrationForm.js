@@ -1,10 +1,16 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import {
   CButton,
   CCard,
   CCardBody,
   CCardHeader,
   CCol,
+  CModal,
+  CModalBody,
+  CModalFooter,
+  CModalHeader,
+  CModalTitle
 } from '@coreui/react';
 
 const RegistrationForm = () => {
@@ -16,8 +22,9 @@ const RegistrationForm = () => {
     password: '',
     type: '', // Added user type field
   });
-  
+
   const [errors, setErrors] = useState({});
+  const [modalVisible, setModalVisible] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -38,8 +45,9 @@ const RegistrationForm = () => {
     }
     if (!formData.phoneNumber.trim()) {
       validationErrors.phoneNumber = 'Phone Number is required';
-    } else if (!/^\d{10}$/.test(formData.phoneNumber)) {
-      validationErrors.phoneNumber = 'Phone Number must be exactly 10 digits';
+    } 
+    else if (!/^\d{10}$/.test(formData.phoneNumber)) {
+      validationErrors.phoneNumber = 'Phone Number must be 10 digits';
     }
     if (!formData.email.trim()) {
       validationErrors.email = 'Email is required';
@@ -64,26 +72,35 @@ const RegistrationForm = () => {
     e.preventDefault();
     const validationErrors = validate();
     if (Object.keys(validationErrors).length === 0) {
-        fetch('http://localhost:3007/api/v1/users', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(formData),
-        })
+      fetch('http://localhost:3007/api/v1/users', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(formData),
+      })
         .then(response => response.json())
         .then(data => {
-            console.log('Form submitted successfully:', data);
+          console.log('Form submitted successfully:', data);
+          setModalVisible(true);
+          setFormData({
+            firstName: '',
+            lastName: '',
+            phoneNumber: '',
+            email: '',
+            password: '',
+            type: '',
+          });
+          setErrors({});
         })
         .catch(error => {
-            console.error('Error submitting form:', error);
-            // Optionally handle error response
+          console.error('Error submitting form:', error);
+          // Optionally handle error response
         });
     } else {
-        setErrors(validationErrors);
+      setErrors(validationErrors);
     }
   };
-
 
   const labelStyle = { display: 'block', marginBottom: '8px' };
   const inputStyle = { width: '100%', padding: '10px', border: '1px solid #ccc', borderRadius: '5px', boxSizing: 'border-box' };
@@ -95,10 +112,10 @@ const RegistrationForm = () => {
   return (
     <CCol xs="12" className=" ">
       <CCard className="mb-4" style={{ maxWidth: '800px', margin: '0 auto' }}>
-        <CCardHeader className="d-flex justify-content-between align-items-center">
+        <CCardHeader className="d-flex justify-content-between align-items-center ">
           <h5 className="mb-0">User Registration Form</h5>
         </CCardHeader>
-        <CCardBody style={{ flex: 1, padding: '20px', border: '1px solid #ccc', borderRadius: '5px', backgroundColor: '#DCDCDC' }}>
+        <CCardBody style={{ flex: 1, padding: '20px', border: '1px solid #ccc', borderRadius: '5px', backgroundColor: '#f2f0f0' }}>
           <form onSubmit={handleSubmit}>
             <div style={twoColumnStyle}>
               <div style={columnStyle}>
@@ -173,7 +190,7 @@ const RegistrationForm = () => {
                   onChange={handleChange}
                   style={inputStyle}
                 >
-                  <option value="">Select User Type</option>
+                  <option value="">Select User Role</option>
                   <option value="BDEADMIN">BDEADMIN</option>
                   <option value="S1">S1</option>
                   <option value="S2">S2</option>
@@ -188,6 +205,20 @@ const RegistrationForm = () => {
           </form>
         </CCardBody>
       </CCard>
+
+      <CModal visible={modalVisible} onClose={() => setModalVisible(false)}>
+        <CModalHeader onClose={() => setModalVisible(false)}>
+          <CModalTitle>Thank You!</CModalTitle>
+        </CModalHeader>
+        <CModalBody>
+          Your registration has been successfully submitted.
+        </CModalBody>
+        <CModalFooter>
+          <Link to="/userlist">
+            <CButton color="primary">Close</CButton>
+          </Link>
+        </CModalFooter>
+      </CModal>
     </CCol>
   );
 };

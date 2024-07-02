@@ -1,170 +1,104 @@
-import React from 'react'
-
-
+import React, { useState, useRef } from 'react';
 import {
-
   CCard,
   CCardBody,
-  CCardFooter,
   CCardHeader,
-  CCol,
-  CProgress,
-  CRow,
+  CTable,
+  CTableBody,
+  CTableHead,
+  CTableHeaderCell,
+  CTableRow,
+} from '@coreui/react';
+import 'jspdf-autotable';
 
-} from '@coreui/react'
-import CIcon from '@coreui/icons-react'
-import {
+const Monthly = () => {
+  const initialData = [
+    { date: "2024-06-01", unit: "System Security Regt", onParade: "", absent: "", course: "", passLeave: "" },
+    { date: "2024-06-01", unit: "Information System Regt", onParade: "", absent: "", course: "", passLeave: "" },
+    { date: "2024-06-01", unit: "Test", onParade: "", absent: "", course: "", passLeave: "" },
+    { date: "2024-06-02", unit: "System Security Regt", onParade: "", absent: "", course: "", passLeave: "" },
+    { date: "2024-06-02", unit: "Information System Regt", onParade: "", absent: "", course: "", passLeave: "" },
+    { date: "2024-06-02", unit: "Test", onParade: "", absent: "", course: "", passLeave: "" },
+    // Add more sample data for multiple days
+  ];
+  
  
-  cilUser,
-  cilUserFemale,
-} from '@coreui/icons'
-
-
-
-
-import WidgetsDropdown from '../widgets/WidgetsDropdown'
-
-
-const monthly = () => {
+  const [data, setData] = useState(initialData);
  
+ 
+
+  const generateMonthlySummary = () => {
+    const monthlySummary = {};
+    data.forEach(item => {
+      const { date, onParade, absent, course, passLeave } = item;
+      if (!monthlySummary[date]) {
+        monthlySummary[date] = {
+          onParade: Number(onParade) || 0,
+          absent: Number(absent) || 0,
+          course: Number(course) || 0,
+          passLeave: Number(passLeave) || 0
+        };
+      } else {
+        monthlySummary[date].onParade += Number(onParade) || 0;
+        monthlySummary[date].absent += Number(absent) || 0;
+        monthlySummary[date].course += Number(course) || 0;
+        monthlySummary[date].passLeave += Number(passLeave) || 0;
+      }
+    });
+    return monthlySummary;
+  };
+
+  const cardHeaderStyle = {
+    backgroundColor: '#2c3e50',
+    color: 'white',
+    fontWeight: 'bold',
+    fontSize: '1.2rem',
+  };
+
+  const cardBodyStyle = {
+    backgroundColor: '#ecf0f1',
+  };
+
+  const tableHeaderStyle = {
+    backgroundColor: '#34495e',
+    color: 'white',
+  };
+
   return (
-    <>
-      
-      <CRow>
-        <CCol xs>
-          <CCard className="mb-4">
-            <CCardHeader>Monthly Parade State </CCardHeader>
-            <CCardBody>
-              <CRow>
-                <CCol xs={12} md={6} xl={6}>
-                  <CRow>
-                    <CCol xs={6}>
-                      <div className="border-start border-start-4  py-1 px-3">
-                        <div className="text-body-secondary text-truncate small">1 Inf Div</div>
-                        <div className="fs-5 fw-semibold">11</div>
-                      </div>
-                    </CCol>
-                    <CCol xs={6}>
-                      <div className="border-start border-start-4  py-1 px-3 mb-3">
-                        <div className="text-body-secondary text-truncate small">
-                        2 Inf Div
-                        </div>
-                        <div className="fs-5 fw-semibold">23</div>
-                      </div>
-                    </CCol>
-                    <CCol xs={6}>
-                      <div className="border-start border-start-4  py-1 px-3 mb-3">
-                        <div className="text-body-secondary text-truncate small">
-                        5 Inf Div
-                        </div>
-                        <div className="fs-5 fw-semibold">31</div>
-                      </div>
-                    </CCol>
-                    <CCol xs={6}>
-                      <div className="border-start border-start-4 py-1 px-3 mb-3">
-                        <div className="text-body-secondary text-truncate small">
-                        TF Div
-                        </div>
-                        <div className="fs-5 fw-semibold">09</div>
-                      </div>
-                    </CCol>
-                    <CCol xs={6}>
-                      <div className="border-start border-start-4  py-1 px-3 mb-3">
-                        <div className="text-body-secondary text-truncate small">
-                        Log Bde
-                        </div>
-                        <div className="fs-5 fw-semibold">16</div>
-                      </div>
-                    </CCol>
-                    <CCol xs={6}>
-                      <div className="border-start border-start-4 py-1 px-3 mb-3">
-                        <div className="text-body-secondary text-truncate small">
-                        MP Bde
-                        </div>
-                        <div className="fs-5 fw-semibold">09</div>
-                      </div>
-                    </CCol>
-                    <CCol xs={6}>
-                      <div className="border-start border-start-4 py-1 px-3 mb-3">
-                        <div className="text-body-secondary text-truncate small">
-                        Air Force
-                        </div>
-                        <div className="fs-5 fw-semibold">42</div>
-                      </div>
-                    </CCol>
-                    <CCol xs={6}>
-                      <div className="border-start border-start-4 py-1 px-3 mb-3">
-                        <div className="text-body-secondary text-truncate small">
-                        Reserve Force
-                        </div>
-                        <div className="fs-5 fw-semibold">22</div>
-                      </div>
-                    </CCol>
-                  </CRow>
-                 
-                </CCol>
-                <CCol xs={12} md={6} xl={6}>
-                  <CRow>
-                    <CCol xs={6}>
-                      <div className="border-start border-start-4  py-1 px-3 mb-3">
-                        <div className="text-body-secondary text-truncate small">3 Inf Div</div>
-                        <div className="fs-5 fw-semibold">36</div>
-                      </div>
-                    </CCol>
-                    <CCol xs={6}>
-                      <div className="border-start border-start-4  py-1 px-3 mb-3">
-                        <div className="text-body-secondary text-truncate small">4 Inf Div</div>
-                        <div className="fs-5 fw-semibold">41</div>
-                      </div>
-                    </CCol>
-                    <CCol xs={6}>
-                      <div className="border-start border-start-4  py-1 px-3 mb-3">
-                        <div className="text-body-secondary text-truncate small">Arty Div</div>
-                        <div className="fs-5 fw-semibold">14</div>
-                      </div>
-                    </CCol>
-                    <CCol xs={6}>
-                      <div className="border-start border-start-4  py-1 px-3 mb-3">
-                        <div className="text-body-secondary text-truncate small">Mech Div</div>
-                        <div className="fs-5 fw-semibold">21</div>
-                      </div>
-                    </CCol>
-                    <CCol xs={6}>
-                      <div className="border-start border-start-4  py-1 px-3 mb-3">
-                        <div className="text-body-secondary text-truncate small">SOF</div>
-                        <div className="fs-5 fw-semibold">21</div>
-                      </div>
-                    </CCol>
-                    <CCol xs={6}>
-                      <div className="border-start border-start-4  py-1 px-3 mb-3">
-                        <div className="text-body-secondary text-truncate small">RG</div>
-                        <div className="fs-5 fw-semibold">23</div>
-                      </div>
-                    </CCol>
-                    <CCol xs={6}>
-                      <div className="border-start border-start-4  py-1 px-3 mb-3">
-                        <div className="text-body-secondary text-truncate small">DID</div>
-                        <div className="fs-5 fw-semibold">06</div>
-                      </div>
-                    </CCol>
-                    <CCol xs={6}>
-                      <div className="border-start border-start-4  py-1 px-3 mb-3">
-                        <div className="text-body-secondary text-truncate small">ZCSS & AFOS</div>
-                        <div className="fs-5 fw-semibold">17</div>
-                      </div>
-                    </CCol>
-                  </CRow>
+    <div className="container py-4">
+      <CCard className="mb-4" style={{ background: '#f0f0f0', border: '1px solid #ccc' }}>
+        <CCardHeader style={cardHeaderStyle}>
+          <h5 style={{ margin: 0 }}>Monthly Summary</h5>
+        </CCardHeader>
+        <CCardBody style={cardBodyStyle}>
+          <div className="table-responsive">
+            <CTable striped bordered hover style={{ background: '#fff', border: '1px solid #ccc' }}>
+              <CTableHead style={tableHeaderStyle}>
+                <CTableRow>
+                  <CTableHeaderCell>Date</CTableHeaderCell>
+                  <CTableHeaderCell>Total On Parade</CTableHeaderCell>
+                  <CTableHeaderCell>Total Absent</CTableHeaderCell>
+                  <CTableHeaderCell>Total On Course</CTableHeaderCell>
+                  <CTableHeaderCell>Total Pass Leave</CTableHeaderCell>
+                </CTableRow>
+              </CTableHead>
+              <CTableBody>
+                {Object.entries(generateMonthlySummary()).map(([date, totals], index) => (
+                  <CTableRow key={index}>
+                    <CTableHeaderCell>{date}</CTableHeaderCell>
+                    <CTableHeaderCell>{totals.onParade}</CTableHeaderCell>
+                    <CTableHeaderCell>{totals.absent}</CTableHeaderCell>
+                    <CTableHeaderCell>{totals.course}</CTableHeaderCell>
+                    <CTableHeaderCell>{totals.passLeave}</CTableHeaderCell>
+                  </CTableRow>
+                ))}
+              </CTableBody>
+            </CTable>
+          </div>
+        </CCardBody>
+      </CCard>
+      </div>
+  );
+};
 
-                  
-                </CCol>
-              </CRow>
-
-            </CCardBody>
-          </CCard>
-        </CCol>
-      </CRow>
-    </>
-  )
-}
-
-export default monthly
+export default Monthly;

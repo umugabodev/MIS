@@ -146,7 +146,7 @@ const Dashboards1 = () => {
       <CRow>
         <CCol xs>
           <CCard className="mb-4">
-            <CCardHeader>Deployments </CCardHeader>
+            <CCardHeader>Deployments</CCardHeader>
             <CCardBody>
               <CRow>
                 <CCol xs={12} md={6} xl={6}>

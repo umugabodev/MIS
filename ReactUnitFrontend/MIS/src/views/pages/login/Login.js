@@ -14,14 +14,13 @@ import {
 } from '@coreui/react';
 import CIcon from '@coreui/icons-react';
 import { cilLockLocked, cilUser } from '@coreui/icons';
-import { useSignIn } from "react-auth-kit";
 
 const Login = () => {
+  let role;
   const[user, setUser] = useState({
     username:'',
     password:'',
   })
-  const signIn = useSignIn();
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -38,16 +37,33 @@ const Login = () => {
         if (!response.ok) {
           alert('Invalid Username or Password');
       }else{
+        console.log(data)
         localStorage.setItem('accessToken', data.accessToken); // Store access token in local storage
         localStorage.setItem('refreshToken', data.refreshToken); // Store refresh token in local storage
-        signIn({
-          token: data.accessToken,
-          expiresIn: 3600,
-          tokenType: "Bearer",
-          authState: {email: user.email}
-        })
+        localStorage.setItem('light', "light"); 
         console.log('Login successful:', user);
-        navigate("/dashboards1");
+        role = data.roles[0].name;
+
+        // Store user role in localStorage
+        localStorage.setItem('userRole', role);
+
+        // Navigate to the appropriate dashboard based on role
+        switch (role) {
+          case 'role_admin':
+            navigate('/DashboardAdmin');
+            break;
+            case 's1_regiment':
+              navigate('/s1dashboard');
+              break;
+              case 's2_regiment':
+              navigate('/s2dashboard');
+              break;
+            case 'role_staff':
+            navigate('#');
+            break;
+          default:
+            navigate('/Unauthorized');
+        }
       }
     } catch (error) {
         console.error('Login error:', error);
@@ -88,7 +104,7 @@ const Login = () => {
                 <CInputGroupText>
                   <CIcon icon={cilUser} />
                 </CInputGroupText>
-                <CFormInput placeholder="Username" onChange={e => setUser({...user,username:e.target.value})} autoComplete="username" className='bg-white color-black'  />
+                <CFormInput placeholder="Username" onChange={e => setUser({...user,username:e.target.value})} autoComplete="username" />
               </CInputGroup>
               <p style={{ color: 'black' }}>Password</p>
               <CInputGroup className="mb-4">
@@ -100,7 +116,6 @@ const Login = () => {
                   placeholder="Password"
                   onChange={e => setUser({...user,password:e.target.value})}
                   autoComplete="current-password"
-                  className='bg-white '
                   on
                 />
               </CInputGroup>

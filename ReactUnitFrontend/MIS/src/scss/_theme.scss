@@ -51,10 +51,10 @@ body {
   min-height: calc(3rem + 1px); // stylelint-disable-line function-disallowed-list
 }
 
-@if $enable-dark-mode {
-  @include color-mode(dark) {
+@if $enable-light-mode {
+  @include color-mode(light) {
     body {
-      background-color: var(--cui-dark-bg-subtle);
+      background-color: var(--cui-light-bg-subtle);
     }
 
     .footer {

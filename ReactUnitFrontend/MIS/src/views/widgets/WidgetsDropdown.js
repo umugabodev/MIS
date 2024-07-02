@@ -1,7 +1,6 @@
-import React, { useEffect, useRef } from 'react'
-import PropTypes from 'prop-types'
-import customColors from '/src/assets/js/customColors'
-
+import React, { useEffect, useState, useRef } from 'react';
+import PropTypes from 'prop-types';
+import customColors from '/src/assets/js/customColors';
 import {
   CRow,
   CCol,
@@ -10,47 +9,111 @@ import {
   CDropdownItem,
   CDropdownToggle,
   CWidgetStatsA,
-} from '@coreui/react'
-import { getStyle } from '@coreui/utils'
-import { CChartBar, CChartLine } from '@coreui/react-chartjs'
-import CIcon from '@coreui/icons-react'
-import { cilArrowBottom, cilArrowTop, cilOptions } from '@coreui/icons'
+} from '@coreui/react';
+import { getStyle } from '@coreui/utils';
+import { CChartBar, CChartLine } from '@coreui/react-chartjs';
+import CIcon from '@coreui/icons-react';
+import { cilArrowBottom, cilArrowTop, cilOptions } from '@coreui/icons';
 
 const WidgetsDropdown = (props) => {
-  const widgetChartRef1 = useRef(null)
-  const widgetChartRef2 = useRef(null)
+  const widgetChartRef1 = useRef(null);
+  const widgetChartRef2 = useRef(null);
+  const [countPersonnel, setCountPersonnel] = useState(0);
+  const [countOnMission, setCountOnMission] = useState(0);
+  const [countOnCourse, setCountOnCourse] = useState(0);
+  const token = localStorage.getItem('accessToken');
 
   useEffect(() => {
-    document.documentElement.addEventListener('ColorSchemeChange', () => {
+    const fetchData = async () => {
+      try {
+        const [personnelResponse, missionResponse, courseResponse] = await Promise.all([
+          fetch('http://localhost:3007/api/v1/personnel/count-personnel', {
+            method: 'GET',
+            headers: {
+              'Authorization': `Bearer ${token}`,
+              'Content-Type': 'application/text'
+            }
+          }),
+          fetch('http://localhost:3007/api/v1/missions/count-on-mission', {
+            method: 'GET',
+            headers: {
+              'Authorization': `Bearer ${token}`,
+              'Content-Type': 'application/json'
+            }
+          }),
+          fetch('http://localhost:3007/api/v1/courses/count-on-course', {
+            method: 'GET',
+            headers: {
+              'Authorization': `Bearer ${token}`,
+              'Content-Type': 'application/json'
+            }
+          })
+        ]);
+
+        if (personnelResponse.ok) {
+          const result = await personnelResponse.json();
+          setCountPersonnel(result);
+        } else {
+          const result = await personnelResponse.json();
+          setError(result.message || 'Failed to count Personnel');
+        }
+
+        if (missionResponse.ok) {
+          const result = await missionResponse.json();
+          setCountOnMission(result);
+        } else {
+          const result = await missionResponse.json();
+          setError(result.message || 'Failed to count Personnel on Mission');
+        }
+
+        if (courseResponse.ok) {
+          const result = await courseResponse.json();
+          setCountOnCourse(result);
+        } else {
+          const result = await courseResponse.json();
+          setError(result.message || 'Failed to count Personnel on Course');
+        }
+      } catch (error) {
+        setError('Failed to fetch data');
+      }
+    };
+
+    const handleColorSchemeChange = () => {
       if (widgetChartRef1.current) {
         setTimeout(() => {
-          widgetChartRef1.current.data.datasets[0].pointBackgroundColor = getStyle('--cui-primary')
-          widgetChartRef1.current.update()
-        })
+          widgetChartRef1.current.data.datasets[0].pointBackgroundColor = getStyle('--cui-primary');
+          widgetChartRef1.current.update();
+        });
       }
 
       if (widgetChartRef2.current) {
         setTimeout(() => {
-          widgetChartRef2.current.data.datasets[0].pointBackgroundColor = getStyle('--cui-info')
-          widgetChartRef2.current.update()
-        })
+          widgetChartRef2.current.data.datasets[0].pointBackgroundColor = getStyle('--cui-info');
+          widgetChartRef2.current.update();
+        });
       }
-    })
-  }, [widgetChartRef1, widgetChartRef2])
+    };
+
+    document.documentElement.addEventListener('ColorSchemeChange', handleColorSchemeChange);
+    fetchData();
+
+    return () => {
+      document.documentElement.removeEventListener('ColorSchemeChange', handleColorSchemeChange);
+    };
+  }, [token]);
 
   return (
     <CRow className={props.className} xs={{ gutter: 4 }}>
       <CCol sm={6} xl={4} xxl={3}>
-      <CWidgetStatsA
-        style={{backgroundColor: customColors.primary, color: customColors.secondary}}
-  value={
-    <>
-      3000{' '}
-      <span className="fs-6 fw-normal">
-        {/* (+12.4% <CIcon icon={cilArrowTop} />) */}
+        <CWidgetStatsA
+          style={{ backgroundColor: customColors.primary, color: customColors.secondary }}
+          value={
+            <>
+              {countPersonnel}{' '}
+              <span className="fs-6 fw-normal">
+                {/* (+12.4% <CIcon icon={cilArrowTop} />) */}
               </span>
             </>
-            
           }
           title="Total Personnel"
           action={
@@ -75,7 +138,6 @@ const WidgetsDropdown = (props) => {
                 labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
                 datasets: [
                   {
-                    label: 'data set',
                     backgroundColor: 'transparent',
                     borderColor: 'rgba(255,255,255,.55)',
                     pointBackgroundColor: getStyle('--cui-primary'),
@@ -85,58 +147,38 @@ const WidgetsDropdown = (props) => {
               }}
               options={{
                 plugins: {
-                  legend: {
-                    display: false,
-                  },
+                  legend: { display: false },
                 },
                 maintainAspectRatio: false,
                 scales: {
                   x: {
-                    border: {
-                      display: false,
-                    },
-                    grid: {
-                      display: false,
-                      drawBorder: false,
-                    },
-                    ticks: {
-                      display: false,
-                    },
+                    border: { display: false },
+                    grid: { display: false, drawBorder: false },
+                    ticks: { display: false },
                   },
                   y: {
                     min: 30,
                     max: 89,
                     display: false,
-                    grid: {
-                      display: false,
-                    },
-                    ticks: {
-                      display: false,
-                    },
+                    grid: { display: false },
+                    ticks: { display: false },
                   },
                 },
                 elements: {
-                  line: {
-                    borderWidth: 1,
-                    tension: 0.4,
-                  },
-                  point: {
-                    radius: 4,
-                    hitRadius: 10,
-                    hoverRadius: 4,
-                  },
+                  line: { borderWidth: 1, tension: 0.4 },
+                  point: { radius: 4, hitRadius: 10, hoverRadius: 4 },
                 },
               }}
             />
           }
         />
       </CCol>
+
       <CCol sm={6} xl={4} xxl={3}>
         <CWidgetStatsA
-          color=""
           value={
             <>
-              300{' '}
+              {countOnMission}{' '}
               <span className="fs-6 fw-normal">
                 {/* (40.9% <CIcon icon={cilArrowTop} />) */}
               </span>
@@ -165,7 +207,6 @@ const WidgetsDropdown = (props) => {
                 labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
                 datasets: [
                   {
-                    label: 'My First dataset',
                     backgroundColor: 'transparent',
                     borderColor: 'rgba(255,255,255,.55)',
                     pointBackgroundColor: getStyle('--cui-info'),
@@ -175,57 +216,39 @@ const WidgetsDropdown = (props) => {
               }}
               options={{
                 plugins: {
-                  legend: {
-                    display: false,
-                  },
+                  legend: { display: false },
                 },
                 maintainAspectRatio: false,
                 scales: {
                   x: {
-                    border: {
-                      display: false,
-                    },
-                    grid: {
-                      display: false,
-                      drawBorder: false,
-                    },
-                    ticks: {
-                      display: false,
-                    },
+                    border: { display: false },
+                    grid: { display: false, drawBorder: false },
+                    ticks: { display: false },
                   },
                   y: {
                     min: -9,
                     max: 39,
                     display: false,
-                    grid: {
-                      display: false,
-                    },
-                    ticks: {
-                      display: false,
-                    },
+                    grid: { display: false },
+                    ticks: { display: false },
                   },
                 },
                 elements: {
-                  line: {
-                    borderWidth: 1,
-                  },
-                  point: {
-                    radius: 4,
-                    hitRadius: 10,
-                    hoverRadius: 4,
-                  },
+                  line: { borderWidth: 1 },
+                  point: { radius: 4, hitRadius: 10, hoverRadius: 4 },
                 },
               }}
             />
           }
         />
       </CCol>
+
       <CCol sm={6} xl={4} xxl={3}>
         <CWidgetStatsA
           color="primary"
           value={
             <>
-              40{' '}
+              {countOnCourse}{' '}
               <span className="fs-6 fw-normal">
                 {/* (84.7% <CIcon icon={cilArrowTop} />) */}
               </span>
@@ -253,7 +276,6 @@ const WidgetsDropdown = (props) => {
                 labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
                 datasets: [
                   {
-                    label: 'My First dataset',
                     backgroundColor: 'rgba(255,255,255,.2)',
                     borderColor: 'rgba(255,255,255,.55)',
                     data: [78, 81, 80, 45, 34, 12, 40],
@@ -263,29 +285,16 @@ const WidgetsDropdown = (props) => {
               }}
               options={{
                 plugins: {
-                  legend: {
-                    display: false,
-                  },
+                  legend: { display: false },
                 },
                 maintainAspectRatio: false,
                 scales: {
-                  x: {
-                    display: false,
-                  },
-                  y: {
-                    display: false,
-                  },
+                  x: { display: false },
+                  y: { display: false },
                 },
                 elements: {
-                  line: {
-                    borderWidth: 2,
-                    tension: 0.4,
-                  },
-                  point: {
-                    radius: 0,
-                    hitRadius: 10,
-                    hoverRadius: 4,
-                  },
+                  line: { borderWidth: 2, tension: 0.4 },
+                  point: { radius: 0, hitRadius: 10, hoverRadius: 4 },
                 },
               }}
             />
@@ -387,7 +396,7 @@ const WidgetsDropdown = (props) => {
         />
       </CCol>
     </CRow>
-  )
+  );
 }
 
 WidgetsDropdown.propTypes = {
@@ -395,4 +404,4 @@ WidgetsDropdown.propTypes = {
   withCharts: PropTypes.bool,
 }
 
-export default WidgetsDropdown
+export default WidgetsDropdown;

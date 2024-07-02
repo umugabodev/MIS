@@ -107,8 +107,8 @@ $enable-deprecation-messages: false; /* stylelint-disable-line scss/dollar-varia
   }
 }
 
-@if $enable-dark-mode {
-  @include color-mode(dark) {
+@if $enable-light-mode {
+  @include color-mode(light) {
     .example .tab-content {
       background-color: var(--#{$prefix}secondary-bg) !important;
     }

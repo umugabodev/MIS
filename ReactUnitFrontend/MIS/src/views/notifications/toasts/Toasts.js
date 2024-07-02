@@ -94,7 +94,7 @@ const Toasts = () => {
             <p className="text-body-secondary small">
               Toasts are slightly translucent to blend in with what&#39;s below them.
             </p>
-            <DocsExample href="components/toast#translucent" tabContentClassName="bg-dark">
+            <DocsExample href="components/toast#translucent" tabContentClassName="bg-light">
               <CToast autohide={false} visible={true}>
                 <CToastHeader closeButton>
                   <svg

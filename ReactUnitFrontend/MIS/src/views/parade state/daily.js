@@ -1,94 +1,122 @@
-import React, { useState, useRef } from 'react';
-
+import React, { useState } from 'react';
 import {
   CCard,
   CCardBody,
   CCardHeader,
-  CCol,
-  CRow,
   CTable,
   CTableBody,
   CTableHead,
   CTableHeaderCell,
   CTableRow,
+  CTableDataCell,
+  CButton,
 } from '@coreui/react';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
-import jsPDF from 'jspdf';
 import 'jspdf-autotable';
 
-const Paradestate = () => {
+const Daily = () => {
   const initialData = [
-    { unit: "System Security Regt",  onParade: "", absent: "", course: "", passLeave: ""  },
-    { unit: "Information System Regt",  onParade: "", absent: "", course: "", passLeave: ""},
-    { unit: "Test",  onParade: "", absent: "",  course: "", passLeave: ""},
+    { date: "2024-06-01", unit: "System Security Regt", onParade: "", absent: "", course: "", passLeave: "" },
+    { date: "2024-06-01", unit: "Information System Regt", onParade: "", absent: "", course: "", passLeave: "" },
+    { date: "2024-06-01", unit: "Test", onParade: "", absent: "", course: "", passLeave: "" },
+    { date: "2024-06-02", unit: "System Security Regt", onParade: "", absent: "", course: "", passLeave: "" },
+    { date: "2024-06-02", unit: "Information System Regt", onParade: "", absent: "", course: "", passLeave: "" },
+    { date: "2024-06-02", unit: "Test", onParade: "", absent: "", course: "", passLeave: "" },
+    // Add more sample data for multiple days
   ];
-  const tableRef = useRef();
+  
+  
   const [data, setData] = useState(initialData);
   const [showModal, setShowModal] = useState(false);
   const [selectedRowIndex, setSelectedRowIndex] = useState(null);
-
-  const handleEdit = (index, field, value) => {
-    const newData = [...data];
-    newData[index][field] = value;
-    setData(newData);
-  };
-
-  const handleOpenModal = (index) => {
-    setShowModal(true);
-    setSelectedRowIndex(index);
-  };
+  const [editItem, setEditItem] = useState(null);
 
   const handleCloseModal = () => {
     setShowModal(false);
+    setEditItem(null);
+  };
+
+  const handleShowModal = (index) => {
+    setSelectedRowIndex(index);
+    setEditItem(data[index]);
+    setShowModal(true);
   };
 
   const handleSaveModal = () => {
-    // Save functionality goes here
-    console.log("Data saved:", data);
+    const newData = [...data];
+    newData[selectedRowIndex] = editItem;
+    setData(newData);
     handleCloseModal();
   };
-  const exportToPDF = () => {
-    const heading = "Internal Deployment Report";
-    const doc = new jsPDF();
-    doc.autoTable({ html: tableRef.current });
-    doc.save("Today.pdf");
+
+  const handleNumericInputChange = (field, value) => {
+    setEditItem({
+      ...editItem,
+      [field]: value
+    });
   };
+
   
+   
+  const cardHeaderStyle = {
+    backgroundColor: '#2c3e50',
+    color: 'white',
+    fontWeight: 'bold',
+    fontSize: '1.2rem',
+  };
+
+  const cardBodyStyle = {
+    backgroundColor: '#ecf0f1',
+  };
+
+  const tableHeaderStyle = {
+    backgroundColor: '#34495e',
+    color: 'white',
+  };
+
+ 
+
+  const buttonStyle = {
+    backgroundColor: '#2c3e50',
+    color: 'white',
+    margin: '5px',
+  };
 
   return (
-    <div className="container py-6">
-      <CCard className="mb-6">
-        <CCardHeader style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          <span>Parade State</span>
-          <Button variant="primary" style={{ marginLeft: 'auto' }} onClick={exportToPDF}>Export to PDF</Button>
+    <div className="container py-4">
+      
+
+      <CCard className="mb-4" style={{ background: '#f0f0f0', border: '1px solid #ccc' }}>
+        <CCardHeader style={cardHeaderStyle}>
+          <h5 style={{ margin: 0 }}>Daily Parade States</h5>
         </CCardHeader>
-        <CCardBody>
+        <CCardBody style={cardBodyStyle}>
           <div className="table-responsive">
-            <CTable ref={tableRef}>
-              <CTableHead>
+            <CTable striped bordered hover style={{ background: '#fff', border: '1px solid #ccc' }}>
+              <CTableHead style={tableHeaderStyle}>
                 <CTableRow>
-                  <CTableHeaderCell>REGIMENT</CTableHeaderCell>
+                  <CTableHeaderCell>Date</CTableHeaderCell>
+                  <CTableHeaderCell>Unit</CTableHeaderCell>
                   <CTableHeaderCell>On Parade</CTableHeaderCell>
                   <CTableHeaderCell>Absent</CTableHeaderCell>
                   <CTableHeaderCell>On Course</CTableHeaderCell>
                   <CTableHeaderCell>Pass Leave</CTableHeaderCell>
-                  <CTableHeaderCell>Total</CTableHeaderCell>
                   <CTableHeaderCell>Action</CTableHeaderCell>
                 </CTableRow>
               </CTableHead>
               <CTableBody>
                 {data.map((item, index) => (
                   <CTableRow key={index}>
-                    <CTableHeaderCell>{item.unit}</CTableHeaderCell>
-                    <CTableHeaderCell>{item.onParade}</CTableHeaderCell>
-                    <CTableHeaderCell>{item.absent}</CTableHeaderCell>
-                    <CTableHeaderCell>{item.course}</CTableHeaderCell>
-                    <CTableHeaderCell>{item.passLeave}</CTableHeaderCell>
-                    <CTableHeaderCell>{item.total}</CTableHeaderCell>
-                    <CTableHeaderCell>
-                      <button style={{ padding: '5px 10px' }} onClick={() => handleOpenModal(index)}>Update</button>
-                    </CTableHeaderCell>
+                    <CTableHeaderCell>{item.date}</CTableHeaderCell>
+                    <CTableDataCell>{item.unit}</CTableDataCell>
+                    <CTableDataCell>{item.onParade}</CTableDataCell>
+                    <CTableDataCell>{item.absent}</CTableDataCell>
+                    <CTableDataCell>{item.course}</CTableDataCell>
+                    <CTableDataCell>{item.passLeave}</CTableDataCell>
+                    <CTableDataCell>
+                      <CButton style={buttonStyle} onClick={() => handleShowModal(index)}>Edit</CButton>
+                    </CTableDataCell>
                   </CTableRow>
                 ))}
               </CTableBody>
@@ -97,45 +125,39 @@ const Paradestate = () => {
         </CCardBody>
       </CCard>
 
-      {/* Modal for editing cell */}
       <Modal show={showModal} onHide={handleCloseModal}>
         <Modal.Header closeButton>
-          <Modal.Title>Parade State</Modal.Title>
+          <Modal.Title>Edit Parade State</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          {/* Input fields for editing data */}
-          {/* Title for the input field */}
-          <label className="form-label">On Parade:</label>
-          {/* Input field for editing data */}
-          <input
-            className="form-control"
-            type="number"
-            value={data[selectedRowIndex]?.onParade} // Using optional chaining to handle possible undefined value
-            onChange={(e) => handleEdit(selectedRowIndex, "onParade", e.target.value)}
-          />
-          {/* Additional input fields for other data */}
-          {/* Remember to include titles for these fields as well */}
-          <label className="form-label">Absent:</label>
-          <input
-            className="form-control mt-2"
-            type="number"
-            value={data[selectedRowIndex]?.absent}
-            onChange={(e) => handleEdit(selectedRowIndex, "absent", e.target.value)}
-          />
-          <label className="form-label">On Course:</label>
-          <input
-            className="form-control mt-2"
-            type="number"
-            value={data[selectedRowIndex]?.course}
-            onChange={(e) => handleEdit(selectedRowIndex, "course", e.target.value)}
-          />
-          <label className="form-label">Pass Leave</label>
-          <input
-            className="form-control mt-2"
-            type="number"
-            value={data[selectedRowIndex]?.passLeave}
-            onChange={(e) => handleEdit(selectedRowIndex, "passLeave", e.target.value)}
-          />
+          {editItem && (
+            <div>
+              <div className="mb-3">
+                <label>Date</label>
+                <input type="text" className="form-control" value={editItem.date} readOnly />
+              </div>
+              <div className="mb-3">
+                <label>Unit</label>
+                <input type="text" className="form-control" value={editItem.unit} readOnly />
+              </div>
+              <div className="mb-3">
+                <label>On Parade</label>
+                <input type="number" className="form-control" value={editItem.onParade} onChange={(e) => handleNumericInputChange('onParade', e.target.value)} />
+              </div>
+              <div className="mb-3">
+                <label>Absent</label>
+                <input type="number" className="form-control" value={editItem.absent} onChange={(e) => handleNumericInputChange('absent', e.target.value)} />
+              </div>
+              <div className="mb-3">
+                <label>On Course</label>
+                <input type="number" className="form-control" value={editItem.course} onChange={(e) => handleNumericInputChange('course', e.target.value)} />
+              </div>
+              <div className="mb-3">
+                <label>Pass Leave</label>
+                <input type="number" className="form-control" value={editItem.passLeave} onChange={(e) => handleNumericInputChange('passLeave', e.target.value)} />
+              </div>
+            </div>
+          )}
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleCloseModal}>
@@ -150,4 +172,4 @@ const Paradestate = () => {
   );
 };
 
-export default Paradestate;
+export default Daily;

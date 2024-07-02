@@ -4,7 +4,26 @@ import jsPDF from 'jspdf';
 import 'jspdf-autotable';
 
 const mission = () => {
-  const [rca, setrca] = useState([]);
+  const [rca, setrca] = useState([
+    {
+      svcno: '123456',
+      rank: 'Captain',
+      names: 'John Doe',
+      unit: 'Alpha Company',
+      amount: 'Rwf 36000',
+      account: '123-456-789',
+      depositedby: 'Jane TUMUKUNDE',
+    },
+    {
+      svcno: '654321',
+      rank: 'Lieutenant',
+      names: 'Alice Johnson',
+      unit: 'Bravo Company',
+      amount: 'Rwf 36000',
+      account: '987-654-321',
+      depositedby: 'Bob MULISA',
+    },
+  ]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [formData, setFormData] = useState({
     svcno: '',
