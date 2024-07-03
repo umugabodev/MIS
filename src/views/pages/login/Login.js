@@ -52,13 +52,16 @@ const Login = () => {
           case 'role_admin':
             navigate('/DashboardAdmin');
             break;
-            case 's1_regiment':
+          case 's1_regiment':
               navigate('/s1dashboard');
               break;
-              case 's2_regiment':
+          case 's2_regiment':
               navigate('/s2dashboard');
               break;
-            case 'role_staff':
+          case 's4_regiment':
+              navigate('/s4dashboard');
+              break;
+          case 'role_staff':
             navigate('#');
             break;
           default:

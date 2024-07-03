@@ -456,6 +456,47 @@ const getNavItems = (userRole) => {
       ],
       
     },
+    // {
+    //   component: CNavTitle,
+    //   name: 'EQUIPMENT INFO',
+    // },
+    // {
+    //   component: CNavGroup,
+    //   name: 'Trace Equipment',
+    //   to: '#',
+    //   icon: <CIcon icon={cilPuzzle} customClassName="nav-icon" />,
+    //   items: [
+    //     {
+    //       component: CNavItem,
+    //       name: 'Active Equipment',
+    //       to: '#',
+    //     },
+    //     {
+    //       component: CNavItem,
+    //       name: 'Inactive Equipment',
+    //       to: '#',
+    //     },
+    //     {
+    //       component: CNavItem,
+    //       name: 'Archived Equipment',
+    //       to: '#',
+    //     },    
+    //   ],
+      
+    // },
+  ];
+
+  const s4commsItems = [
+    {
+      //MENU DESIGNED FOR S4
+      component: CNavItem,
+      name: 'S4 Dashboard',
+      to: '/s4dashboard',
+      icon: <CIcon icon={cilSpeedometer} customClassName="nav-icon" />,
+      
+      
+    },
+    
     {
       component: CNavTitle,
       name: 'EQUIPMENT INFO',
@@ -486,15 +527,18 @@ const getNavItems = (userRole) => {
     },
   ];
 
+
   switch (userRole) {
     case 'role_admin':
       return [ ...adminItems];
     // case 's1_regiment':
     //   return [ ...managerItems];
-      case 's1_regiment':
+    case 's1_regiment':
         return [ ...s1commsItems];
     case 's2_regiment':
-      return [...s2commsItems];
+        return [...s2commsItems];
+    case 's4_regiment':
+        return [...s4commsItems];
       
     // default:
     //   return commonItems;
