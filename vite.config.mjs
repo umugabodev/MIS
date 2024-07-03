@@ -2,6 +2,7 @@ import { defineConfig, loadEnv } from 'vite'
 import react from '@vitejs/plugin-react'
 import path from 'node:path'
 import autoprefixer from 'autoprefixer'
+import reactRefresh from '@vitejs/plugin-react-refresh';
 
 export default defineConfig(({ mode }) => {
   return {
@@ -40,9 +41,16 @@ export default defineConfig(({ mode }) => {
       extensions: ['.mjs', '.js', '.ts', '.jsx', '.tsx', '.json', '.scss'],
     },
     server: {
-      port: 3000,
+      port: 3001,
       proxy: {
         // https://vitejs.dev/config/server-options.html
+      },
+      plugins: [reactRefresh()],
+      resolve: {
+        alias: {
+          '@mui/material': '@mui/material',
+          '@mui/icons-material': '@mui/icons-material',
+        },
       },
     },
   }

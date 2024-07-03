@@ -1,150 +1,174 @@
-import React, { useEffect, useRef } from 'react'
-import { NavLink } from 'react-router-dom'
-import { useSelector, useDispatch } from 'react-redux'
+import React, { useEffect, useRef, useState } from 'react';
+import { NavLink } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
 import {
   CContainer,
-  CDropdown,
-  CDropdownItem,
-  CDropdownMenu,
-  CDropdownToggle,
   CHeader,
   CHeaderNav,
   CHeaderToggler,
   CNavLink,
   CNavItem,
-} from '@coreui/react'
-import CIcon from '@coreui/icons-react'
+  useColorModes,
+  CDropdown,
+  CDropdownToggle,
+  CDropdownMenu,
+  CDropdownItem,
+  CToast,
+  CToastBody,
+  CToastHeader,
+  CToaster,
+} from '@coreui/react';
+import CIcon from '@coreui/icons-react';
 import {
   cilBell,
-  cilContrast,
   cilEnvelopeOpen,
   cilList,
   cilMenu,
-  cilMoon,
-  cilSun,
-} from '@coreui/icons'
-
-import { AppBreadcrumb } from './index'
-import { AppHeaderDropdown } from './header/index'
+  cilClock,
+  cilCalendar,
+} from '@coreui/icons';
+import { AppBreadcrumb } from './index';
+import { AppHeaderDropdown } from './header/index';
+import "../assets/styles/themes.css";
 
 const AppHeader = () => {
-  const headerRef = useRef()
+  const headerRef = useRef();
+  const { colorMode, setColorMode } = useColorModes('light'); // Ensure 'light' mode initially
+  const dispatch = useDispatch();
+  const sidebarShow = useSelector((state) => state.sidebarShow);
 
-  const dispatch = useDispatch()
-  const sidebarShow = useSelector((state) => state.sidebarShow)
+  const [militaryTime, setMilitaryTime] = useState('');
+  const [date, setDate] = useState('');
 
   useEffect(() => {
     document.addEventListener('scroll', () => {
-      headerRef.current &&
-        headerRef.current.classList.toggle('shadow-sm', document.documentElement.scrollTop > 0)
-    })
-  }, [])
+      headerRef.current && headerRef.current.classList.toggle('shadow-sm', document.documentElement.scrollTop > 0);
+    });
 
-  const setColorMode = (mode) => {
-    // Add your logic for setting color mode here
-  }
+    // Update time and date every second
+    const interval = setInterval(() => {
+      const now = new Date();
+      const hours = now.getHours().toString().padStart(2, '0');
+      const minutes = now.getMinutes().toString().padStart(2, '0');
+      const seconds = now.getSeconds().toString().padStart(2, '0');
+      setMilitaryTime(`${hours}:${minutes}:${seconds}`);
 
-  // Set 'dark' as the default color mode
-  const colorMode = 'dark';
+      const day = now.getDate().toString().padStart(2, '0');
+      const month = (now.getMonth() + 1).toString().padStart(2, '0');
+      const year = now.getFullYear();
+      setDate(`${day}/${month}/${year}`);
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, []);
 
   return (
-    <CHeader position="sticky" className="mb-4 p-0" 
-    style={{background: '#134228'}}
-    >
-      <CContainer className="border-bottom px-4" fluid >
+    <CHeader position="sticky" className="mb-4 p-0 bg-dark" ref={headerRef}>
+      <CContainer className="border-bottom px-4 d-flex justify-content-between align-items-center" fluid>
         <CHeaderToggler
           onClick={() => dispatch({ type: 'set', sidebarShow: !sidebarShow })}
-          style={{ marginInlineStart: '-14px' }} 
+          style={{ marginInlineStart: '-14px' }}
         >
           <CIcon icon={cilMenu} size="lg" />
         </CHeaderToggler>
-        <CHeaderNav className="d-none d-md-flex"  style={{color: 'white'}}>
+        <CHeaderNav className="d-none d-md-flex">
           <CNavItem>
-            <CNavLink to="/dashboards1" as={NavLink}
-            style={{color: 'white'}}
-            >
+            <CNavLink as={NavLink} style={styles.navLink}>
               Dashboard
             </CNavLink>
           </CNavItem>
-          <CNavItem>
-            <CNavLink href="#" style={{color: 'white'}}>Users</CNavLink>
-          </CNavItem>
-          <CNavItem>
-            <CNavLink href="#" style={{color: 'white'}}>Settings</CNavLink>
-          </CNavItem>
         </CHeaderNav>
-        <CHeaderNav className="ms-auto">
-          <CNavItem>
-            <CNavLink href="#">
+        <div className="flex-grow-1 d-none d-md-flex justify-content-center align-items-center" style={styles.infoContainer}>
+          <CIcon icon={cilClock} style={styles.icon} />
+          <div style={styles.infoText}>{`Time: ${militaryTime}`}</div>
+          <CIcon icon={cilCalendar} style={styles.icon} />
+          <div style={styles.infoText}>{`Date: ${date}`}</div>
+        </div>
+        <CHeaderNav className="d-flex align-items-center">
+          <CDropdown innav="true">
+            <CDropdownToggle caret style={styles.dropdownToggle}>
               <CIcon icon={cilBell} size="lg" />
-            </CNavLink>
-          </CNavItem>
-          <CNavItem>
-            <CNavLink href="#">
+            </CDropdownToggle>
+            <CDropdownMenu style={styles.dropdownMenu}>
+              <CToaster>
+                <CToast autohide={false} visible={true}>
+                  <CToastHeader  style={styles.toastHeader}>
+                    
+                    <div className="fw-bold me-auto">Passord Reset</div>
+                    <small>7 min ago</small>
+                  </CToastHeader>
+                  <CToastBody style={styles.toastBody}>This is a military-themed toast message.</CToastBody>
+                  <CToastHeader style={styles.toastHeader}>
+                    <div className="fw-bold me-auto">System Mantainance</div>
+                    <small>10 min ago</small>
+                  </CToastHeader>
+                  <CToastBody style={styles.toastBody}>Planned maintenance on 01/07/2024 from 00:00 to 04:00 UTC.</CToastBody>
+                <CToastBody style={styles.toastBody}>This is to inform you that system may temporaly down.</CToastBody>
+                </CToast>
+                
+              </CToaster>
+              {/* Add more CDropdownItems for other alert options */}
+            </CDropdownMenu>
+          </CDropdown>
+          {/* <CNavItem>
+            <CNavLink href="#" style={styles.navLink}>
               <CIcon icon={cilList} size="lg" />
             </CNavLink>
-          </CNavItem>
+          </CNavItem> */}
           <CNavItem>
-            <CNavLink href="#">
+            <CNavLink href="/#/MessagePanel" style={styles.navLink}>
               <CIcon icon={cilEnvelopeOpen} size="lg" />
             </CNavLink>
           </CNavItem>
         </CHeaderNav>
         <CHeaderNav>
-          <li className="nav-item py-1">
-            <div className="vr h-100 mx-2 text-body text-opacity-75"></div>
-          </li>
-          <CDropdown variant="nav-item" placement="bottom-end">
-            <CDropdownToggle caret={false}>
-              {colorMode === 'light' ? (
-                <CIcon icon={cilMoon} size="lg" />
-              ) : colorMode === 'auto' ? (
-                <CIcon icon={cilContrast} size="lg" />
-              ) : (
-                <CIcon icon={cilSun} size="lg" />
-              )}
-            </CDropdownToggle>
-            {/* <CDropdownMenu>
-              <CDropdownItem
-                active={colorMode === 'light'}
-                className="d-flex align-items-center"
-                as="button"
-                type="button"
-                onClick={() => setColorMode('light')}
-              >
-                <CIcon className="me-2" icon={cilSun} size="lg" />Light
-              </CDropdownItem>
-              <CDropdownItem
-                active={colorMode === 'dark'}
-                className="d-flex align-items-center"
-                as="button"
-                type="button"
-                onClick={() => setColorMode('')}
-              >
-                <CIcon className="me-2" icon={cilMoon} size="lg" /> Dark
-              </CDropdownItem>
-              <CDropdownItem
-                active={colorMode === 'auto'}
-                className="d-flex align-items-center"
-                as="button"
-                type="button"
-                onClick={() => setColorMode('auto')}
-              >
-                <CIcon className="me-2" icon={cilContrast} size="lg" /> Auto
-              </CDropdownItem>
-            </CDropdownMenu>*/}
-          </CDropdown>
-          <li className="nav-item py-1">
-            <div className="vr h-100 mx-2 text-body text-opacity-75"></div>
-          </li> 
           <AppHeaderDropdown />
         </CHeaderNav>
       </CContainer>
-      <CContainer className="px-4" fluid style={{ backgroundColor: '#1b1b2b' }}>
-  <AppBreadcrumb />
-</CContainer>
+      <CContainer className="px-4" fluid style={styles.breadcrumbContainer}>
+        <AppBreadcrumb />
+      </CContainer>
     </CHeader>
-  )
-}
+  );
+};
 
-export default AppHeader
+const styles = {
+  header: {
+    backgroundColor: '#03381d', // Military-themed dark color
+  },
+  navLink: {
+    color: '#FFFFFF', // White text for contrast
+  },
+  infoContainer: {
+    fontFamily: 'Courier, monospace',
+    color: '#FFFFFF', // White text for contrast
+  },
+  icon: {
+    marginRight: '5px',
+    color: '#FFFFFF', // White icons for contrast
+  },
+  infoText: {
+    marginRight: '20px',
+  },
+  breadcrumbContainer: {
+    backgroundColor: '#4E617A', // New background color for the breadcrumb container
+  },
+  // dropdownToggle: {
+  //   color: '#FFFFFF', // White text for contrast
+  // },
+  dropdownMenu: {
+    // backgroundColor: '#65b8a0', // Dark background for the dropdown menu
+   
+    width: '300px', // Set a fixed width for the dropdown menu
+  },
+  // toastHeader: {
+  //   backgroundColor: '#03381d', // Military-themed dark color for the toast header
+  //   color: '#FFFFFF', // White text for contrast
+  // },
+  // toastBody: {
+  //   backgroundColor: '#2E2E2E', // Dark background for the toast body
+  //   color: '#84e8cc', // White text for contrast
+  // },
+};
+
+export default AppHeader;

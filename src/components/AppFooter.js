@@ -1,5 +1,7 @@
-import React from 'react'
-import { CFooter } from '@coreui/react'
+
+import React from 'react';
+import { CFooter } from '@coreui/react';
+import '../assets/styles/themes.css';
 
 const AppFooter = () => {
   return (
@@ -13,11 +15,11 @@ const AppFooter = () => {
       <div className="ms-auto">
         <span className="me-1">Powered by</span>
         <a href="#" target="_blank" rel="noopener noreferrer">
-          MIS
+          RDF
         </a>
       </div>
     </CFooter>
-  )
+  );
 }
 
-export default React.memo(AppFooter)
+export default React.memo(AppFooter);
