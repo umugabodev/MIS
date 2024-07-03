@@ -1,0 +1,21 @@
+/* ../dashboard/assets/styles/style.css */
+
+.d-flex {
+    display: flex !important;
+}
+
+.justify-content-between {
+    justify-content: space-between !important;
+}
+
+.align-items-center {
+    align-items: center !important;
+}
+
+.bg-dark {
+    background-color: #4d784e !important; /* Adjust to your preferred dark color */
+}
+
+.text-light {
+    color: #f8f9fa !important; /* Adjust to your preferred light color */
+}
