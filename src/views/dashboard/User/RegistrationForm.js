@@ -14,15 +14,26 @@ import {
 } from '@coreui/react';
 
 const RegistrationForm = () => {
+<<<<<<< HEAD
   const [formData, setFormData] = useState({
+=======
+  const initialFormData = {
+>>>>>>> 9855e82 (clear button to a form)
     firstName: '',
     lastName: '',
     phoneNumber: '',
     email: '',
     password: '',
+<<<<<<< HEAD
     type: '', // Added user type field
   });
 
+=======
+    type: '',
+  };
+
+  const [formData, setFormData] = useState({ ...initialFormData });
+>>>>>>> 9855e82 (clear button to a form)
   const [errors, setErrors] = useState({});
   const [modalVisible, setModalVisible] = useState(false);
 
@@ -83,6 +94,7 @@ const RegistrationForm = () => {
         .then(data => {
           console.log('Form submitted successfully:', data);
           setModalVisible(true);
+<<<<<<< HEAD
           setFormData({
             firstName: '',
             lastName: '',
@@ -91,6 +103,9 @@ const RegistrationForm = () => {
             password: '',
             type: '',
           });
+=======
+          setFormData({ ...initialFormData }); // Reset form data
+>>>>>>> 9855e82 (clear button to a form)
           setErrors({});
         })
         .catch(error => {
@@ -102,6 +117,14 @@ const RegistrationForm = () => {
     }
   };
 
+<<<<<<< HEAD
+=======
+  const handleClear = () => {
+    setFormData({ ...initialFormData });
+    setErrors({});
+  };
+
+>>>>>>> 9855e82 (clear button to a form)
   const labelStyle = { display: 'block', marginBottom: '8px' };
   const inputStyle = { width: '100%', padding: '10px', border: '1px solid #ccc', borderRadius: '5px', boxSizing: 'border-box' };
   const errorStyle = { color: 'red', marginTop: '5px', marginBottom: '10px' };
@@ -201,7 +224,14 @@ const RegistrationForm = () => {
                 {errors.type && <p style={errorStyle}>{errors.type}</p>}
               </div>
             </div>
+<<<<<<< HEAD
             <button type="submit" style={buttonStyle}>Register</button>
+=======
+            <div style={{ marginTop: '20px', textAlign: 'center' }}>
+              <CButton color="secondary" onClick={handleClear} style={{ marginRight: '10px' }}>Clear</CButton>
+              <button type="submit" style={{ ...buttonStyle }}>Register</button>
+            </div>
+>>>>>>> 9855e82 (clear button to a form)
           </form>
         </CCardBody>
       </CCard>
