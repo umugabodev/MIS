@@ -19,14 +19,15 @@ const AppSidebar = () => {
 
   return (
     <CSidebar
-      className="border-end"
-      position="fixed"
-      unfoldable={unfoldable}
-      visible={sidebarShow}
-      onVisibleChange={(visible) => {
-        dispatch({ type: 'set', sidebarShow: visible });
-      }}
-    >
+    className="border-end"
+    style={{ backgroundColor: '#2d754e', color: '#FFFFFF' }} // Dark background and light gray text color
+    position="fixed"
+    unfoldable={unfoldable}
+    visible={sidebarShow}
+    onVisibleChange={(visible) => {
+      dispatch({ type: 'set', sidebarShow: visible });
+    }}
+  >
       <CSidebarHeader className="border-bottom">
         <div style={{ display: 'flex', alignItems: 'center' }}>
           <img
@@ -39,7 +40,7 @@ const AppSidebar = () => {
         <CSidebarBrand to="/" />
       </CSidebarHeader>
 
-      <AppSidebarNav items={navigation} /> {/* Pass navigation items to AppSidebarNav */}
+      <AppSidebarNav items={navigation} style={{ color: '#FFFFFF' }} /> {/* Pass navigation items to AppSidebarNav */}
 
       <CSidebarFooter className="border-top d-none d-lg-flex">
         <CSidebarToggler />
