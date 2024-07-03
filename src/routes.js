@@ -13,6 +13,7 @@ const UserPermissionList = React.lazy(() => import('/src/views/pages/permission/
 const CPUMonitor  = React.lazy(() => import('/src/views/pages/activities/CPUMonitor.js'))
 const MemoryMonitor  = React.lazy(() => import('/src/views/pages/activities/MemoryMonitor.js'))
 const ActiveUsers  = React.lazy(() => import('/src/views/pages/activities/ActiveUsers.js'))
+const Alerts  = React.lazy(() => import('/src/views/notifications/alerts/Alerts.js'))
 
 
 const RecruiterForm = React.lazy(() => import('/src/views/dashboard/s1dashboard/Recruitors/RecruiterForm.js'))
@@ -39,7 +40,7 @@ const s1dashboard = React.lazy(() => import('./views/dashboard/s1dashboard/S1Das
 const s2dashboard = React.lazy(() => import('./views/dashboard/s2dashboard/S2Dashboard'))
 const S2widgets = React.lazy(() => import('./views/widgets/s2widgets'))
 const PersonnelDetail = React.lazy(() => import('./views/pages/personnel/PersonnelDetail'))
-
+const Task = React.lazy(() => import('./views/dashboard/Task/task'))
 
 
 const routes = [
@@ -82,6 +83,10 @@ const routes = [
 { path: '/CPUMonitor', name: 'CPU Monitor Usage', element: CPUMonitor},
 { path: '/MemoryMonitor', name: 'Memory Monitor Usage', element: MemoryMonitor},
 { path: '/ActiveUsers', name: 'ActiveUsers Monitor', element: ActiveUsers},
+{ path: '/Alerts', name: 'Alerts', element: Alerts},
+{ path: '/Task', name: 'Task', element: Task},
+
+
 ]
 
 export default routes
