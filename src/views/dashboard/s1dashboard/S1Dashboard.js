@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import classNames from 'classnames';
-
 import {
   CAvatar,
   CButton,
@@ -24,11 +23,9 @@ import {
   cilUser,
   cilUserFemale,
 } from '@coreui/icons';
-
 import avatar2 from 'src/assets/images/avatars/2.jpg';
 import avatar3 from 'src/assets/images/avatars/3.jpg';
 import avatar4 from 'src/assets/images/avatars/4.jpg';
-
 import WidgetsDropdown from '/src/views/widgets/WidgetsDropdown';
 
 const s1dashboard = () => {
@@ -96,10 +93,13 @@ const s1dashboard = () => {
     fetchPercentages();
   }, [token]);
 
-  const progressGroupExample2 = [
-    { title: 'Male (NCOs)', icon: cilUser, value: 64 },
-    { title: 'Female (NCOs)', icon: cilUserFemale, value: 43 },
-  ];
+  const officers = genderPercentage.filter(item =>
+    item.title.includes('Officer')
+  );
+
+  const ncos = genderPercentage.filter(item =>
+    item.title.includes('NCO')
+  );
 
   const tableExample = [
     {
@@ -180,18 +180,6 @@ const s1dashboard = () => {
                     ))}
                   </CRow>
                   <hr className="mt-4" />
-                  {genderPercentage.map((item, index) => (
-                    <div className="progress-group mb-4" key={index}>
-                      <div className="progress-group-header">
-                        <CIcon className="me-2" icon={item.icon} size="lg" />
-                        <span>{item.title}</span>
-                        <span className="ms-auto fw-semibold">{item.value}%</span>
-                      </div>
-                      <div className="progress-group-bars">
-                        <CProgress thin color="warning" value={item.value} />
-                      </div>
-                    </div>
-                  ))}
                 </CCol>
                 <CCol xs={12} md={6} xl={6}>
                   <CRow>
@@ -214,7 +202,25 @@ const s1dashboard = () => {
                     ))}
                   </CRow>
                   <hr className="mt-4" />
-                  {progressGroupExample2.map((item, index) => (
+                </CCol>
+                <CCol xs={12} md={6} xl={6}>
+                  <h5>Officers</h5>
+                  {officers.map((item, index) => (
+                    <div className="progress-group mb-4" key={index}>
+                      <div className="progress-group-header">
+                        <CIcon className="me-2" icon={item.icon} size="lg" />
+                        <span>{item.title}</span>
+                        <span className="ms-auto fw-semibold">{item.value}%</span>
+                      </div>
+                      <div className="progress-group-bars">
+                        <CProgress thin color="warning" value={item.value} />
+                      </div>
+                    </div>
+                  ))}
+                </CCol>
+                <CCol xs={12} md={6} xl={6}>
+                  <h5>NCOs</h5>
+                  {ncos.map((item, index) => (
                     <div className="progress-group mb-4" key={index}>
                       <div className="progress-group-header">
                         <CIcon className="me-2" icon={item.icon} size="lg" />
@@ -229,24 +235,18 @@ const s1dashboard = () => {
                 </CCol>
               </CRow>
               <br />
-
               <br />
-            <CCardHeader>DSO</CCardHeader>
+              <CCardHeader>DSO</CCardHeader>
               <CTable align="middle" className="mb-0 border" hover responsive>
                 <CTableHead className="text-nowrap">
                   <CTableRow>
                     <CTableHeaderCell className="bg-body-tertiary text-center">
                       <CIcon icon={cilPeople} />
                     </CTableHeaderCell>
-                    <CTableHeaderCell className="bg-body-tertiary text-center">
-                    Rank 
-                    </CTableHeaderCell>
+                    <CTableHeaderCell className="bg-body-tertiary text-center">Rank</CTableHeaderCell>
                     <CTableHeaderCell className="bg-body-tertiary">Full Name</CTableHeaderCell>
-                    
                     <CTableHeaderCell className="bg-body-tertiary">Division</CTableHeaderCell>
-                    <CTableHeaderCell className="bg-body-tertiary text-center">
-                      CUG
-                    </CTableHeaderCell>
+                    <CTableHeaderCell className="bg-body-tertiary text-center">CUG</CTableHeaderCell>
                     <CTableHeaderCell className="bg-body-tertiary">Location</CTableHeaderCell>
                   </CTableRow>
                 </CTableHead>
@@ -257,29 +257,23 @@ const s1dashboard = () => {
                         <CAvatar size="md" src={item.avatar.src} status={item.avatar.status} />
                       </CTableDataCell>
                       <CTableDataCell className="text-center">
-                        {/* <CIcon size="xl" icon={item.Rank.name} title={item.Rank.name} /> */}
-                        <h3  className="small text-body-secondary text-nowrap">{item.Rank.name}.</h3>
+                        <h3 className="small text-body-secondary text-nowrap">{item.Rank.name}.</h3>
                       </CTableDataCell>
                       <CTableDataCell>
                         <div>{item.user.name}</div>
                         <div className="small text-body-secondary text-nowrap">
-                         Started:{' '}
-                          {item.user.registered}
+                          Started: {item.user.registered}
                         </div>
                       </CTableDataCell>
-                    
                       <CTableDataCell>
                         <div className="d-flex justify-content-between text-nowrap">
                           <div>{item.Div.name}</div>
-                         
                         </div>
-                                        
-
                       </CTableDataCell>
                       <CTableDataCell className="text-center">
                         <div>{item.CUG.number}</div>
                       </CTableDataCell>
-                      <CTableDataCell>                      
+                      <CTableDataCell>
                         <div className="fw-semibold text-nowrap">{item.location}</div>
                       </CTableDataCell>
                     </CTableRow>
@@ -291,7 +285,7 @@ const s1dashboard = () => {
         </CCol>
       </CRow>
     </>
-  )
-}
+  );
+};
 
 export default s1dashboard;

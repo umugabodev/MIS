@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import PropTypes from 'prop-types';
 import customColors from '/src/assets/js/customColors';
 import {
@@ -18,8 +18,66 @@ import { cilArrowBottom, cilArrowTop, cilOptions } from '@coreui/icons';
 const WidgetsDropdown = (props) => {
   const widgetChartRef1 = useRef(null);
   const widgetChartRef2 = useRef(null);
+  const [countPersonnel, setCountPersonnel] = useState(0);
+  const [countOnMission, setCountOnMission] = useState(0);
+  const [countOnCourse, setCountOnCourse] = useState(0);
+  const token = localStorage.getItem('accessToken');
 
   useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const [personnelResponse, missionResponse, courseResponse] = await Promise.all([
+          fetch('http://localhost:3007/api/v1/personnel/count-personnel', {
+            method: 'GET',
+            headers: {
+              'Authorization': `Bearer ${token}`,
+              'Content-Type': 'application/text'
+            }
+          }),
+          fetch('http://localhost:3007/api/v1/missions/count-on-mission', {
+            method: 'GET',
+            headers: {
+              'Authorization': `Bearer ${token}`,
+              'Content-Type': 'application/json'
+            }
+          }),
+          fetch('http://localhost:3007/api/v1/courses/count-on-course', {
+            method: 'GET',
+            headers: {
+              'Authorization': `Bearer ${token}`,
+              'Content-Type': 'application/json'
+            }
+          })
+        ]);
+
+        if (personnelResponse.ok) {
+          const result = await personnelResponse.json();
+          setCountPersonnel(result);
+        } else {
+          const result = await personnelResponse.json();
+          setError(result.message || 'Failed to count Personnel');
+        }
+
+        if (missionResponse.ok) {
+          const result = await missionResponse.json();
+          setCountOnMission(result);
+        } else {
+          const result = await missionResponse.json();
+          setError(result.message || 'Failed to count Personnel on Mission');
+        }
+
+        if (courseResponse.ok) {
+          const result = await courseResponse.json();
+          setCountOnCourse(result);
+        } else {
+          const result = await courseResponse.json();
+          setError(result.message || 'Failed to count Personnel on Course');
+        }
+      } catch (error) {
+        setError('Failed to fetch data');
+      }
+    };
+
     const handleColorSchemeChange = () => {
       if (widgetChartRef1.current) {
         setTimeout(() => {
@@ -37,10 +95,12 @@ const WidgetsDropdown = (props) => {
     };
 
     document.documentElement.addEventListener('ColorSchemeChange', handleColorSchemeChange);
+    fetchData();
+
     return () => {
       document.documentElement.removeEventListener('ColorSchemeChange', handleColorSchemeChange);
     };
-  }, []);
+  }, [token]);
 
   return (
     <CRow className={props.className} xs={{ gutter: 4 }}>
@@ -49,7 +109,7 @@ const WidgetsDropdown = (props) => {
           style={{ backgroundColor: customColors.primary, color: customColors.secondary }}
           value={
             <>
-              3000{' '}
+              {countPersonnel}{' '}
               <span className="fs-6 fw-normal">
                 {/* (+12.4% <CIcon icon={cilArrowTop} />) */}
               </span>
@@ -118,7 +178,7 @@ const WidgetsDropdown = (props) => {
         <CWidgetStatsA
           value={
             <>
-              300{' '}
+              {countOnMission}{' '}
               <span className="fs-6 fw-normal">
                 {/* (40.9% <CIcon icon={cilArrowTop} />) */}
               </span>
@@ -188,7 +248,7 @@ const WidgetsDropdown = (props) => {
           color="primary"
           value={
             <>
-              40{' '}
+              {countOnCourse}{' '}
               <span className="fs-6 fw-normal">
                 {/* (84.7% <CIcon icon={cilArrowTop} />) */}
               </span>
@@ -336,7 +396,7 @@ const WidgetsDropdown = (props) => {
         />
       </CCol>
     </CRow>
-  )
+  );
 }
 
 WidgetsDropdown.propTypes = {
@@ -344,4 +404,4 @@ WidgetsDropdown.propTypes = {
   withCharts: PropTypes.bool,
 }
 
-export default WidgetsDropdown
+export default WidgetsDropdown;
