@@ -15,8 +15,8 @@ const MemoryMonitor  = React.lazy(() => import('/src/views/pages/activities/Memo
 const ActiveUsers  = React.lazy(() => import('/src/views/pages/activities/ActiveUsers.js'))
 
 
-const RecruiterForm = React.lazy(() => import('/src/views/dashboard/s1dashboard/Recruitors/RecruiterForm.js'))
-const RecruiterList = React.lazy(() => import('/src/views/dashboard/s1dashboard/Recruitors/RecruiterList.js'))
+const RecruiterForm = React.lazy(() => import('/src/views/pages/recruitors/RecruiterForm.js'))
+const RecruiterList = React.lazy(() => import('/src/views/pages/recruitors/RecruiterList.js'))
 const MessagePanel = React.lazy(() => import('/src/views/dashboard/messages/MessagePanel'))
 const MessageList = React.lazy(() => import('/src/views/dashboard/messages/MessageList'))
 const UserList = React.lazy(() => import('/src/views/dashboard/User/UserList.js'))
@@ -37,6 +37,7 @@ const FinancialReportForm = React.lazy(() => import('/src/views/pages/report/Fin
 const Widgets = React.lazy(() => import('./views/widgets/Widgets'))
 const s1dashboard = React.lazy(() => import('./views/dashboard/s1dashboard/S1Dashboard'))
 const s2dashboard = React.lazy(() => import('./views/dashboard/s2dashboard/S2Dashboard'))
+const s4dashboard = React.lazy(() => import('./views/dashboard/s4dashboard/S4Dashboard'))
 const S2widgets = React.lazy(() => import('./views/widgets/s2widgets'))
 const PersonnelDetail = React.lazy(() => import('./views/pages/personnel/PersonnelDetail'))
 
@@ -49,6 +50,7 @@ const routes = [
   { path: '/widgets', name: 'Widgets', element: Widgets },
    { path: '/S1Dashboard', name: 'S1Dashboard', element: s1dashboard },
  { path: '/S2Dashboard', name: 'S2Dashboard', element: s2dashboard },
+ { path: '/S4Dashboard', name: 'S4Dashboard', element: s4dashboard },
   { path: '/CaseFileList', name: 'CaseFileList', element: CaseFileList },
   { path: '/UserList', name: 'List Of Users', element: UserList },
   { path: '/ListofPersonnel', name: 'List Of Personnel', element: ListofPersonnel },

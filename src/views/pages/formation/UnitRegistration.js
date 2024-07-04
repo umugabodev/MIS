@@ -9,6 +9,7 @@ import {
   CModalBody,
   CModalFooter
 } from '@coreui/react';
+import { FaTrash } from 'react-icons/fa'; // Import FontAwesome icon for delete action
 
 const UnitRegistration = () => {
   const [units, setUnits] = useState([
@@ -55,7 +56,6 @@ const UnitRegistration = () => {
     setUnits(updatedUnits);
   };
 
-
   const handleAddBrigade = (unitIndex) => {
     const updatedUnits = [...units];
     const brigades = updatedUnits[unitIndex].brigades;
@@ -65,6 +65,12 @@ const UnitRegistration = () => {
       brigadeName: '',
       battalions: [{ id: 1, battalionName: '' }]
     });
+    setUnits(updatedUnits);
+  };
+
+  const handleRemoveBrigade = (unitIndex, brigadeIndex) => {
+    const updatedUnits = [...units];
+    updatedUnits[unitIndex].brigades.splice(brigadeIndex, 1); // Remove brigade at index
     setUnits(updatedUnits);
   };
 
@@ -84,6 +90,12 @@ const UnitRegistration = () => {
       id: newBattalionId,
       battalionName: ''
     });
+    setUnits(updatedUnits);
+  };
+
+  const handleRemoveBattalion = (unitIndex, brigadeIndex, battalionIndex) => {
+    const updatedUnits = [...units];
+    updatedUnits[unitIndex].brigades[brigadeIndex].battalions.splice(battalionIndex, 1); // Remove battalion at index
     setUnits(updatedUnits);
   };
 
@@ -162,15 +174,7 @@ const UnitRegistration = () => {
                       />
                     </div>
                   </div>
-                  <button type="submit" className="btn btn-primary">
-              Submit Unit
-            </button>
-                
-            {/* <button type="button" class="btn btn-clear" onclick="refreshPage()">
-              Clear
-            </button> */}
                 </div>
-                
 
                 {/* Middle Column: Brigades */}
                 <div className="col-lg-4 mb-4">
@@ -188,7 +192,14 @@ const UnitRegistration = () => {
                           }
                         />
                       </div>
-                      {/* Removed battalion input from here */}
+                      {/* Remove Brigade Button */}
+                      <button
+                        type="button"
+                        className="btn btn-danger btn-sm mb-2"
+                        onClick={() => handleRemoveBrigade(unitIndex, brigadeIndex)}
+                      >
+                        <FaTrash /> Remove Brigade
+                      </button>
                     </div>
                   ))}
                   <button
@@ -223,6 +234,14 @@ const UnitRegistration = () => {
                                 }
                               />
                             </div>
+                            {/* Remove Battalion Button */}
+                            <button
+                              type="button"
+                              className="btn btn-danger btn-sm"
+                              onClick={() => handleRemoveBattalion(unitIndex, brigadeIndex, battalionIndex)}
+                            >
+                              <FaTrash /> Remove Battalion
+                            </button>
                           </li>
                         ))}
                       </ul>
@@ -237,8 +256,9 @@ const UnitRegistration = () => {
                 </div>
               </div>
             ))}
-           
-
+            <button type="submit" className="btn btn-primary">
+              Submit Unit
+            </button>
           </form>
         </CCardBody>
       </CCard>

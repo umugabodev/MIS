@@ -14,15 +14,16 @@ import {
 } from '@coreui/react';
 
 const RegistrationForm = () => {
-  const [formData, setFormData] = useState({
+  const initialFormData = {
     firstName: '',
     lastName: '',
     phoneNumber: '',
     email: '',
     password: '',
-    type: '', // Added user type field
-  });
+    type: '',
+  };
 
+  const [formData, setFormData] = useState({ ...initialFormData });
   const [errors, setErrors] = useState({});
   const [modalVisible, setModalVisible] = useState(false);
 
@@ -83,14 +84,7 @@ const RegistrationForm = () => {
         .then(data => {
           console.log('Form submitted successfully:', data);
           setModalVisible(true);
-          setFormData({
-            firstName: '',
-            lastName: '',
-            phoneNumber: '',
-            email: '',
-            password: '',
-            type: '',
-          });
+          setFormData({ ...initialFormData }); // Reset form data
           setErrors({});
         })
         .catch(error => {
@@ -100,6 +94,11 @@ const RegistrationForm = () => {
     } else {
       setErrors(validationErrors);
     }
+  };
+
+  const handleClear = () => {
+    setFormData({ ...initialFormData });
+    setErrors({});
   };
 
   const labelStyle = { display: 'block', marginBottom: '8px' };
@@ -195,13 +194,17 @@ const RegistrationForm = () => {
                   <option value="S1">S1</option>
                   <option value="S2">S2</option>
                   <option value="S3">S3</option>
+                  <option value="S4">S4</option>
                   <option value="STAFF">STAFF</option>
                   <option value="ADMIN">ADMIN</option>
                 </select>
                 {errors.type && <p style={errorStyle}>{errors.type}</p>}
               </div>
             </div>
-            <button type="submit" style={buttonStyle}>Register</button>
+            <div style={{ marginTop: '20px', textAlign: 'center' }}>
+              <CButton color="secondary" onClick={handleClear} style={{ marginRight: '10px' }}>Clear</CButton>
+              <button type="submit" style={{ ...buttonStyle }}>Register</button>
+            </div>
           </form>
         </CCardBody>
       </CCard>
