@@ -38,11 +38,10 @@ const Login = () => {
         // Check if response is not ok (4xx or 5xx status code)
         throw new Error(data.error.message); // Throw an error with the error message from backend
       } else {
-        console.log(data);
         localStorage.setItem('accessToken', data.accessToken);
         localStorage.setItem('refreshToken', data.refreshToken);
         localStorage.setItem('light', "light");
-        console.log('Login successful:', user);
+        console.log('Login successful!');
         const role = data.roles[0].name;
 
         localStorage.setItem('userRole', role);
@@ -69,7 +68,7 @@ const Login = () => {
       }
     } catch (error) {
       console.error('Login error:', error);
-      setError(error.message); // Set the error state with the error message
+      setError('Something Went Wrong'); // Set the error state with the error message
     }
   };
 

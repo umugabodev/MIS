@@ -185,7 +185,7 @@ const getNavItems = (userRole) => {
       //MENU DESIGNED FOR S1
       component: CNavItem,
       name: 'S1 Dashboard',
-      to: '/dashboards1',
+      to: '/s1dashboard',
       icon: <CIcon icon={cilSpeedometer} customClassName="nav-icon" />,
       
       
