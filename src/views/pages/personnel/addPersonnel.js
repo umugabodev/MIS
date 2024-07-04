@@ -68,6 +68,26 @@ const addPersonnel = () => {
     console.error('Error submitting form:', error.message);
   }
 };
+
+const rankMapping = {
+  'Pte': 'Private',
+  'Cpl': 'Corporal',
+  'Sgt': 'Sergeant',
+  'SSgt': 'Staff Sergeant',
+  'SM': 'Sergeant Major',
+  'W0I': 'Warrant Officer I',
+  'W0II': 'Warrant Officer II',
+  '2Lt': 'Second Lieutenant',
+  'Lt': 'Lieutenant',
+  'Capt': 'Captain',
+  'Maj': 'Major',
+  'Lt Col': 'Lieutenant Colonel',
+  'Col': 'Colonel',
+  'Brig Gen': 'Brigadier General',
+  'Maj Gen': 'Major General',
+  'Lt Gen': 'Lieutenant General',
+  'Gen': 'General'
+};
   
 
   const renderFormFields = () => {
@@ -82,7 +102,7 @@ const addPersonnel = () => {
                     name: 'page1',
                     elements: [
                       { type: 'text', name: 'servicenumber', title: 'Service No', inputType: 'number', isRequired: true },
-                      { type: 'dropdown', name: 'rank', title: 'Rank', isRequired: true, choices: ['Pte', 'Cpl', 'Sgt', 'SSgt', 'SM', 'W0I', 'W0II','2Lt', 'Lt', 'Capt', 'Maj', 'Lt Col', 'Col', 'Brig Gen', 'Maj Gen', 'Lt Gen'] },
+                      { type: 'dropdown', name: 'rank', title: 'Rank', isRequired: true, choices: Object.keys(rankMapping) },
                       { type: 'text', name: 'firstname', title: 'First Name', isRequired: true },
                       { type: 'text', name: 'lastname', title: 'Last Name', isRequired: true },
                       { type: 'text', name: 'currentunit', title: 'Unit', isRequired: true },
