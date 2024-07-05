@@ -346,6 +346,7 @@ const fetchdeployment = async () => {
       });
       if (response.ok) {
         const result = await response.json();
+        console.log(result)
         setSpouse(result); // Assuming the response is an array of spouse
       } else {
         setError('Failed to fetch spouse');

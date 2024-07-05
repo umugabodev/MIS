@@ -68,6 +68,26 @@ const addPersonnel = () => {
     console.error('Error submitting form:', error.message);
   }
 };
+
+const rankMapping = {
+  'Pte': 'Private',
+  'Cpl': 'Corporal',
+  'Sgt': 'Sergeant',
+  'SSgt': 'Staff Sergeant',
+  'SM': 'Sergeant Major',
+  'W0I': 'Warrant Officer I',
+  'W0II': 'Warrant Officer II',
+  '2Lt': 'Second Lieutenant',
+  'Lt': 'Lieutenant',
+  'Capt': 'Captain',
+  'Maj': 'Major',
+  'Lt Col': 'Lieutenant Colonel',
+  'Col': 'Colonel',
+  'Brig Gen': 'Brigadier General',
+  'Maj Gen': 'Major General',
+  'Lt Gen': 'Lieutenant General',
+  'Gen': 'General'
+};
   
 
   const renderFormFields = () => {
@@ -82,7 +102,7 @@ const addPersonnel = () => {
                     name: 'page1',
                     elements: [
                       { type: 'text', name: 'servicenumber', title: 'Service No', inputType: 'number', isRequired: true },
-                      { type: 'dropdown', name: 'rank', title: 'Rank', isRequired: true, choices: ['Pte', 'Cpl', 'Sgt', 'SSgt', 'SM', 'W0I', 'W0II','2Lt', 'Lt', 'Capt', 'Maj', 'Lt Col', 'Col', 'Brig Gen', 'Maj Gen', 'Lt Gen'] },
+                      { type: 'dropdown', name: 'rank', title: 'Rank', isRequired: true, choices: Object.keys(rankMapping) },
                       { type: 'text', name: 'firstname', title: 'First Name', isRequired: true },
                       { type: 'text', name: 'lastname', title: 'Last Name', isRequired: true },
                       { type: 'text', name: 'currentunit', title: 'Unit', isRequired: true },
@@ -198,7 +218,7 @@ const addPersonnel = () => {
                         { type: 'text', name: 'place', title: 'Place', isRequired: true },
                         { type: 'text', name: 'fromDate', title: 'Started', inputType: 'date', isRequired: true },
                         { type: 'text', name: 'toDate', title: 'End', inputType: 'date' },
-                        { type: 'dropdown', name: 'status', title: 'Status', isRequired: true, choices: ['On course', 'Completed'] },
+                        { type: 'dropdown', name: 'status', title: 'Status', isRequired: true, choices: ['On Course', 'Completed'] },
                       ],
                     },
                   ],
@@ -391,7 +411,8 @@ const addPersonnel = () => {
                       { type: 'text', name: 'unity', title: 'Unity', isRequired: true },
                       { type: 'text', name: 'fromDate', title: 'From', inputType: 'date', isRequired: true },
                       { type: 'text', name: 'toDate', title: 'To', inputType: 'date' },
-                      { type: 'text', name: 'status', title: 'Status', inputType: 'date' },
+                      { type: 'dropdown', name: 'status', title: 'Status', isRequired: true, choices: ['On Mission', 'Completed'] },
+
                     ],
                   },
                 ],
@@ -500,7 +521,7 @@ const addPersonnel = () => {
                       elements: [
                         { type: 'text', name: 'firstname', title: 'Spouse First Name', inputType: 'text', isRequired: true, defaultValue: formData['firstname'] || '' },
                         { type: 'text', name: 'lastname', title: 'Spouse Last Name', inputType: 'text', isRequired: true, defaultValue: formData['lastname'] || '' },
-                        { type: 'text', name: 'nationalId', title: 'Nation Id', inputType: 'number', isRequired: true, defaultValue: formData['nationId'] || '' },
+                        { type: 'text', name: 'nationalid', title: 'Nation Id', inputType: 'number', isRequired: true, defaultValue: formData['nationId'] || '' },
                         { type: 'text', name: 'contact', title: 'Contact', inputType: 'number', isRequired: true, defaultValue: formData['contact'] || '' },
                         { type: 'text', name: 'province', title: 'Province', isRequired: true, defaultValue: formData['province'] || '' },
                         { type: 'text', name: 'district', title: 'District', defaultValue: formData['district'] || '', isRequired: true },
@@ -540,7 +561,7 @@ const addPersonnel = () => {
                       elements: [
                         { type: 'text', name: 'firstname', title: 'Firstname', inputType: 'text', isRequired: true, defaultValue: formData['firstname'] || '' },
                         { type: 'text', name: 'lastname', title: 'Lastname', inputType: 'text', isRequired: true, defaultValue: formData['lastname'] || '' },
-                        { type: 'text', name: 'nationalId', title: 'National Id', inputType: 'number', isRequired: true, defaultValue: formData['nationId'] || '' },
+                        { type: 'text', name: 'nationalid', title: 'National Id', inputType: 'number', isRequired: true, defaultValue: formData['nationId'] || '' },
                         { type: 'text', name: 'contact', title: 'Contact', inputType: 'number', isRequired: true, defaultValue: formData['contact'] || '' },
                         { type: 'text', name: 'relationship', title: 'Relationship', isRequired: true, defaultValue: formData['relationship'] || '' },
                         { type: 'text', name: 'province', title: 'Province', isRequired: true, defaultValue: formData['province'] || '' },
@@ -579,16 +600,16 @@ const addPersonnel = () => {
                     {
                       name: 'page1',
                       elements: [
-                        { type: 'text', name: 'bdu', title: 'BDU', defaultValue: formData['bdu'] || '', isRequired: true },
-                        { type: 'text', name: 'officedress', title: 'Officer Dress', defaultValue: formData['officedress'] || '', isRequired: true },
-                        { type: 'text', name: 'jungleboots', title: 'Jungle Boots', defaultValue: formData['jungleboots'] || '', isRequired: true },
-                        { type: 'text', name: 'plasticboots', title: 'Plastic Boots', defaultValue: formData['plasticboots'] || '', isRequired: true },
-                        { type: 'text', name: 'officeshoes', title: 'Officers Shoes', defaultValue: formData['officeshoes'] || '', isRequired: true },
+                        { type: 'text', name: 'bdu', title: 'BDU', defaultValue: 'Battle Dress Uniform' || formData['bdu'], isRequired: true },
+                        { type: 'text', name: 'officedress', title: 'Officer Dress', defaultValue: 'Office Dress' || formData['officedress'], isRequired: true },
+                        { type: 'text', name: 'jungleboots', title: 'Jungle Boots', defaultValue: formData['jungleboots'] || 'Jungle Boots', isRequired: true },
+                        { type: 'text', name: 'plasticboots', title: 'Plastic Boots', defaultValue: formData['plasticboots'] || 'Plastic Boots/Bottes', isRequired: true },
+                        { type: 'text', name: 'officeshoes', title: 'Officers Shoes', defaultValue: formData['officeshoes'] || 'Office Shoes', isRequired: true },
                         { type: 'text', name: 'bdusize', title: 'BDU Size', defaultValue: formData['bdusize'] || '', isRequired: true },
                         { type: 'text', name: 'officedresssize', title: 'Officer Dress Size', defaultValue: formData['officedresssize'] || '', isRequired: true },
                         { type: 'number', name: 'junglebootssize', title: 'Jungle Boots Size', defaultValue: formData['junglebootssize'] || '', isRequired: true },
                         { type: 'number', name: 'plasticbootssize', title: 'Plastic Boots Size', defaultValue: formData['plasticbootssize'] || '', isRequired: true },
-                        { type: 'number', name: 'officeshoessize', title: 'Officers Shoes Size', defaultValue: formData['officeshoessize'] || '', isRequired: true },
+                        { type: 'number', name: 'officeshoessize', title: 'Officers Shoes Size', defaultValue: formData['officeshoessize'] || '', isRequired: true }
                       ],
                     },
                   ],

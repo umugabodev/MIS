@@ -1,5 +1,4 @@
 import React from 'react'
-import Dashboards1 from './views/dashboard/Dashboards1'
 import DashboardAdmin from './views/dashboard/sysAdmindashboard/DashboardAdmin'
 const sidebar = React.lazy(() => import('/src/components/header/adminsidebar/Adminsidebar'))
 const UnitRegistration = React.lazy(() => import('/src/views/pages/formation/UnitRegistration.js'))
@@ -40,13 +39,13 @@ const s2dashboard = React.lazy(() => import('./views/dashboard/s2dashboard/S2Das
 const s4dashboard = React.lazy(() => import('./views/dashboard/s4dashboard/S4Dashboard'))
 const S2widgets = React.lazy(() => import('./views/widgets/s2widgets'))
 const PersonnelDetail = React.lazy(() => import('./views/pages/personnel/PersonnelDetail'))
-
+const MilitaryUnitsList = React.lazy(() => import('./views/pages/hierarchy/MilitaryUnitsList'))
 
 
 const routes = [
   { path: '/home', exact: true, name: 'Home' },
   { path: '/DashboardAdmin', name: 'System Admin', element: DashboardAdmin },
-  { path: '/dashboards1', name: 'Dashboard', element: Dashboards1 },
+  { path: '/s1dashboard', name: 'Dashboard', element: s1dashboard },
   { path: '/widgets', name: 'Widgets', element: Widgets },
    { path: '/S1Dashboard', name: 'S1Dashboard', element: s1dashboard },
  { path: '/S2Dashboard', name: 'S2Dashboard', element: s2dashboard },
@@ -84,6 +83,10 @@ const routes = [
 { path: '/CPUMonitor', name: 'CPU Monitor Usage', element: CPUMonitor},
 { path: '/MemoryMonitor', name: 'Memory Monitor Usage', element: MemoryMonitor},
 { path: '/ActiveUsers', name: 'ActiveUsers Monitor', element: ActiveUsers},
+{ path: '/MilitaryUnitsList', name: 'Military Units Hierarchy Structure', element: MilitaryUnitsList},
+
+
+
 ]
 
 export default routes

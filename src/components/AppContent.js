@@ -24,8 +24,8 @@ const AppContent = () => {
           })}
           {/* Add a route for the PersonnelList component */}
        
-          {/* Redirect to dashboards1 if no matching route */}
-          <Route path="/" element={<Navigate to="dashboards1" replace />} />
+          {/* Redirect to s1dashboard if no matching route */}
+          <Route path="/" element={<Navigate to="s1dashboard" replace />} />
         </Routes>
       </Suspense>
     </CContainer>

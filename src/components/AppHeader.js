@@ -67,7 +67,7 @@ const AppHeader = () => {
       <CContainer className="border-bottom px-4 d-flex justify-content-between align-items-center" fluid>
         <CHeaderToggler
           onClick={() => dispatch({ type: 'set', sidebarShow: !sidebarShow })}
-          style={{ marginInlineStart: '-14px' }}
+          style={{ marginInlineStart: '-14px', color: "#f8f9fa" }}
         >
           <CIcon icon={cilMenu} size="lg" />
         </CHeaderToggler>
@@ -93,7 +93,6 @@ const AppHeader = () => {
               <CToaster>
                 <CToast autohide={false} visible={true}>
                   <CToastHeader  style={styles.toastHeader}>
-                    
                     <div className="fw-bold me-auto">Passord Reset</div>
                     <small>7 min ago</small>
                   </CToastHeader>
@@ -153,22 +152,9 @@ const styles = {
   breadcrumbContainer: {
     backgroundColor: '#4E617A', // New background color for the breadcrumb container
   },
-  // dropdownToggle: {
-  //   color: '#FFFFFF', // White text for contrast
-  // },
   dropdownMenu: {
-    // backgroundColor: '#65b8a0', // Dark background for the dropdown menu
-   
     width: '300px', // Set a fixed width for the dropdown menu
-  },
-  // toastHeader: {
-  //   backgroundColor: '#03381d', // Military-themed dark color for the toast header
-  //   color: '#FFFFFF', // White text for contrast
-  // },
-  // toastBody: {
-  //   backgroundColor: '#2E2E2E', // Dark background for the toast body
-  //   color: '#84e8cc', // White text for contrast
-  // },
+  }
 };
 
 export default AppHeader;
