@@ -606,10 +606,10 @@ const rankMapping = {
                         { type: 'text', name: 'plasticboots', title: 'Plastic Boots', defaultValue: formData['plasticboots'] || 'Plastic Boots/Bottes', isRequired: true },
                         { type: 'text', name: 'officeshoes', title: 'Officers Shoes', defaultValue: formData['officeshoes'] || 'Office Shoes', isRequired: true },
                         { type: 'text', name: 'bdusize', title: 'BDU Size', defaultValue: formData['bdusize'] || '', isRequired: true },
-                        { type: 'text', name: 'officedresssize', title: 'Officer Dress Size', defaultValue: formData['officedresssize'] || '', isRequired: true },
-                        { type: 'number', name: 'junglebootssize', title: 'Jungle Boots Size', defaultValue: formData['junglebootssize'] || '', isRequired: true },
-                        { type: 'number', name: 'plasticbootssize', title: 'Plastic Boots Size', defaultValue: formData['plasticbootssize'] || '', isRequired: true },
-                        { type: 'number', name: 'officeshoessize', title: 'Officers Shoes Size', defaultValue: formData['officeshoessize'] || '', isRequired: true }
+                        { type: 'text', name: 'officedresssize', inputType: 'number',title: 'Officer Dress Size', defaultValue: formData['officedresssize'] || '', isRequired: true },
+                        { type: 'text', name: 'junglebootssize',inputType: 'number', title: 'Jungle Boots Size', defaultValue: formData['junglebootssize'] || '', isRequired: true },
+                        { type: 'text', name: 'plasticbootssize',inputType: 'number', title: 'Plastic Boots Size', defaultValue: formData['plasticbootssize'] || '', isRequired: true },
+                        { type: 'text', name: 'officeshoessize', inputType: 'number',title: 'Officers Shoes Size', defaultValue: formData['officeshoessize'] || '', isRequired: true }
                       ],
                     },
                   ],
@@ -651,9 +651,9 @@ const rankMapping = {
       <CRow>
         <CCol xs="3">
           <CCard className="mb-4">
-            <CCardHeader className="d-flex justify-content-between align-items-center">
-              <h5 className="mb-0">Fill Info</h5>
-            </CCardHeader>
+          <CCardHeader className="d-flex justify-content-between align-items-center" style={{ backgroundColor: '#18453b', color: '#FFFFFF' }}>
+      <h5 className="mb-0">Fill Info</h5>
+    </CCardHeader>
             <CCardBody>            
       
               <ul style={{ listStyleType: 'none', padding: 0, marginLeft: "" }}>
@@ -745,15 +745,10 @@ const rankMapping = {
       
         <CCol xs="8" className=" ">
           <CCard className="mb-4 justify-center justify-content-start">
-            <CCardHeader className="d-flex justify-content-between align-items-center">
-              
-              <h5 className="mb-0">{selectedSection}</h5>
-              {/* <button className="btn btn-primary btn-sm">
-                <i className="fas fa-plus-circle"></i>
-                Add New
-              </button> */}
-            </CCardHeader>
-            <CCardBody>{renderFormFields()}</CCardBody>
+          <CCardHeader className="d-flex justify-content-between align-items-center" style={{ backgroundColor: '#18453b', color: '#FFFFFF' }}>
+      <h5 className="mb-0">{selectedSection}</h5>
+    </CCardHeader>
+            <CCardBody>{renderFormFields()}</CCardBody>?
           </CCard>
         </CCol>
       </CRow>

@@ -124,28 +124,27 @@ const Dashboards1 = () => {
               </div>
             </div>
           )}
-          <CCardHeader className="d-flex justify-content-between align-items-center bg-dark text-light">
-            <h5 className="mb-0">List of Personnel</h5>
-            <div className="d-flex align-items-center">
-              {/* Search input */}
-              <div className="input-group me-2">
-                <input
-                  type="text"
-                  className="form-control"
-                  placeholder="Search..."
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                />
-                <button className="btn btn-light" type="button">
-                  <i className="fas fa-search"></i>
-                </button>
-              </div>
-              {/* Add New Personnel link */}
-              <Link to="/addPersonnel" className="btn btn-outline-light">
-                <i className="fas fa-plus-circle"></i> Add New Personnel
-              </Link>
-            </div>
-          </CCardHeader>
+          <CCardHeader className="d-flex justify-content-between align-items-center" style={{ backgroundColor: '#18453b', color: '#FFFFFF' }}>
+      <h5 className="mb-0">List of Personnel</h5>
+      <div className="d-flex align-items-center">
+        {/* Search input */}
+        <div className="input-group me-2">
+          <input
+            type="text"
+            className="form-control"
+            placeholder="Search..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            style={{ backgroundColor: '#FFFFFF', color: '#18453b', border: 'none', borderRadius: '5px', padding: '5px 10px' }}
+          />
+        
+        </div >
+        {/* Add New Personnel link */}
+        <Link to="/addPersonnel" className="form-control btn btn-outline-light d-flex align-items-center" style={{ color: '#FFFFFF' }}>
+          <i className="fas fa-plus-circle me-1"></i> Add New Personnel
+        </Link>
+      </div>
+    </CCardHeader>
           <CCardBody className="table-responsive">
             {error && <div className="alert alert-danger">{error}</div>}
             <table className="table table-hover table-striped table-bordered">
