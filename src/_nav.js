@@ -158,7 +158,7 @@ const getNavItems = (userRole) => {
         {
           component: CNavItem,
           name: 'Deployment data',
-          to: '/MilitaryUnit',
+          to: '/Unitappointment',
         },
         
       ],
