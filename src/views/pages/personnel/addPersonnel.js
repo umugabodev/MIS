@@ -606,10 +606,10 @@ const rankMapping = {
                         { type: 'text', name: 'plasticboots', title: 'Plastic Boots', defaultValue: formData['plasticboots'] || 'Plastic Boots/Bottes', isRequired: true },
                         { type: 'text', name: 'officeshoes', title: 'Officers Shoes', defaultValue: formData['officeshoes'] || 'Office Shoes', isRequired: true },
                         { type: 'text', name: 'bdusize', title: 'BDU Size', defaultValue: formData['bdusize'] || '', isRequired: true },
-                        { type: 'text', name: 'officedresssize', inputType: 'number',title: 'Officer Dress Size', defaultValue: formData['officedresssize'] || '', isRequired: true },
-                        { type: 'text', name: 'junglebootssize',inputType: 'number', title: 'Jungle Boots Size', defaultValue: formData['junglebootssize'] || '', isRequired: true },
-                        { type: 'text', name: 'plasticbootssize',inputType: 'number', title: 'Plastic Boots Size', defaultValue: formData['plasticbootssize'] || '', isRequired: true },
-                        { type: 'text', name: 'officeshoessize', inputType: 'number',title: 'Officers Shoes Size', defaultValue: formData['officeshoessize'] || '', isRequired: true }
+                        { type: 'text', name: 'officedresssize', title: 'Officer Dress Size', defaultValue: formData['officedresssize'] || '', isRequired: true },
+                        { type: 'text', name: 'junglebootssize', title: 'Jungle Boots Size', defaultValue: formData['junglebootssize'] || '', isRequired: true },
+                        { type: 'text', name: 'plasticbootssize', title: 'Plastic Boots Size', defaultValue: formData['plasticbootssize'] || '', isRequired: true },
+                        { type: 'text', name: 'officeshoessize', title: 'Officers Shoes Size', defaultValue: formData['officeshoessize'] || '', isRequired: true }
                       ],
                     },
                   ],

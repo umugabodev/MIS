@@ -94,12 +94,12 @@ const getNavItems = (userRole) => {
         },
         {
           component: CNavItem,
-          name: 'User Permission Right',
+          name: 'Unit Permission Right',
           to: '/UserPermissionList',
         },
         {
           component: CNavItem,
-          name: 'De-link UserRight',
+          name: 'Unit Hierarchy',
           to: '#',
         },
         
@@ -140,8 +140,33 @@ const getNavItems = (userRole) => {
       ],
       
     },
+    // {
+    //   component: CNavTitle,
+    //   name: 'HIERARCHY INFO',
+    // },
+    {
+      component: CNavGroup,
+      name: 'OBAT',
+      to: '#',
+      icon: <CIcon icon={cilStar} customClassName="nav-icon" />,
+      items: [
+        {
+          component: CNavItem,
+          name: 'Unit Structure',
+          to: '/MilitaryUnitsList',
+        },
+        {
+          component: CNavItem,
+          name: 'Deployment data',
+          to: '/Unitappointment',
+        },
+        
+      ],
+      
+    },
   ];
 
+  
   const managerItems = [
     {
       component: CNavTitle,
