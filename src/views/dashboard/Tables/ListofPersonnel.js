@@ -9,7 +9,6 @@ import {
   CCol,
   CRow,
 } from '@coreui/react';
-// import "../../../assets/styles/themes.css";
 
 const Dashboards1 = () => {
   const token = localStorage.getItem('accessToken');
@@ -17,7 +16,7 @@ const Dashboards1 = () => {
   const [filteredPersonnel, setFilteredPersonnel] = useState([]);
   const [error, setError] = useState(null);
   const [page, setPage] = useState(0);
-  const [totalPages, setTotalPages] = useState(1); // Default to 1 page
+  const [totalPages, setTotalPages] = useState(1); 
   const navigate = useNavigate();
   const [deletePersonId, setDeletePersonId] = useState(null);
   const [searchTerm, setSearchTerm] = useState('');
@@ -36,7 +35,7 @@ const Dashboards1 = () => {
           const result = await response.json();
           if (result.status === "Successful") {
             setPersonnel(result.data.content);
-            setFilteredPersonnel(result.data.content); // Initialize filtered data with all personnel
+            setFilteredPersonnel(result.data.content);
             setTotalPages(result.data.page.totalPages);
           } else {
             setError(result.message);
@@ -52,7 +51,6 @@ const Dashboards1 = () => {
     fetchAllPersonnel();
   }, [page, token]);
 
-  // Handle search input change
   useEffect(() => {
     const filteredData = personnel.filter(person =>
       `${person.serviceNumber}`.toLowerCase().includes(searchTerm.toLowerCase())
@@ -76,7 +74,7 @@ const Dashboards1 = () => {
       if (response.ok) {
         setPersonnel(personnel.filter(person => person.id !== id));
         setFilteredPersonnel(filteredPersonnel.filter(person => person.id !== id));
-        setDeletePersonId(null); // Reset deletePersonId after deletion
+        setDeletePersonId(null);
       } else {
         setError('Failed to delete Personnel');
       }
@@ -96,7 +94,7 @@ const Dashboards1 = () => {
   };
 
   const handleCancelDelete = () => {
-    setDeletePersonId(null); // Reset deletePersonId
+    setDeletePersonId(null);
   };
 
   const handlePageChange = (newPage) => {
@@ -127,7 +125,6 @@ const Dashboards1 = () => {
           <CCardHeader className="d-flex justify-content-between align-items-center bg-dark text-light">
             <h5 className="mb-0">List of Personnel</h5>
             <div className="d-flex align-items-center">
-              {/* Search input */}
               <div className="input-group me-2">
                 <input
                   type="text"
@@ -140,7 +137,6 @@ const Dashboards1 = () => {
                   <i className="fas fa-search"></i>
                 </button>
               </div>
-              {/* Add New Personnel link */}
               <Link to="/addPersonnel" className="btn btn-outline-light">
                 <i className="fas fa-plus-circle"></i> Add New Personnel
               </Link>
@@ -159,6 +155,7 @@ const Dashboards1 = () => {
                   <th scope="col">DOB</th>
                   <th scope="col">Gender</th>
                   <th scope="col">Place Of Birth</th>
+                  <th scope="col">Profile Photo</th>
                   <th scope="col">Actions</th>
                 </tr>
               </thead>
@@ -173,6 +170,17 @@ const Dashboards1 = () => {
                     <td>{new Date(person.dob).toLocaleDateString()}</td>
                     <td>{person.gender}</td>
                     <td>{person.placeofbirth}</td>
+                    <td>
+                      {person.profilePhotoId ? (
+                        <img
+                          src={`http://localhost:3007/api/v1/personnel/photo/${person.profilePhotoId.split("/").pop()}`}
+                          alt="Profile"
+                          style={{ width: '50px', height: '50px', borderRadius: '50%' }}
+                        />
+                      ) : (
+                        'No Image'
+                      )}
+                    </td>
                     <td>
                       <CButton onClick={() => handleView(person.id)} color="info" size="sm" className="me-2">
                         <FaEye /> View
@@ -191,12 +199,12 @@ const Dashboards1 = () => {
                 Previous
               </button>
               <button
-              className={`btn btn-outline-primary ${page >= totalPages - 1 ? 'disabled' : ''}`}
-              onClick={handleNextPage}
-              disabled={page >= totalPages - 1}
-            >
-              Next
-            </button>
+                className={`btn btn-outline-primary ${page >= totalPages - 1 ? 'disabled' : ''}`}
+                onClick={handleNextPage}
+                disabled={page >= totalPages - 1}
+              >
+                Next
+              </button>
             </div>
           </CCardBody>
         </CCard>

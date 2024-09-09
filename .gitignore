@@ -24,3 +24,8 @@ README.md
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+generated_data.sql
+generated_ids.txt
+generateDeploymentData.js
+generateSqlData.js
+deployment_data.sql

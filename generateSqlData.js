@@ -122,6 +122,7 @@ const generateSQLInsertStatements = () => {
     return `INSERT INTO personnel (id, service_number, rank, firstname, lastname, currentunit, dob, place_of_birth, gender, marital_status, fathername, mothername, religious)
             VALUES ('${person.id}', ${person.serviceNumber}, '${person.rank}', '${person.firstname}', '${person.lastname}', '${person.currentunit}', '${person.dob}', '${person.placeOfBirth}', '${person.gender}', '${person.maritalStatus}', '${person.fathername}', '${person.mothername}', '${person.religious}');`;
   });
+  writeIdsToFile(personnelData.map(person => person.id)); // Write IDs to file
   return sqlStatements.join('\n');
 };
 
@@ -130,6 +131,12 @@ const writeSQLToFile = () => {
   const sqlStatements = generateSQLInsertStatements();
   fs.writeFileSync('generated_data.sql', sqlStatements);
   console.log('SQL insert statements have been written to generated_data.sql');
+};
+
+// Function to write IDs to a file
+const writeIdsToFile = (ids) => {
+  fs.writeFileSync('generated_ids.txt', ids.join('\n'));
+  console.log('Generated IDs have been written to generated_ids.txt');
 };
 
 // Execute the function to write SQL statements to file
