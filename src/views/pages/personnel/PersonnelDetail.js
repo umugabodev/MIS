@@ -8,6 +8,7 @@ import {
   CButton,
   CSpinner
 } from '@coreui/react';
+import API_BASE_URL from '../../../config';
 
 // Register font before component initialization
 Font.register({
@@ -78,7 +79,7 @@ const PersonnelDetail = () => {
   useEffect(() => {
     const fetchPersonnelDetail = async () => {
       try {
-        const response = await fetch(`http://localhost:3007/api/v1/personnel/${id}`, {
+        const response = await fetch(`${API_BASE_URL}/personnel/${id}`, {
           method: 'GET',
           headers: {
             'Authorization': `Bearer ${token}`,
@@ -119,7 +120,7 @@ const PersonnelDetail = () => {
   
   const fetchAcademicQualificationDetail = async () => {
     try {
-      const response = await fetch(`http://localhost:3007/api/v1/academicqualifications/personnel/${id}`, {
+      const response = await fetch(`${API_BASE_URL}/academicqualifications/personnel/${id}`, {
         method: 'GET',
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -139,7 +140,7 @@ const PersonnelDetail = () => {
   
 const fetchcoursesAndTrainingDetail = async () => {
     try {
-      const response = await fetch(`http://localhost:3007/api/v1/courses/personnel/${id}`, {
+      const response = await fetch(`${API_BASE_URL}/courses/personnel/${id}`, {
         method: 'GET',
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -159,7 +160,7 @@ const fetchcoursesAndTrainingDetail = async () => {
 
 const fetchdeployment = async () => {
     try {
-      const response = await fetch(`http://localhost:3007/api/v1/deployment/personnel/${id}`, {
+      const response = await fetch(`${API_BASE_URL}/deployment/personnel/${id}`, {
         method: 'GET',
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -178,7 +179,7 @@ const fetchdeployment = async () => {
   };
   const fetchemergency = async () => {
     try {
-      const response = await fetch(`http://localhost:3007/api/v1/emergency/personnel/${id}`, {
+      const response = await fetch(`${API_BASE_URL}/emergency/personnel/${id}`, {
         method: 'GET',
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -198,7 +199,7 @@ const fetchdeployment = async () => {
 
   const fetchMedicaldata = async () => {
     try {
-      const response = await fetch(`http://localhost:3007/api/v1/medicaldata/personnel/${id}`, {
+      const response = await fetch(`${API_BASE_URL}/medicaldata/personnel/${id}`, {
         method: 'GET',
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -217,7 +218,7 @@ const fetchdeployment = async () => {
   };
   const fetchMilitaryinfo = async () => {
     try {
-      const response = await fetch(`http://localhost:3007/api/v1/militaryinfo/personnel/${id}`, {
+      const response = await fetch(`${API_BASE_URL}/militaryinfo/personnel/${id}`, {
         method: 'GET',
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -237,7 +238,7 @@ const fetchdeployment = async () => {
 
   const fetchMissions = async () => {
     try {
-      const response = await fetch(`http://localhost:3007/api/v1/missions/personnel/${id}`, {
+      const response = await fetch(`${API_BASE_URL}/missions/personnel/${id}`, {
         method: 'GET',
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -257,7 +258,7 @@ const fetchdeployment = async () => {
 
   const fetchPromotion = async () => {
     try {
-      const response = await fetch(`http://localhost:3007/api/v1/promotion/personnel/${id}`, {
+      const response = await fetch(`${API_BASE_URL}/promotion/personnel/${id}`, {
         method: 'GET',
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -277,7 +278,7 @@ const fetchdeployment = async () => {
 
   const fetchResidence = async () => {
     try {
-      const response = await fetch(`http://localhost:3007/api/v1/residence/personnel/${id}`, {
+      const response = await fetch(`${API_BASE_URL}/residence/personnel/${id}`, {
         method: 'GET',
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -297,7 +298,7 @@ const fetchdeployment = async () => {
 
   const fetchKits = async () => {
     try {
-      const response = await fetch(`http://localhost:3007/api/v1/kits/personnel/${id}`, {
+      const response = await fetch(`${API_BASE_URL}/kits/personnel/${id}`, {
         method: 'GET',
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -317,7 +318,7 @@ const fetchdeployment = async () => {
   
   const fetchNextofkin = async () => {
     try {
-      const response = await fetch(`http://localhost:3007/api/v1/nextofkin/personnel/${id}`, {
+      const response = await fetch(`${API_BASE_URL}/nextofkin/personnel/${id}`, {
         method: 'GET',
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -337,7 +338,7 @@ const fetchdeployment = async () => {
 
   const fetchSpouse = async () => {
     try {
-      const response = await fetch(`http://localhost:3007/api/v1/spouse/personnel/${id}`, {
+      const response = await fetch(`${API_BASE_URL}/spouse/personnel/${id}`, {
         method: 'GET',
         headers: {
           'Authorization': `Bearer ${token}`,

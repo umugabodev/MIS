@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import API_BASE_URL from '../../../config';
 import {
   CButton,
   CCard,
@@ -73,7 +74,7 @@ const RegistrationForm = () => {
     e.preventDefault();
     const validationErrors = validate();
     if (Object.keys(validationErrors).length === 0) {
-      fetch('http://localhost:3007/api/v1/users', {
+      fetch(`${API_BASE_URL}/users`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

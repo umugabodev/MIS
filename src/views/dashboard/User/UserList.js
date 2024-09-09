@@ -13,6 +13,7 @@ import {
   CTableRow,
 } from '@coreui/react';
 import { Link } from 'react-router-dom';
+import API_BASE_URL from '../../../config';
 
 const Userlist = () => {
   const [users, setUsers] = useState([]);
@@ -26,7 +27,7 @@ const Userlist = () => {
       setIsLoading(true);
       const token = localStorage.getItem('accessToken');
       try {
-        const response = await fetch(`http://localhost:3007/api/v1/users?page=${page}`, {
+        const response = await fetch(`${API_BASE_URL}/users?page=${page}`, {
           method: 'GET',
           headers: {
             'Authorization': `Bearer ${token}`,
@@ -66,7 +67,7 @@ const Userlist = () => {
   const handleDelete = async (id) => {
     const token = localStorage.getItem('accessToken');
     try {
-      const response = await fetch(`http://localhost:3007/api/v1/users/${id}`, {
+      const response = await fetch(`${API_BASE_URL}/users/${id}`, {
         method: 'DELETE',
         headers: {
           'Authorization': `Bearer ${token}`,

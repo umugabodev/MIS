@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import * as Survey from 'survey-react';
 import 'survey-react/survey.css';
+import API_BASE_URL from '../../../config';
 
 import { v4 as uuidv4 } from 'uuid';
 import {
@@ -133,7 +134,7 @@ const rankMapping = {
                 }
 
                 setFormData({ ...formData, ...formSectionData });
-                handleFormSubmit(formDataToSend, 'http://localhost:3007/api/v1/personnel', token);
+                handleFormSubmit(formDataToSend, `${API_BASE_URL}/personnel`, token);
                 setSelectedSection("Academic Qualification");
               }}
             />
@@ -197,7 +198,7 @@ const rankMapping = {
                 }
 
                 setFormData({ ...formData, ...formSectionData });
-                handleFormSubmit(JSON.stringify(formSectionData), 'http://localhost:3007/api/v1/academicqualifications', token, 'application/json');
+                handleFormSubmit(JSON.stringify(formSectionData), `${API_BASE_URL}/academicqualifications`, token, 'application/json');
                 setSelectedSection("Course and Training");
               }}
             />
@@ -236,7 +237,7 @@ const rankMapping = {
                 }
 
                 setFormData({ ...formData, ...formSectionData });
-                handleFormSubmit(JSON.stringify(formSectionData), 'http://localhost:3007/api/v1/courses', token, 'application/json');
+                handleFormSubmit(JSON.stringify(formSectionData), `${API_BASE_URL}/courses`, token, 'application/json');
                 setSelectedSection("Deployment Data");
                 }}
               />
@@ -274,7 +275,7 @@ const rankMapping = {
                 }
 
                 setFormData({ ...formData, ...formSectionData });
-                handleFormSubmit(JSON.stringify(formSectionData), 'http://localhost:3007/api/v1/deployment', token, 'application/json');
+                handleFormSubmit(JSON.stringify(formSectionData), `${API_BASE_URL}/deployment`, token, 'application/json');
                 setSelectedSection("Emergency Contact");
               }}
             />
@@ -313,7 +314,7 @@ const rankMapping = {
                 }
 
                 setFormData({ ...formData, ...formSectionData });
-                handleFormSubmit(JSON.stringify(formSectionData), 'http://localhost:3007/api/v1/emergency', token, 'application/json');
+                handleFormSubmit(JSON.stringify(formSectionData), `${API_BASE_URL}/emergency`, token, 'application/json');
                 setSelectedSection("Medical Data");
               }}
             />
@@ -350,7 +351,7 @@ const rankMapping = {
                 }
 
                 setFormData({ ...formData, ...formSectionData });
-                handleFormSubmit(JSON.stringify(formSectionData), 'http://localhost:3007/api/v1/medicaldata', token, 'application/json');
+                handleFormSubmit(JSON.stringify(formSectionData), `${API_BASE_URL}/medicaldata`, token, 'application/json');
                 setSelectedSection("Military Information");
               }}
             />
@@ -389,7 +390,7 @@ const rankMapping = {
                 }
 
                 setFormData({ ...formData, ...formSectionData });
-                handleFormSubmit(JSON.stringify(formSectionData), 'http://localhost:3007/api/v1/militaryinfo', token, 'application/json');
+                handleFormSubmit(JSON.stringify(formSectionData), `${API_BASE_URL}/militaryinfo`, token, 'application/json');
                 setSelectedSection("Mission and Operation");
               }}
             />
@@ -430,7 +431,7 @@ const rankMapping = {
                 }
 
                 setFormData({ ...formData, ...formSectionData });
-                handleFormSubmit(JSON.stringify(formSectionData), 'http://localhost:3007/api/v1/missions', token, 'application/json');
+                handleFormSubmit(JSON.stringify(formSectionData), `${API_BASE_URL}/missions`, token, 'application/json');
                 setSelectedSection("Promotion Record");
               }}
             />
@@ -467,7 +468,7 @@ const rankMapping = {
                   }
   
                   setFormData({ ...formData, ...formSectionData });
-                  handleFormSubmit(JSON.stringify(formSectionData), 'http://localhost:3007/api/v1/promotion', token, 'application/json');
+                  handleFormSubmit(JSON.stringify(formSectionData), `${API_BASE_URL}/promotion`, token, 'application/json');
                   setSelectedSection("Residence Address");
                 }}
               />
@@ -505,7 +506,7 @@ const rankMapping = {
                   }
   
                   setFormData({ ...formData, ...formSectionData });
-                  handleFormSubmit(JSON.stringify(formSectionData), 'http://localhost:3007/api/v1/residence', token, 'application/json');
+                  handleFormSubmit(JSON.stringify(formSectionData), `${API_BASE_URL}/residence`, token, 'application/json');
                   setSelectedSection("Spouse Address");
                 }}
               />
@@ -545,7 +546,7 @@ const rankMapping = {
                   }
   
                   setFormData({ ...formData, ...formSectionData });
-                  handleFormSubmit(JSON.stringify(formSectionData), 'http://localhost:3007/api/v1/spouse', token, 'application/json');
+                  handleFormSubmit(JSON.stringify(formSectionData), `${API_BASE_URL}/spouse`, token, 'application/json');
                   setSelectedSection("Next of Kin Address");
                 }}
               />
@@ -586,7 +587,7 @@ const rankMapping = {
                   }
   
                   setFormData({ ...formData, ...formSectionData });
-                  handleFormSubmit(JSON.stringify(formSectionData), 'http://localhost:3007/api/v1/nextofkin', token, 'application/json');
+                  handleFormSubmit(JSON.stringify(formSectionData), `${API_BASE_URL}/nextofkin`, token, 'application/json');
                   setSelectedSection("Soldier Kit");
                 }}
               />
@@ -627,7 +628,7 @@ const rankMapping = {
                   }
   
                   setFormData({ ...formData, ...formSectionData });
-                  handleFormSubmit(JSON.stringify(formSectionData), 'http://localhost:3007/api/v1/kits', token, 'application/json');
+                  handleFormSubmit(JSON.stringify(formSectionData), `${API_BASE_URL}/kits`, token, 'application/json');
                   setSelectedSection("Complete Personnel Registration");
                 }}
               />

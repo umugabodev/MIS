@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { FaEye, FaTrash } from 'react-icons/fa';
+import API_BASE_URL from '../../../config';
 import {
   CButton,
   CCard,
@@ -25,7 +26,7 @@ const Dashboards1 = () => {
   useEffect(() => {
     const fetchAllPersonnel = async () => {
       try {
-        const response = await fetch(`http://localhost:3007/api/v1/personnel?page=${page}`, {
+        const response = await fetch(`${API_BASE_URL}/personnel?page=${page}`, {
           method: 'GET',
           headers: {
             'Authorization': `Bearer ${token}`,
@@ -66,7 +67,7 @@ const Dashboards1 = () => {
 
   const handleDelete = async (id) => {
     try {
-      const response = await fetch(`http://localhost:3007/api/v1/personnel/${id}`, {
+      const response = await fetch(`${API_BASE_URL}/personnel/${id}`, {
         method: 'DELETE',
         headers: {
           'Authorization': `Bearer ${token}`,

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import classNames from 'classnames';
+import API_BASE_URL from '../../../config';
 import {
   CAvatar,
   CButton,
@@ -37,7 +38,7 @@ const s1dashboard = () => {
   useEffect(() => {
     const fetchPercentages = async () => {
       try {
-        const response = await fetch('http://localhost:3007/api/v1/personnel/percentages', {
+        const response = await fetch(`${API_BASE_URL}/personnel/percentages`, {
           method: 'GET',
           headers: {
             'Authorization': `Bearer ${token}`,
@@ -64,7 +65,7 @@ const s1dashboard = () => {
     };
     const fetchGenderPercentages = async () => {
       try {
-        const response = await fetch('http://localhost:3007/api/v1/personnel/gender-percentages', {
+        const response = await fetch(`${API_BASE_URL}/personnel/gender-percentages`, {
           method: 'GET',
           headers: {
             'Authorization': `Bearer ${token}`,

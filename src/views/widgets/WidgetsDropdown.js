@@ -14,6 +14,7 @@ import { getStyle } from '@coreui/utils';
 import { CChartBar, CChartLine } from '@coreui/react-chartjs';
 import CIcon from '@coreui/icons-react';
 import { cilArrowBottom, cilArrowTop, cilOptions } from '@coreui/icons';
+import API_BASE_URL from '../../config';
 
 const WidgetsDropdown = (props) => {
   const widgetChartRef1 = useRef(null);
@@ -27,21 +28,21 @@ const WidgetsDropdown = (props) => {
     const fetchData = async () => {
       try {
         const [personnelResponse, missionResponse, courseResponse] = await Promise.all([
-          fetch('http://localhost:3007/api/v1/personnel/count-personnel', {
+          fetch('${API_BASE_URL}/personnel/count-personnel', {
             method: 'GET',
             headers: {
               'Authorization': `Bearer ${token}`,
               'Content-Type': 'application/text'
             }
           }),
-          fetch('http://localhost:3007/api/v1/missions/count-on-mission', {
+          fetch('${API_BASE_URL}/missions/count-on-mission', {
             method: 'GET',
             headers: {
               'Authorization': `Bearer ${token}`,
               'Content-Type': 'application/json'
             }
           }),
-          fetch('http://localhost:3007/api/v1/courses/count-on-course', {
+          fetch('${API_BASE_URL}/courses/count-on-course', {
             method: 'GET',
             headers: {
               'Authorization': `Bearer ${token}`,
