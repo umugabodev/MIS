@@ -12,7 +12,6 @@ import {
   CDropdown,
   CDropdownToggle,
   CDropdownMenu,
-  CDropdownItem,
   CToast,
   CToastBody,
   CToastHeader,
@@ -63,7 +62,7 @@ const AppHeader = () => {
   }, []);
 
   return (
-    <CHeader position="sticky" className="mb-4 p-0 bg-dark" ref={headerRef}>
+    <CHeader position="sticky" className="mb-4 p-0" style={styles.header} ref={headerRef}>
       <CContainer className="border-bottom px-4 d-flex justify-content-between align-items-center" fluid>
         <CHeaderToggler
           onClick={() => dispatch({ type: 'set', sidebarShow: !sidebarShow })}
@@ -85,28 +84,26 @@ const AppHeader = () => {
           <div style={styles.infoText}>{`Date: ${date}`}</div>
         </div>
         <CHeaderNav className="d-flex align-items-center">
-          <CDropdown innav="true">
+          <CDropdown innav={true}>
             <CDropdownToggle caret style={styles.dropdownToggle}>
-              <CIcon icon={cilBell} size="lg" />
+              <CIcon icon={cilBell} size="lg" style={{ color: '#FFFFFF' }} /> {/* Apply white color directly */}
             </CDropdownToggle>
             <CDropdownMenu style={styles.dropdownMenu}>
               <CToaster>
                 <CToast autohide={false} visible={true}>
                   <CToastHeader  style={styles.toastHeader}>
-                    <div className="fw-bold me-auto">Passord Reset</div>
+                    <div className="fw-bold me-auto">Password Reset</div>
                     <small>7 min ago</small>
                   </CToastHeader>
                   <CToastBody style={styles.toastBody}>This is a military-themed toast message.</CToastBody>
                   <CToastHeader style={styles.toastHeader}>
-                    <div className="fw-bold me-auto">System Mantainance</div>
+                    <div className="fw-bold me-auto">System Maintenance</div>
                     <small>10 min ago</small>
                   </CToastHeader>
                   <CToastBody style={styles.toastBody}>Planned maintenance on 01/07/2024 from 00:00 to 04:00 UTC.</CToastBody>
-                <CToastBody style={styles.toastBody}>This is to inform you that system may temporaly down.</CToastBody>
+                  <CToastBody style={styles.toastBody}>This is to inform you that the system may temporarily be down.</CToastBody>
                 </CToast>
-                
               </CToaster>
-              {/* Add more CDropdownItems for other alert options */}
             </CDropdownMenu>
           </CDropdown>
           {/* <CNavItem>
@@ -133,7 +130,7 @@ const AppHeader = () => {
 
 const styles = {
   header: {
-    backgroundColor: '#03381d', // Military-themed dark color
+    backgroundColor: '#18453b', // Background color for the header
   },
   navLink: {
     color: '#FFFFFF', // White text for contrast
@@ -150,11 +147,22 @@ const styles = {
     marginRight: '20px',
   },
   breadcrumbContainer: {
-    backgroundColor: '#4E617A', // New background color for the breadcrumb container
+    backgroundColor: '#4E617A', // Background color for the breadcrumb container
   },
   dropdownMenu: {
     width: '300px', // Set a fixed width for the dropdown menu
-  }
+  },
+  dropdownToggle: {
+    backgroundColor: '#18453b', // Background color for the dropdown toggle button
+    borderColor: '#18453b', // Border color for the dropdown toggle button
+  },
+  toastHeader: {
+    backgroundColor: '#18453b', // Background color for toast headers
+    color: '#FFFFFF', // White text for toast headers
+  },
+  toastBody: {
+    color: '#FFFFFF', // White text for toast bodies
+  },
 };
 
 export default AppHeader;

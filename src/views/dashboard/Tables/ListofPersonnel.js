@@ -1,25 +1,18 @@
-import React, { useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { FaEye, FaTrash } from 'react-icons/fa';
-import {
-  CButton,
-  CCard,
-  CCardBody,
-  CCardHeader,
-  CCol,
-  CRow,
-} from '@coreui/react';
+import React, { useState, useEffect } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
+import { FaEye, FaTrash } from 'react-icons/fa'
+import { CButton, CCard, CCardBody, CCardHeader, CCol, CRow } from '@coreui/react'
 
 const Dashboards1 = () => {
-  const token = localStorage.getItem('accessToken');
-  const [personnel, setPersonnel] = useState([]);
-  const [filteredPersonnel, setFilteredPersonnel] = useState([]);
-  const [error, setError] = useState(null);
-  const [page, setPage] = useState(0);
-  const [totalPages, setTotalPages] = useState(1); 
-  const navigate = useNavigate();
-  const [deletePersonId, setDeletePersonId] = useState(null);
-  const [searchTerm, setSearchTerm] = useState('');
+  const token = localStorage.getItem('accessToken')
+  const [personnel, setPersonnel] = useState([])
+  const [filteredPersonnel, setFilteredPersonnel] = useState([])
+  const [error, setError] = useState(null)
+  const [page, setPage] = useState(0)
+  const [totalPages, setTotalPages] = useState(1)
+  const navigate = useNavigate()
+  const [deletePersonId, setDeletePersonId] = useState(null)
+  const [searchTerm, setSearchTerm] = useState('')
 
   useEffect(() => {
     const fetchAllPersonnel = async () => {
@@ -27,87 +20,87 @@ const Dashboards1 = () => {
         const response = await fetch(`http://localhost:3007/api/v1/personnel?page=${page}`, {
           method: 'GET',
           headers: {
-            'Authorization': `Bearer ${token}`,
-            'Content-Type': 'application/json'
-          }
-        });
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'application/json',
+          },
+        })
         if (response.ok) {
-          const result = await response.json();
-          if (result.status === "Successful") {
-            setPersonnel(result.data.content);
-            setFilteredPersonnel(result.data.content);
-            setTotalPages(result.data.page.totalPages);
+          const result = await response.json()
+          if (result.status === 'Successful') {
+            setPersonnel(result.data.content)
+            setFilteredPersonnel(result.data.content)
+            setTotalPages(result.data.page.totalPages)
           } else {
-            setError(result.message);
+            setError(result.message)
           }
         } else {
-          setError('Failed to fetch Personnel');
+          setError('Failed to fetch Personnel')
         }
       } catch (error) {
-        setError('Error fetching Personnel');
+        setError('Error fetching Personnel')
       }
-    };
+    }
 
-    fetchAllPersonnel();
-  }, [page, token]);
+    fetchAllPersonnel()
+  }, [page, token])
 
   useEffect(() => {
-    const filteredData = personnel.filter(person =>
-      `${person.serviceNumber}`.toLowerCase().includes(searchTerm.toLowerCase())
-    );
-    setFilteredPersonnel(filteredData);
-  }, [personnel, searchTerm]);
+    const filteredData = personnel.filter((person) =>
+      `${person.serviceNumber}`.toLowerCase().includes(searchTerm.toLowerCase()),
+    )
+    setFilteredPersonnel(filteredData)
+  }, [personnel, searchTerm])
 
   const handleView = (id) => {
-    navigate(`/personnel/${id}`);
-  };
+    navigate(`/personnel/${id}`)
+  }
 
   const handleDelete = async (id) => {
     try {
       const response = await fetch(`http://localhost:3007/api/v1/personnel/${id}`, {
         method: 'DELETE',
         headers: {
-          'Authorization': `Bearer ${token}`,
-          'Content-Type': 'application/json'
-        }
-      });
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+      })
       if (response.ok) {
-        setPersonnel(personnel.filter(person => person.id !== id));
-        setFilteredPersonnel(filteredPersonnel.filter(person => person.id !== id));
-        setDeletePersonId(null);
+        setPersonnel(personnel.filter((person) => person.id !== id))
+        setFilteredPersonnel(filteredPersonnel.filter((person) => person.id !== id))
+        setDeletePersonId(null)
       } else {
-        setError('Failed to delete Personnel');
+        setError('Failed to delete Personnel')
       }
     } catch (error) {
-      setError('Error deleting Personnel');
+      setError('Error deleting Personnel')
     }
-  };
+  }
 
   const confirmDelete = (id) => {
-    setDeletePersonId(id);
-  };
+    setDeletePersonId(id)
+  }
 
   const handleDeleteConfirmed = () => {
     if (deletePersonId) {
-      handleDelete(deletePersonId);
+      handleDelete(deletePersonId)
     }
-  };
+  }
 
   const handleCancelDelete = () => {
-    setDeletePersonId(null);
-  };
+    setDeletePersonId(null)
+  }
 
   const handlePageChange = (newPage) => {
-    setPage(newPage);
-  };
+    setPage(newPage)
+  }
 
   const handleNextPage = () => {
-    setPage(page + 1);
-  };
+    setPage(page + 1)
+  }
 
   const handlePreviousPage = () => {
-    setPage(page - 1);
-  };
+    setPage(page - 1)
+  }
 
   return (
     <CRow>
@@ -117,8 +110,12 @@ const Dashboards1 = () => {
             <div className="confirmation-dialog bg-warning text-dark p-3 rounded mt-3">
               <p className="mb-0">Are you sure you want to delete this person?</p>
               <div className="mt-2">
-                <CButton color="danger" onClick={handleDeleteConfirmed}>Delete</CButton>{' '}
-                <CButton color="secondary" onClick={handleCancelDelete}>Cancel</CButton>
+                <CButton color="danger" onClick={handleDeleteConfirmed}>
+                  Delete
+                </CButton>{' '}
+                <CButton color="secondary" onClick={handleCancelDelete}>
+                  Cancel
+                </CButton>
               </div>
             </div>
           )}
@@ -173,7 +170,7 @@ const Dashboards1 = () => {
                     <td>
                       {person.profilePhotoId ? (
                         <img
-                          src={`http://localhost:3007/api/v1/personnel/photo/${person.profilePhotoId.split("/").pop()}`}
+                          src={`http://localhost:3007/api/v1/personnel/photo/${person.profilePhotoId.split('/').pop()}`}
                           alt="Profile"
                           style={{ width: '50px', height: '50px', borderRadius: '50%' }}
                         />
@@ -182,7 +179,12 @@ const Dashboards1 = () => {
                       )}
                     </td>
                     <td>
-                      <CButton onClick={() => handleView(person.id)} color="info" size="sm" className="me-2">
+                      <CButton
+                        onClick={() => handleView(person.id)}
+                        color="info"
+                        size="sm"
+                        className="me-2"
+                      >
                         <FaEye /> View
                       </CButton>
                       <CButton onClick={() => confirmDelete(person.id)} color="danger" size="sm">
@@ -195,7 +197,11 @@ const Dashboards1 = () => {
             </table>
 
             <div className="d-flex justify-content-between mt-3">
-              <button className="btn btn-outline-primary" onClick={handlePreviousPage} disabled={page === 0}>
+              <button
+                className="btn btn-outline-primary"
+                onClick={handlePreviousPage}
+                disabled={page === 0}
+              >
                 Previous
               </button>
               <button
@@ -210,7 +216,7 @@ const Dashboards1 = () => {
         </CCard>
       </CCol>
     </CRow>
-  );
-};
+  )
+}
 
-export default Dashboards1;
+export default Dashboards1
