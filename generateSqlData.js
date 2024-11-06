@@ -59,7 +59,7 @@ const religiousBeliefs = ['Christian', 'Muslim', 'Adventist', 'Atheist', 'Other'
 
 // Predefined service number ranges
 const serviceNumberRanges = {
-  Private: [140000, 160000],
+  Private: [140000, 150000],
   Corporal: [100000, 140000],
   Sergeant: [85000, 100000],
   'Staff Sergeant': [75000, 85000],
